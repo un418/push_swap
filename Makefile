@@ -1,7 +1,8 @@
-############  GNL TESTS  ############
+############   PUSH SWAP  ############
 
-SHELL		= /bin/sh
+SHELL		= /bin/bash
 
+NAME		= push_swap
 TEST_PROG	= push_swap_test
 
 ############  Compiler Config  ############
@@ -23,12 +24,17 @@ TEST_DIR	= test
 
 HEADER		= $(INC_DIR)/push_swap.h
 
-SRC_FILES	=
+SRC_FILES	= push_swap.c
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 ############  Targets  ############
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	@mkdir -p $(OBJ_DIR)
@@ -36,8 +42,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 
 $(TEST_PROG): $(OBJS) $(TEST_FILE)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_FILE) $(INCS) -o $@
-
-all: test
 
 test: CFLAGS += -g3 -fsanitize=address
 test: fclean $(TEST_PROG)
