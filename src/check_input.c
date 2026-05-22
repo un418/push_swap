@@ -1,25 +1,30 @@
-#include "push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/22 13:34:21 by pficcare          #+#    #+#             */
+/*   Updated: 2026/05/22 16:01:30 by pficcare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_isdigit(int nb)
+#include "ft_push_swap.h"
+
+int	ft_isdigit(char nb)
 {
-    if (nb >= '0' && nb <= '9')
-        return (1);
-    return (0);
+	if (nb >= '0' && nb <= '9')
+		return (1);
+	return (0);
 }
 
-int ft_isvalid_number(char *str)
+int	ft_isvalid_number(char *str)
 {
-    if (*str == '+' || *str == '-')
-    {
-        str++;
-        if (*str == '+' || *str == '-')
-            return (0);
-    }
-    while (*str)
-    {
-        if (*str < 48 && *str > 57)
-            return (0);
-        str++;
-    }
-    return (1);
+	if (*str == '+' || *str == '-')
+		str++;
+	while (*str)
+		if (!ft_isdigit(*str++))
+			return (0);
+	return (1);
 }
