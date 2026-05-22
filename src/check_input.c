@@ -6,15 +6,15 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 13:34:21 by pficcare          #+#    #+#             */
-/*   Updated: 2026/05/22 16:01:30 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/05/22 16:05:28 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-int	ft_isdigit(char nb)
+int	ft_isdigit(char c)
 {
-	if (nb >= '0' && nb <= '9')
+	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
