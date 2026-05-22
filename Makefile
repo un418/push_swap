@@ -19,6 +19,7 @@ OBJ_DIR     = obj
 ############  Files Config  ############
 
 TEST_FILE	= test.c
+TEST_DIR	= test
 
 HEADER		= $(INC_DIR)/push_swap.h
 
@@ -57,8 +58,10 @@ fclean: clean tclean
 re: fclean all
 
 tclean:
-	rm -f $(TEST_PROG)
-	rm -f $(TEST_PROG)_debug
+	rm -f $(TEST_DIR)/$(TEST_PROG)
+	rm -f $(TEST_DIR)/$(TEST_PROG)_debug
+	rm -f $(TEST_DIR)/args.txt
+	rm -f $(TEST_DIR)/test_input
 
 
 .PHONY: all clean fclean re test debug tclean 
