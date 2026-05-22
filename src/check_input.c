@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 13:34:21 by pficcare          #+#    #+#             */
-/*   Updated: 2026/05/22 16:05:28 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/05/22 17:34:45 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_push_swap.h"
+#include "push_swap.h"
 
 int	ft_isdigit(char c)
 {
