@@ -47,7 +47,13 @@ debug: CFLAGS += -g3
 debug: fclean $(OBJS) $(TEST_FILE)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_FILE) $(INCS) -o test_suite_debug
 
-
+test_parser: $(NAME)
+	@echo -- TEST INVALID INPUT 01 : letter in input --
+	@bash test.sh 1 2 a
+	@echo -- TEST INVALID INPUT 02: duplicate number in input --
+	@bash test.sh 1 2 2
+	@echo -- TEST INVALID INPUT 02: unvalid optional param --
+	@bash test.sh --unvalid 1 2 3
 
 ############  Cleaning  ############
 clean:
