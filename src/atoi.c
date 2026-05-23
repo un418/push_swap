@@ -17,23 +17,31 @@ int	ft_atoi(char *str)
 
 	neg = 1;
 	if (*str == '-')
+	{
 		neg *= -1;
+		str++;
+	}
 	while(*str)
 	{
 		res = (res * 10) + (*str - '0');
 		str++;
 	}
+	res = res * neg;
 	if (!ft_check_intlimit(res))
-		return (0);
-	return ((int)res * neg);
+		return (-1);
+	return (res);
 }
 
+#include <stdio.h>
 
-int	main(int ac, char **av)
+int	main(void)
 {
+	int	res;
+	char	*nb = "2147483647";
 
-	if (ac < 2) // A changer, en ==. < pour test
-		return(0);	
+	res = 0;
+	res = ft_atoi(nb);
+	printf("Nb = %d\n", res);
 
 	return (0);
 }
