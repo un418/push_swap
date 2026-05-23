@@ -40,8 +40,8 @@ int	ft_parser(char *av)
 	char	*ada = "adaptive";
 	char	*ben = "bench";
 	
-	while (*av == '-')
-		av++;
+	if (*av == '-' && *(av + 1) == '-')
+		av += 2;	
 	if (*av == 's' && ft_strcmp(av, spl))
 		return (2);
 	if (*av == 'm' && ft_strcmp(av, med))
