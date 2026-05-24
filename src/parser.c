@@ -19,13 +19,10 @@ int	ft_isvalid_number(char *str)
 	return (1);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+int	is_str_eq(char *s1, char *s2)
 {
-	while (*s1 == *s2 && *s1)
-	{
-		s1++;
-		s2++;
-	}
+	while (*s1 && *s2 && *s1++ == *s2++)
+		;
 	if (*s1 == '\0' && *s2 == '\0')
 		return (1);
 	else
