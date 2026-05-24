@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/05/22 17:07:27 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/05/24 16:27:11 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 
 /*----Function Prototype----*/
 
-int					ft_isvalid_number(char *str);
-int					ft_isdigit(char c);
-int					ft_strcmp(char *s1, char *s2);
-int					ft_selector(char *str);
+// utils
+
+int			is_valid_number(char *str);
+int			is_digit(char c);
+int			is_str_eq(char *s1, char *s2);
+
+// parser
+
+int			flags_parser(char *arg);
+int			flags_check(int ac, char **av);
 
 
 #endif
