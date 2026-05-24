@@ -1,25 +1,23 @@
-//#include "push_swap.h"
-#include <unistd.h>
-#include <stdio.h>
+#include "push_swap.h"
 
-int	is_digit(char c)
+int	is_digit(const char c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int	is_valid_number(char *str)
+int	is_valid_number(const char *str)
 {
 	if (*str == '+' || *str == '-')
 		str++;
 	while (*str)
-		if (!ft_isdigit(*str++))
+		if (!is_digit(*str++))
 			return (0);
 	return (1);
 }
 
-int	is_str_eq(char *s1, char *s2)
+int	is_str_eq(const char *s1, const char *s2)
 {
 	while (*s1 && *s2 && *s1++ == *s2++)
 		;
@@ -30,7 +28,7 @@ int	is_str_eq(char *s1, char *s2)
 }
 
 // Return mode or 0 for unvalid flag
-int	flags_parser(char *arg)
+int	flags_parser(const char *arg)
 {
 
 	if (*arg == '-' && *(arg + 1) == '-')
@@ -49,22 +47,21 @@ int	flags_parser(char *arg)
 		return (0);
 }
 
-int	flags_check(int ac, char **av)
+// validate input
+// return mode or 0 if input invalid
+int	arg_validate(const char **argv)
 {
 	int	i;
 	int	mode;
 
-	if (ac < 2) // A changer, en ==. < pour test
-		return(0);
 	i = 1;
-	mode = ft_check_flags(av[i]);
-	if (mode == 0)
-		return (write (2, "Error\n", 6));
-	// if (mode == 6) A voir ce qu on fait.
-	printf("Mode = %d\n", mode);
-	i = 2;
-	while (av[i])
-		if (!ft_isvalid_number(av[i++]))
-			return (write (2, "Error2\n", 7));
-	return (0);
+	mode = 1;
+	while ( argv[i] && i < 3 )
+		mode *= flags_parser(argv[i++]);
+	if (mode == 0 || -4 < mode || mode > 4)
+		return (write (2, "Error\n", 6), 0);
+	while (argv[i])
+		if (!is_valid_number(argv[i++]))
+			return (write (2, "Error2\n", 7), 0);
+	return (mode);
 }
