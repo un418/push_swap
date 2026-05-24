@@ -54,11 +54,11 @@ debug: fclean $(OBJS) $(TEST_FILE)
 
 test_parser: $(NAME)
 	@echo -- TEST INVALID INPUT 01 : letter in input --
-	@bash test.sh 1 2 a
+	@bash $(TEST_DIR)/test_parser.sh 1 2 a
 	@echo -- TEST INVALID INPUT 02: duplicate number in input --
-	@bash test.sh 1 2 2
+	@bash $(TEST_DIR)/test_parser.sh 1 2 2
 	@echo -- TEST INVALID INPUT 02: unvalid optional param --
-	@bash test.sh --unvalid 1 2 3
+	@bash $(TEST_DIR)/test_parser.sh --unvalid 1 2 3
 
 ############  Cleaning  ############
 clean:
