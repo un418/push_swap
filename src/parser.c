@@ -49,15 +49,7 @@ int	flags_parser(char *arg)
 		return (0);
 }
 
-int	ft_check_flags(char *av)
-{
-	if (*av == '-' && *(av + 1) == '-')
-		return (ft_parser(av));
-	else
-		return (0);
-}
-
-int	main(int ac, char **av)
+int	flags_check(int ac, char **av)
 {
 	int	i;
 	int	mode;
@@ -67,12 +59,12 @@ int	main(int ac, char **av)
 	i = 1;
 	mode = ft_check_flags(av[i]);
 	if (mode == 0)
-		return (write (1, "ERROR", 5));
+		return (write (2, "Error\n", 6));
 	// if (mode == 6) A voir ce qu on fait.
 	printf("Mode = %d\n", mode);
 	i = 2;
 	while (av[i])
 		if (!ft_isvalid_number(av[i++]))
-			return (write (1, "ERROR2", 6));
+			return (write (2, "Error2\n", 7));
 	return (0);
 }
