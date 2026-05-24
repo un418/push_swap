@@ -24,8 +24,9 @@ TEST_DIR	= test
 
 HEADER		= $(INC_DIR)/push_swap.h
 
-SRC_FILES	=	push_swap.c \
-				parser.c
+SRC_FILES	=	push_swap.c		\
+				parser.c		\
+				parser_utils.c
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
