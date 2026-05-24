@@ -29,27 +29,24 @@ int	is_str_eq(char *s1, char *s2)
 		return (0);
 }
 
-int	ft_parser(char *av)
+// Return mode or 0 for unvalid flag
+int	flags_parser(char *arg)
 {
-	char	*spl = "simple";
-	char	*med = "medium";
-	char	*comp = "complex";
-	char	*ada = "adaptive";
-	char	*ben = "bench";
-	
-	if (*av == '-' && *(av + 1) == '-')
-		av += 2;	
-	if (*av == 's' && ft_strcmp(av, spl))
+
+	if (*arg == '-' && *(arg + 1) == '-')
+	arg += 2;
+	if (is_str_eq(arg, "adaptive"))
+		return (1);
+	else if (is_str_eq(arg, "simple"))
 		return (2);
-	if (*av == 'm' && ft_strcmp(av, med))
+	else if (is_str_eq(arg, "medium"))
 		return (3);
-	if (*av == 'c' && ft_strcmp(av, comp))
+	else if (is_str_eq(arg, "complex"))
 		return (4);
-	if (*av == 'a' && ft_strcmp(av, ada))
-		return (5);
-	if (*av == 'b'&& ft_strcmp(av, ben))
-		return (6);
-	return (0);
+	else if (is_str_eq(arg, "bench"))
+		return (-1);
+	else
+		return (0);
 }
 
 int	ft_check_flags(char *av)
