@@ -1,2 +1,5 @@
 obj/
 a.out
+push_swap
+test_out.txt
+expected_out.txt
