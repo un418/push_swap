@@ -4,7 +4,7 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 RESET='\033[0m'
 
-../push_swap "$@" 2> test_out.txt
+./push_swap "$@" 2> test_out.txt
 
 echo "Error" > expected_out.txt
 
