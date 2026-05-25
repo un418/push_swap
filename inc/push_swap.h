@@ -3,22 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/05/22 17:07:27 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/05/25 01:49:29 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+// for write()
+# include <unistd.h>
+
+// printf()
+# include <stdio.h> // debug to remove later
+
 /*----Function Prototype----*/
 
-int					ft_isvalid_number(char *str);
-int					ft_isdigit(char c);
-int					ft_strcmp(char *s1, char *s2);
-int					ft_selector(char *str);
+// utils
 
+int			is_valid_number(const char *str);
+int			is_digit(const char c);
+int			is_str_eq(const char *s1, const char *s2);
+int			is_flag_prefix(const char *str);
+
+// parser
+
+int			flags_parser(const char *arg);
+int			arg_validate(const char **argv);
 
 #endif
