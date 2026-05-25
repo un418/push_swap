@@ -3,7 +3,7 @@
 // Return mode or 0 for unvalid flag
 int	flags_parser(const char *arg)
 {
-	int static mode;
+	int static	mode;
 
 	if (*arg == '-' && *(arg + 1) == '-')
 		arg += 2;
