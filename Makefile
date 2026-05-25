@@ -54,12 +54,32 @@ debug: fclean $(OBJS) $(TEST_FILE)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_FILE) $(INCS) -o test_suite_debug
 
 test_parser: $(NAME)
-	@echo -- TEST INVALID INPUT 01 : letter in input --
-	@bash $(TEST_DIR)/test_parser.sh 1 2 a
-	@echo -- TEST INVALID INPUT 02: duplicate number in input --
-	@bash $(TEST_DIR)/test_parser.sh 1 2 2
-	@echo -- TEST INVALID INPUT 02: unvalid optional param --
-	@bash $(TEST_DIR)/test_parser.sh --unvalid 1 2 3
+	@echo ###### PUSH SWAP -- PARSER TESTER ######
+
+	@echo -- TEST INVALID INPUT 01 : letter input --
+	bash $(TEST_DIR)/test_parser.sh 1 2 a
+# 	@echo -- TEST INVALID INPUT 02 : int underflow --
+# 	bash $(TEST_DIR)/test_parser.sh 1 2 -2147483649
+# 	@echo -- TEST INVALID INPUT 03 : int overflow --
+# 	bash $(TEST_DIR)/test_parser.sh 1 2 2147483648
+# 	@echo -- TEST INVALID INPUT 04 : unvalid number --
+# 	bash $(TEST_DIR)/test_parser.sh 1 2 --43
+# 	@echo -- TEST INVALID INPUT 05 : unvalid number --
+# 	bash $(TEST_DIR)/test_parser.sh 1 2 ++43
+
+	@echo -- TEST INVALID FLAG 01: unvalid optional param --
+	bash $(TEST_DIR)/test_parser.sh --unvalid 1 2 3
+	@echo -- TEST INVALID FLAG 02: unvalid flag combination --
+	bash $(TEST_DIR)/test_parser.sh --simple --complex 1 2 3
+	@echo -- TEST INVALID FLAG 03: unvalid flag combination --
+	bash $(TEST_DIR)/test_parser.sh --bench --bench 1 2 3
+	@echo -- TEST INVALID FLAG 03: unvalid flag combination --
+	bash $(TEST_DIR)/test_parser.sh --medium --medium 1 2 3
+
+# 	@echo -- TEST INVALID INPUT (DUP) 01: duplicate number in input --
+# 	bash $(TEST_DIR)/test_parser.sh 1 2 2
+# 	@echo -- TEST INVALID INPUT (DUP) 01: duplicate number in input --
+# 	bash $(TEST_DIR)/test_parser.sh 1 -2 -2
 
 ############  Cleaning  ############
 clean:
