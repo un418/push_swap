@@ -50,3 +50,60 @@ t_node	*last_node(t_node *head)
 	last = head->prev;
 	return (last);
 }
+
+t_node	*add_last(t_node **head, t_node *new)
+{
+	t_node *last;
+
+	if (!*head)
+	{
+		*head = new;
+		new->next = new;
+		new->prev = new;
+		return (*head);
+	}
+	last = (*head)->prev;
+	new->prev = last;
+	new->next = *head;
+	(*head)->prev = new;
+	last->next = new;	
+	return (*head);
+}
+
+t_node *add_first(t_node **head, t_node *new)
+{
+	t_node *first;
+
+	if (!*head)
+	{
+		(*head) = new;
+		new->next = new;
+		new->prev = new;
+		return (*head);
+	}
+	first = (*head)->prev;
+	new->prev = first;
+	new->next = *head;
+	(*head)->prev = new;
+	first->next = new;		
+	return (*head = new);
+}
+
+void	free_nodes(t_node **head)
+{
+	t_node	*next_free;
+	t_node	*last;
+
+	if (!*head)
+		return ;
+	last = (*head)->prev;
+	last->next = NULL;
+	while (*head != NULL)
+	{
+		next_free = (*head)->next;
+		free(*head);
+		*head = next_free;
+
+	}
+	*head = NULL;
+}
