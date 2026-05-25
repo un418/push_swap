@@ -16,7 +16,7 @@ int	main(int argc, const char **argv)
 {
 	int	mode;
 
-	if (argc < 2)
+	if (argc == 1)
 		return (0);
 	mode = arg_validate(argv);
 	if (mode == 0)
