@@ -1,21 +1,23 @@
 #include "push_swap.h"
 
 // Return mode or 0 for unvalid flag
-int	flags_parser(const char *arg)
+int	flags_parser(const char *flag)
 {
 	int static	mode;
 
-	if (*arg == '-' && *(arg + 1) == '-')
-		arg += 2;
-	if (mode <= 0 && is_str_eq(arg, "adaptive"))
+	// this check is redudant with the caller function
+	// but it improve code readability
+	if (*flag == '-' && *(flag + 1) == '-')
+		flag += 2;
+	if (mode <= 0 && is_str_eq(flag, "adaptive"))
 		mode += 1;
-	else if (mode <= 0 && is_str_eq(arg, "simple"))
+	else if (mode <= 0 && is_str_eq(flag, "simple"))
 		mode += 2;
-	else if (mode <= 0 && is_str_eq(arg, "medium"))
+	else if (mode <= 0 && is_str_eq(flag, "medium"))
 		mode += 3;
-	else if (mode <= 0 && is_str_eq(arg, "complex"))
+	else if (mode <= 0 && is_str_eq(flag, "complex"))
 		mode += 4;
-	else if (is_str_eq(arg, "bench"))
+	else if (mode <= 4 && is_str_eq(flag, "bench"))
 		mode += 10;
 	else
 		return (0);
@@ -39,6 +41,6 @@ int	arg_validate(const char **argv)
 	}
 	while (argv[i])
 		if (!is_valid_number(argv[i++]))
-			return (write (2, "Error2\n", 7), 0);
+			return (write (2, "Error\n", 6), 0);
 	return (mode);
 }
