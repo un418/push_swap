@@ -6,7 +6,7 @@
 /*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/05/24 18:16:46 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/05/25 01:49:29 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 int			is_valid_number(const char *str);
 int			is_digit(const char c);
 int			is_str_eq(const char *s1, const char *s2);
+int			is_flag_prefix(const char *str);
 
 // parser
 

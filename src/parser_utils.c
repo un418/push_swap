@@ -6,7 +6,7 @@
 /*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 00:47:30 by adaferna          #+#    #+#             */
-/*   Updated: 2026/05/25 00:49:28 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/05/25 01:30:15 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ int	is_str_eq(const char *s1, const char *s2)
 	while (*s1 && *s2 && *s1++ == *s2++)
 		;
 	if (*s1 == '\0' && *s2 == '\0')
+		return (1);
+	else
+		return (0);
+}
+
+int	is_flag_prefix(const char *str)
+{
+	if (*str == '-' && *(str + 1) == '-')
 		return (1);
 	else
 		return (0);
