@@ -3,9 +3,8 @@
 // Return mode or 0 for unvalid flag
 int	flags_parser(const char *arg)
 {
-
 	if (*arg == '-' && *(arg + 1) == '-')
-	arg += 2;
+		arg += 2;
 	if (is_str_eq(arg, "adaptive"))
 		return (1);
 	else if (is_str_eq(arg, "simple"))
@@ -29,7 +28,7 @@ int	arg_validate(const char **argv)
 
 	i = 1;
 	mode = 1;
-	while ( argv[i] && i < 3 )
+	while (argv[i] && i < 3)
 		mode *= flags_parser(argv[i++]);
 	if (mode == 0 || -4 < mode || mode > 4)
 		return (write (2, "Error\n", 6), 0);
