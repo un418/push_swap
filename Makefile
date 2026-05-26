@@ -54,8 +54,11 @@ debug: CFLAGS += -g3
 debug: fclean $(OBJS) $(TEST_FILE)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_FILE) $(INCS) -o test_suite_debug
 
-unit_test: fclean $(OBJS) 
+build_unit_test: CFLAGS += -g3
+build_unit_test: fclean $(OBJS) 
 	$(CC) $(CFLAGS) $(OBJS) test/unit_test.c $(INCS) -o test/unit_test
+
+unit_test: fclean build_unit_test 
 	./test/unit_test
 
 test_parser: $(NAME)
