@@ -1,16 +1,6 @@
-//#include "push_swap.h"
-#include <unistd.h>
-#include <limits.h>
+#include "push_swap.h"
 
-
-int	ft_check_intlimit(long nb)
-{	
-	if (nb < INT_MIN || nb > INT_MAX)
-		return (0);
-	return (1);
-}
-
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str) // make static after unit test
 {
 	int	neg;
 	long	res;
@@ -27,11 +17,20 @@ int	ft_atoi(char *str)
 		str++;
 	}
 	res = res * neg;
-	if (!ft_check_intlimit(res))
-		return (-1);
 	return (res);
 }
 
+int	ft_check_intlimit(const char *str)
+{	
+
+	if (ft_atoi(str) < INT_MIN || ft_atoi(str) > INT_MAX)
+		return (0);
+	return (1);
+}
+
+
+
+/* 
 #include <stdio.h>
 
 int	main(void)
@@ -45,4 +44,4 @@ int	main(void)
 
 	return (0);
 }
-
+ */

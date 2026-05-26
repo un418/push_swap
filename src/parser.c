@@ -30,6 +30,7 @@ int	arg_validate(const char **argv)
 {
 	int	i;
 	int	mode;
+	int res;
 
 	i = 1;
 	mode = 1;
@@ -42,5 +43,15 @@ int	arg_validate(const char **argv)
 	while (argv[i])
 		if (!is_valid_number(argv[i++]))
 			return (write (2, "Error\n", 6), 0);
+	i = 1;
+	res = 0;
+	while (argv[i])
+	{
+		res = ft_check_intlimit(argv[i++]);
+		printf ("ft_check_intlimit %d\n", res);
+		if (res == -1)
+			return (write(2, "Error\n", 6), 0);
+	}
+	
 	return (mode);
 }

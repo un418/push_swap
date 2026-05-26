@@ -12,5 +12,5 @@ if diff -q expected_out.txt test_out.txt > /dev/null; then
 	echo -e "${GREEN}[OK] stderr matched${RESET}"
 else
 	echo -e "${RED}[KO] difference:${RESET}"
-	diff expected_out.txt test_out.txt
+	diff -u expected_out.txt test_out.txt
 fi

@@ -24,9 +24,10 @@ TEST_DIR	= test
 
 HEADER		= $(INC_DIR)/push_swap.h
 
-SRC_FILES	=	push_swap.c		\
-				parser.c		\
-				parser_utils.c
+PROG_FILE	=	push_swap.c
+SRC_FILES	=	parser.c		\
+				parser_utils.c	\
+				atoi.c
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
@@ -36,7 +37,7 @@ OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(PROG_FILE) $(INCS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	@mkdir -p $(OBJ_DIR)
@@ -53,15 +54,21 @@ debug: CFLAGS += -g3
 debug: fclean $(OBJS) $(TEST_FILE)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_FILE) $(INCS) -o test_suite_debug
 
+unit_test: fclean $(OBJS) 
+	$(CC) $(CFLAGS) $(OBJS) test/unit_test.c $(INCS) -o test/unit_test
+	./test/unit_test
+
 test_parser: $(NAME)
 	@echo ###### PUSH SWAP -- PARSER TESTER ######
 
 	@echo -- TEST INVALID INPUT 01 : letter input --
 	bash $(TEST_DIR)/test_parser.sh 1 2 a
-# 	@echo -- TEST INVALID INPUT 02 : int underflow --
-# 	bash $(TEST_DIR)/test_parser.sh 1 2 -2147483649
-# 	@echo -- TEST INVALID INPUT 03 : int overflow --
-# 	bash $(TEST_DIR)/test_parser.sh 1 2 2147483648
+	@echo -- TEST INVALID INPUT 02 : int underflow --
+	bash $(TEST_DIR)/test_parser.sh 1 2 -2147483649
+	@echo -- TEST INVALID INPUT 03 : int overflow --
+	bash $(TEST_DIR)/test_parser.sh 1 2 2147483648
+	@echo -- TEST INVALID INPUT 03 : int overflow --
+	bash $(TEST_DIR)/test_parser.sh 1 2 -1
 # 	@echo -- TEST INVALID INPUT 04 : unvalid number --
 # 	bash $(TEST_DIR)/test_parser.sh 1 2 --43
 # 	@echo -- TEST INVALID INPUT 05 : unvalid number --
