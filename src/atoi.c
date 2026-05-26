@@ -1,14 +1,16 @@
 #include "push_swap.h"
 
-int	ft_atoi(const char *str) // make static after unit test
+long	ft_atoi(const char *str)
 {
 	int	neg;
 	long	res;
 
 	neg = 1;
-	if (*str == '-')
+	res = 0;
+	if (*str == '-' || *str == '+')
 	{
-		neg *= -1;
+		if (*str == '-')
+			neg *= -1;
 		str++;
 	}
 	while(*str)
@@ -20,7 +22,7 @@ int	ft_atoi(const char *str) // make static after unit test
 	return (res);
 }
 
-int	ft_check_intlimit(const char *str)
+int	in_int_limits(const char *str)
 {	
 
 	if (ft_atoi(str) < INT_MIN || ft_atoi(str) > INT_MAX)

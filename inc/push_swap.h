@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/05/26 17:45:38 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/05/26 19:11:17 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int			is_valid_number(const char *str);
 int			is_digit(const char c);
 int			is_str_eq(const char *s1, const char *s2);
 int			is_flag_prefix(const char *str);
-int			ft_atoi(const char *str);
+long		ft_atoi(const char *str);
 
 // parser
 
 int			flags_parser(const char *arg);
 int			arg_validate(const char **argv);
-int			ft_check_intlimit(const char *str);
+int			in_int_limits(const char *str);
 
 #endif
