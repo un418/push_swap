@@ -24,7 +24,7 @@ TEST_DIR	= test
 
 HEADER		= $(INC_DIR)/push_swap.h
 
-PROG_FILE	=	push_swap.c
+PROG_FILE	=	src/push_swap.c
 SRC_FILES	=	parser.c		\
 				parser_utils.c	\
 				atoi.c
@@ -70,8 +70,6 @@ test_parser: $(NAME)
 	bash $(TEST_DIR)/test_parser.sh 1 2 -2147483649
 	@echo -- TEST INVALID INPUT 03 : int overflow --
 	bash $(TEST_DIR)/test_parser.sh 1 2 2147483648
-	@echo -- TEST INVALID INPUT 03 : int overflow --
-	bash $(TEST_DIR)/test_parser.sh 1 2 -1
 # 	@echo -- TEST INVALID INPUT 04 : unvalid number --
 # 	bash $(TEST_DIR)/test_parser.sh 1 2 --43
 # 	@echo -- TEST INVALID INPUT 05 : unvalid number --
