@@ -27,6 +27,7 @@ int	in_int_limits(const char *str)
 {
 	const char	*digits;
 	int			len;
+	long		n;
 
 	digits = str;
 	if (*digits == '-' || *digits == '+')
@@ -36,7 +37,8 @@ int	in_int_limits(const char *str)
 		len++;
 	if (len > 10)
 		return (0);
-	if (ft_atol(str) < INT_MIN || ft_atol(str) > INT_MAX)
+	n = ft_atol(str);
+	if (n < INT_MIN || n > INT_MAX)
 		return (0);
 	return (1);
 }
