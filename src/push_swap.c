@@ -20,7 +20,7 @@ int	main(int argc, const char **argv)
 		return (0);
 	mode = input_validate(argv);
 	if (mode == 0)
-		return (-1);
+		return (1);
 	printf("Mode = %d\n", mode); // Debug to remove later
 	return (0);
 }
