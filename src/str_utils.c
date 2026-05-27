@@ -23,6 +23,8 @@ int	is_valid_number(const char *str)
 {
 	if (*str == '+' || *str == '-')
 		str++;
+	if (*str == '\0')
+		return (0);
 	while (*str)
 		if (!is_digit(*str++))
 			return (0);

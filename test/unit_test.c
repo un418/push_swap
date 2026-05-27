@@ -3,9 +3,9 @@
 /*   unit_test.c                                                              */
 /*                                                                            */
 /*   Unit tests for push_swap.                                                */
-/*   Build & run : make unit_test   (exits != 0 if any test fails)           */
+/*   Build & run : make unit_test   (exits != 0 if any test fails)            */
 /*                                                                            */
-/*   Not subject to 42 norm (string literal concatenation).                  */
+/*   Not subject to 42 norm (string literal concatenation).                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
@@ -23,7 +23,7 @@ static int	g_fails;
 typedef struct s_suite
 {
 	int test_all;
-	int ft_atol; int in_int_limits;
+	int ft_atol; int in_int_limits; int is_valid_number;
 }	t_suite;
 
 // long params cover int and the long returned by ft_atol without truncation
@@ -68,6 +68,8 @@ t_suite	parse_args(int argc, const char **argv)
 			s.ft_atol = 1;
 		else if (is_str_eq(argv[i], "--in_int_limits"))
 			s.in_int_limits = 1;
+		else if (is_str_eq(argv[i], "--is_valid_number"))
+			s.is_valid_number = 1;
 		else
 		{
 			fprintf(stderr, RED "unknown suite: %s\n" RESET, argv[i]);
@@ -105,6 +107,17 @@ int	main(int argc, const char **argv)
 		check("limits INT_MIN ok", in_int_limits("-2147483648"), 1);
 		check("limits INT_MIN-1 reject", in_int_limits("-2147483649"), 0);
 		check("limits \"0\" ok", in_int_limits("0"), 1);
+	}
+	if (s.is_valid_number || s.test_all)
+	{
+		printf(YELLOW "\n--- is_valid_number ---\n" RESET);
+		check("valid \"+\" alone reject", is_valid_number("+"), 0);
+		check("valid \"-\" alone reject", is_valid_number("-"), 0);
+		check("valid \"+0\"", is_valid_number("+0"), 1);
+		check("valid \"-0\"", is_valid_number("-0"), 1);
+		check("valid \"42\"", is_valid_number("42"), 1);
+		check("valid \"-3\"", is_valid_number("-3"), 1);
+		check("valid \"abc\" reject", is_valid_number("abc"), 0);
 	}
 	print_summary();
 	return (g_fails != 0);
