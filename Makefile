@@ -1,9 +1,8 @@
-############   PUSH SWAP  ############
+############  PUSH SWAP  ############
 
 SHELL		= /bin/bash
 
 NAME		= push_swap
-TEST_PROG	= push_swap_test
 
 ############  Compiler Config  ############
 
@@ -13,55 +12,40 @@ INCS		= -I$(INC_DIR)
 
 ############  Folders Config  ############
 
-INC_DIR     = inc
-SRC_DIR     = src
-OBJ_DIR     = obj
+INC_DIR		= inc
+SRC_DIR		= src
+OBJ_DIR		= obj
+TEST_DIR	= test
 
 ############  Files Config  ############
 
-TEST_FILE	= test.c
-TEST_DIR	= test
-
 HEADER		= $(INC_DIR)/push_swap.h
+MAIN_FILE	= $(SRC_DIR)/$(NAME).c
 
-PROG_FILE	=	src/push_swap.c
+OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 SRC_FILES	=	parser.c		\
 				parser_utils.c	\
 				atoi.c
-
-SRCS		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
-OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 ############  Targets  ############
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(PROG_FILE) $(INCS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(MAIN_FILE) $(INCS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
-$(TEST_PROG): $(OBJS) $(TEST_FILE)
-	$(CC) $(CFLAGS) $(OBJS) $(TEST_FILE) $(INCS) -o $@
+build_unit_test: CFLAGS += -g3 -fsanitize=address
+build_unit_test: fclean $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) -o $(TEST_DIR)/unit_test
 
-test: CFLAGS += -g3 -fsanitize=address
-test: fclean $(TEST_PROG)
-	./$(TEST_PROG) | cat -e
+unit_test: fclean build_unit_test
+	./$(TEST_DIR)/unit_test
 
-debug: CFLAGS += -g3 
-debug: fclean $(OBJS) $(TEST_FILE)
-	$(CC) $(CFLAGS) $(OBJS) $(TEST_FILE) $(INCS) -o test_suite_debug
-
-build_unit_test: CFLAGS += -g3
-build_unit_test: fclean $(OBJS) 
-	$(CC) $(CFLAGS) $(OBJS) test/unit_test.c $(INCS) -o test/unit_test
-
-unit_test: fclean build_unit_test 
-	./test/unit_test
-
-test_parser: $(NAME)
+integration_test: fclean $(NAME)
 	@echo ###### PUSH SWAP -- PARSER TESTER ######
 
 	@echo -- TEST INVALID INPUT 01 : letter input --
@@ -70,10 +54,10 @@ test_parser: $(NAME)
 	bash $(TEST_DIR)/test_parser.sh 1 2 -2147483649
 	@echo -- TEST INVALID INPUT 03 : int overflow --
 	bash $(TEST_DIR)/test_parser.sh 1 2 2147483648
-# 	@echo -- TEST INVALID INPUT 04 : unvalid number --
-# 	bash $(TEST_DIR)/test_parser.sh 1 2 --43
-# 	@echo -- TEST INVALID INPUT 05 : unvalid number --
-# 	bash $(TEST_DIR)/test_parser.sh 1 2 ++43
+	@echo -- TEST INVALID INPUT 04 : unvalid number --
+	bash $(TEST_DIR)/test_parser.sh 1 2 --43
+	@echo -- TEST INVALID INPUT 05 : unvalid number --
+	bash $(TEST_DIR)/test_parser.sh 1 2 ++43
 
 	@echo -- TEST INVALID FLAG 01: unvalid optional param --
 	bash $(TEST_DIR)/test_parser.sh --unvalid 1 2 3
@@ -81,7 +65,7 @@ test_parser: $(NAME)
 	bash $(TEST_DIR)/test_parser.sh --simple --complex 1 2 3
 	@echo -- TEST INVALID FLAG 03: unvalid flag combination --
 	bash $(TEST_DIR)/test_parser.sh --bench --bench 1 2 3
-	@echo -- TEST INVALID FLAG 03: unvalid flag combination --
+	@echo -- TEST INVALID FLAG 04: unvalid flag combination --
 	bash $(TEST_DIR)/test_parser.sh --medium --medium 1 2 3
 
 # 	@echo -- TEST INVALID INPUT (DUP) 01: duplicate number in input --
@@ -90,6 +74,7 @@ test_parser: $(NAME)
 # 	bash $(TEST_DIR)/test_parser.sh 1 -2 -2
 
 ############  Cleaning  ############
+
 clean:
 	rm -f $(OBJS)
 
@@ -98,10 +83,12 @@ fclean: clean tclean
 re: fclean all
 
 tclean:
-	rm -f $(TEST_DIR)/$(TEST_PROG)
-	rm -f $(TEST_DIR)/$(TEST_PROG)_debug
-	rm -f $(TEST_DIR)/args.txt
+	rm -f $(TEST_PROG)
 	rm -f $(TEST_DIR)/test_input
+	rm -f $(TEST_DIR)/args.txt
+	rm -f $(TEST_DIR)/unit_test
+	rm -f $(TEST_DIR)/test_out.txt
+	rm -f $(TEST_DIR)/expected_out.txt
 
 
-.PHONY: all clean fclean re test debug tclean 
+.PHONY: all clean fclean re tclean build_unit_test unit_test integration_test
