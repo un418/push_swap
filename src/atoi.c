@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-long	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
 	int		neg;
 	long	res;
@@ -24,7 +24,7 @@ long	ft_atoi(const char *str)
 
 int	in_int_limits(const char *str)
 {
-	if (ft_atoi(str) < INT_MIN || ft_atoi(str) > INT_MAX)
+	if (ft_atol(str) < INT_MIN || ft_atol(str) > INT_MAX)
 		return (0);
 	return (1);
 }
