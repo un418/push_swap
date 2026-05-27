@@ -1,10 +1,12 @@
 ## Description
 <!-- What is implemented? -->
 
+## Technical Decisions
+<!-- Why did you choose this approach? Alternatives considered? Delete if not relevant. -->
+
 ## Checklist
-- [ ] Self-reviewed before opening the PR
-- [ ] Compiles without warnings (`gcc -Wall -Wextra`)
+- [ ] Compiles without warnings (`-Wall -Wextra -Werror`)
 - [ ] No memory leaks (`valgrind` / `AddressSanitizer`)
-- [ ] Unit tests added / updated
-- [ ] Integration tests added / updated
+- [ ] Unit tests added / updated (`make test`)
+- [ ] Integration tests added / updated (`make test_parser`)
 - [ ] All tests pass
