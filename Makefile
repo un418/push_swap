@@ -23,9 +23,9 @@ HEADER		= $(INC_DIR)/push_swap.h
 MAIN_FILE	= $(SRC_DIR)/$(NAME).c
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
-SRC_FILES	=	parser.c		\
-				parser_utils.c	\
-				atoi.c
+SRC_FILES	=	input.c		\
+				str_utils.c	\
+				int_parse.c
 
 ############  Targets  ############
 

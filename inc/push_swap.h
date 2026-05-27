@@ -32,10 +32,10 @@ int			is_str_eq(const char *s1, const char *s2);
 int			is_flag_prefix(const char *str);
 long		ft_atol(const char *str);
 
-// parser
+// input
 
-int			flags_parser(const char *arg);
-int			arg_validate(const char **argv);
+int			parse_flag(const char *arg);
+int			input_validate(const char **argv);
 int			in_int_limits(const char *str);
 
 #endif

@@ -18,7 +18,7 @@ int	main(int argc, const char **argv)
 
 	if (argc == 1)
 		return (0);
-	mode = arg_validate(argv);
+	mode = input_validate(argv);
 	if (mode == 0)
 		return (-1);
 	printf("Mode = %d\n", mode); // Debug to remove later
