@@ -59,7 +59,9 @@ check_stderr "int overflow"              "Error"  1 2 2147483648
 check_stderr "invalid number --43"       "Error"  1 2 --43
 check_stderr "invalid number ++43"       "Error"  1 2 ++43
 check_stderr "lone +"                    "Error"  +
+check_exit   "lone + exit code"          1        +
 check_stderr "lone -"                    "Error"  -
+check_exit   "lone - exit code"          1        -
 check_stderr "flag after numbers"        "Error"  1 2 --simple
 
 echo -e "${YELLOW}\n--- parser : invalid flags ---${RESET}"
