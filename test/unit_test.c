@@ -51,7 +51,21 @@ void	print_summary(void)
 
 int	main(void)
 {
-	check("placeholder", ft_atol("2"), 2);
+	printf(YELLOW "--- ft_atol ---\n" RESET);
+	check("atol \"0\"", ft_atol("0"), 0);
+	check("atol \"42\"", ft_atol("42"), 42);
+	check("atol \"-42\"", ft_atol("-42"), -42);
+	check("atol \"+42\"", ft_atol("+42"), 42);
+	check("atol INT_MAX", ft_atol("2147483647"), INT_MAX);
+	check("atol INT_MIN", ft_atol("-2147483648"), INT_MIN);
+	check("atol INT_MAX+1 (no truncation)", ft_atol("2147483648"), 2147483648L);
+
+	printf(YELLOW "\n--- in_int_limits ---\n" RESET);
+	check("limits INT_MAX ok", in_int_limits("2147483647"), 1);
+	check("limits INT_MAX+1 reject", in_int_limits("2147483648"), 0);
+	check("limits INT_MIN ok", in_int_limits("-2147483648"), 1);
+	check("limits INT_MIN-1 reject", in_int_limits("-2147483649"), 0);
+	check("limits \"0\" ok", in_int_limits("0"), 1);
 
 	print_summary();
 	return (g_fails != 0);
