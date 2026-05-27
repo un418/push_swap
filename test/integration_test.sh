@@ -43,6 +43,15 @@ check_exit() {
 	report "$label" "$?" "$expected"
 }
 
+# checks both stderr="Error" and exit code=1 in one binary run
+check_error() {
+	label="$1"; shift
+	got_stderr="$("$PROG" "$@" 2>&1 >/dev/null)"
+	got_exit=$?
+	report "$label (stderr)" "$got_stderr" "Error"
+	report "$label (exit)"   "$got_exit"   "1"
+}
+
 summary() {
 	echo
 	if [ "$failed" -eq 0 ]; then
@@ -58,10 +67,8 @@ check_stderr "int underflow"             "Error"  1 2 -2147483649
 check_stderr "int overflow"              "Error"  1 2 2147483648
 check_stderr "invalid number --43"       "Error"  1 2 --43
 check_stderr "invalid number ++43"       "Error"  1 2 ++43
-check_stderr "lone +"                    "Error"  +
-check_exit   "lone + exit code"          1        +
-check_stderr "lone -"                    "Error"  -
-check_exit   "lone - exit code"          1        -
+check_error "lone +" +
+check_error "lone -" -
 check_stderr "flag after numbers"        "Error"  1 2 --simple
 
 echo -e "${YELLOW}\n--- parser : invalid flags ---${RESET}"
