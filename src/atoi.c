@@ -22,8 +22,20 @@ long	ft_atol(const char *str)
 	return (res);
 }
 
+/*  overflow protection is handled here, not in ft_atol */
 int	in_int_limits(const char *str)
 {
+	const char	*digits;
+	int			len;
+
+	digits = str;
+	if (*digits == '-' || *digits == '+')
+		digits++;
+	len = 0;
+	while (digits[len])
+		len++;
+	if (len > 10)
+		return (0);
 	if (ft_atol(str) < INT_MIN || ft_atol(str) > INT_MAX)
 		return (0);
 	return (1);
