@@ -40,14 +40,27 @@ void	print_list_cir(t_node *head)
 	}
 }
 
+void	print_list_index(t_node *head)
+{
+	t_node	*to_print;
+
+	to_print = head;
+	while (1)
+	{
+		printf("Value in index = %d\n", to_print->index);
+		to_print = to_print->next;
+		if (to_print == head)
+			break;
+	}
+}
+
 
 int	stack_size(t_node *head)
 {	
 	int	size;
 	t_node	*loop;
-
+	
 	loop = head;
-
 	size = 0;
 	while (1)
 	{
@@ -309,6 +322,7 @@ int main(int argc, const char **argv)
     int	mode;
     int	i;
     int nb;
+    int	stack;
     t_node *stack_a;
 
     if (argc < 2)
@@ -332,6 +346,11 @@ int main(int argc, const char **argv)
 	    i++;
     }
     print_list_cir(stack_a);
+    ft_indexator(stack_a);
+    print_list_index(stack_a);
+    stack = 0;
+    stack = stack_size(stack_a);
+    printf("Stack size is = %d\n", stack);
     free_nodes(&stack_a);
     printf("Head = %p", stack_a);
 
