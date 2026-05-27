@@ -42,8 +42,11 @@ build_unit_test: CFLAGS += -g3 -fsanitize=address
 build_unit_test: fclean $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) -o $(TEST_DIR)/unit_test
 
+UT_ARGS		?= --test-all
+
 unit_test: fclean build_unit_test
-	./$(TEST_DIR)/unit_test
+	@echo "usage: make unit_test UT_ARGS=\"--ft_atol | --in_int_limits | --test-all\""
+	./$(TEST_DIR)/unit_test $(UT_ARGS)
 
 integration_test: fclean $(NAME)
 	bash $(TEST_DIR)/integration_test.sh
