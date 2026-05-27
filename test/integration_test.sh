@@ -23,33 +23,27 @@ report() {
 	fi
 }
 
-# $1 = label, $2 = expected, $@ = program args
-# shift 2 drops $1 and $2, so $@ becomes the program args only
-check_stderr() {
-	label="$1"; expected="$2"; shift 2
-	got="$("$PROG" "$@" 2>&1 >/dev/null)"
-	report "$label" "$got" "$expected"
-}
-
-check_stdout() {
-	label="$1"; expected="$2"; shift 2
-	got="$("$PROG" "$@" 2>/dev/null)"
-	report "$label" "$got" "$expected"
-}
-
-check_exit() {
-	label="$1"; expected="$2"; shift 2
-	"$PROG" "$@" >/dev/null 2>&1
-	report "$label" "$?" "$expected"
-}
-
-# checks both stderr="Error" and exit code=1 in one binary run
+# checks stderr="Error" and exit=1 in one run
 check_error() {
 	label="$1"; shift
 	got_stderr="$("$PROG" "$@" 2>&1 >/dev/null)"
 	got_exit=$?
 	report "$label (stderr)" "$got_stderr" "Error"
 	report "$label (exit)"   "$got_exit"   "1"
+}
+
+# checks exit=0
+check_success() {
+	label="$1"; shift
+	"$PROG" "$@" >/dev/null 2>&1
+	report "$label" "$?" "0"
+}
+
+# captures stdout only — for future sorting validation (pipe into checker_42)
+check_stdout() {
+	label="$1"; expected="$2"; shift 2
+	got="$("$PROG" "$@" 2>/dev/null)"
+	report "$label" "$got" "$expected"
 }
 
 summary() {
@@ -62,53 +56,53 @@ summary() {
 }
 
 echo -e "${YELLOW}--- parser : invalid numbers ---${RESET}"
-check_stderr "letter"                    "Error"  1 2 a
-check_stderr "int underflow"             "Error"  1 2 -2147483649
-check_stderr "int overflow"              "Error"  1 2 2147483648
-check_stderr "invalid number --43"       "Error"  1 2 --43
-check_stderr "invalid number ++43"       "Error"  1 2 ++43
-check_error "lone +" +
-check_error "lone -" -
-check_stderr "flag after numbers"        "Error"  1 2 --simple
+check_error "letter"              1 2 a
+check_error "int underflow"       1 2 -2147483649
+check_error "int overflow"        1 2 2147483648
+check_error "invalid number --43" 1 2 --43
+check_error "invalid number ++43" 1 2 ++43
+check_error "lone +"              +
+check_error "lone -"              -
+check_error "flag after numbers"  1 2 --simple
 
 echo -e "${YELLOW}\n--- parser : invalid flags ---${RESET}"
-check_stderr "unknown flag"              "Error"  --unvalid 1 2 3
-check_stderr "--adaptive --simple"       "Error"  --adaptive --simple 1 2 3
-check_stderr "--simple --complex"        "Error"  --simple --complex 1 2 3
-check_stderr "--adaptive repeated"       "Error"  --adaptive --adaptive 1 2 3
-check_stderr "--simple repeated"         "Error"  --simple --simple 1 2 3
-check_stderr "--bench repeated"          "Error"  --bench --bench 1 2 3
-check_stderr "--medium repeated"         "Error"  --medium --medium 1 2 3
-check_stderr "--bench first (adaptive)"  "Error"  --bench --adaptive 1 2 3
-check_stderr "--bench first (simple)"    "Error"  --bench --simple 1 2 3
-check_stderr "--bench first (complex)"   "Error"  --bench --complex 1 2 3
-check_stderr "3 flags"                   "Error"  --simple --bench --complex 1 2 3
+check_error "unknown flag"             --unvalid 1 2 3
+check_error "--adaptive --simple"      --adaptive --simple 1 2 3
+check_error "--simple --complex"       --simple --complex 1 2 3
+check_error "--adaptive repeated"      --adaptive --adaptive 1 2 3
+check_error "--simple repeated"        --simple --simple 1 2 3
+check_error "--bench repeated"         --bench --bench 1 2 3
+check_error "--medium repeated"        --medium --medium 1 2 3
+check_error "--bench first (adaptive)" --bench --adaptive 1 2 3
+check_error "--bench first (simple)"   --bench --simple 1 2 3
+check_error "--bench first (complex)"  --bench --complex 1 2 3
+check_error "3 flags"                  --simple --bench --complex 1 2 3
 
 echo -e "${YELLOW}\n--- parser : valid numbers ---${RESET}"
-check_exit "single number"     0  42
-check_exit "positive sign +42" 0  +42
-check_exit "zero"              0  0
-check_exit "+0"                0  +0
-check_exit "-0"                0  -0
-check_exit "negative numbers"  0  -1 -2 -3
-check_exit "INT_MAX"           0  2147483647
-check_exit "INT_MIN"           0  -2147483648
-check_exit "already sorted"    0  1 2 3
+check_success "single number"     42
+check_success "positive sign +42" +42
+check_success "zero"              0
+check_success "+0"                +0
+check_success "-0"                -0
+check_success "negative numbers"  -1 -2 -3
+check_success "INT_MAX"           2147483647
+check_success "INT_MIN"           -2147483648
+check_success "already sorted"    1 2 3
 
 echo -e "${YELLOW}\n--- parser : valid flags ---${RESET}"
-check_exit "--adaptive"              0  --adaptive 1 2 3
-check_exit "--simple"                0  --simple 1 2 3
-check_exit "--medium"                0  --medium 1 2 3
-check_exit "--complex"               0  --complex 1 2 3
-check_exit "--bench alone"           0  --bench 1 2 3
-check_exit "--adaptive --bench"      0  --adaptive --bench 1 2 3
-check_exit "--simple --bench"        0  --simple --bench 1 2 3
-check_exit "--medium --bench"        0  --medium --bench 1 2 3
-check_exit "--complex --bench"       0  --complex --bench 1 2 3
-check_exit "flag only, no numbers"   0  --simple
+check_success "--adaptive"             --adaptive 1 2 3
+check_success "--simple"               --simple 1 2 3
+check_success "--medium"               --medium 1 2 3
+check_success "--complex"              --complex 1 2 3
+check_success "--bench alone"          --bench 1 2 3
+check_success "--adaptive --bench"     --adaptive --bench 1 2 3
+check_success "--simple --bench"       --simple --bench 1 2 3
+check_success "--medium --bench"       --medium --bench 1 2 3
+check_success "--complex --bench"      --complex --bench 1 2 3
+check_success "flag only, no numbers"  --simple
 
 
-# TODO: once ops are implemented, pipe $OUT into checker_42 to validate the sort
+# TODO: once ops are implemented, use check_stdout to pipe into checker_42
 
 summary
 exit $(( failed != 0 ))
