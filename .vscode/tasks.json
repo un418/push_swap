@@ -1,0 +1,23 @@
+{
+	"tasks": [
+		{
+			"label": "build push_swap unit_test",
+			"command": "make",
+			"args": [
+				"build_unit_test"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"detail": "Build via Makefile in debug mode"
+		},
+	],
+	"version": "2.0.0"
+}

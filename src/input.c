@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
-// Return mode or 0 for unvalid flag
-int	flags_parser(const char *flag)
+// return mode or 0 for invalid flag
+int	parse_flag(const char *flag)
 {
 	int static	mode;
 
@@ -24,9 +24,8 @@ int	flags_parser(const char *flag)
 	return (mode);
 }
 
-// validate input
 // return mode or 0 if input invalid
-int	arg_validate(const char **argv)
+int	input_validate(const char **argv)
 {
 	int	i;
 	int	mode;
@@ -35,12 +34,15 @@ int	arg_validate(const char **argv)
 	mode = 1;
 	while (argv[i] && is_flag_prefix(argv[i]) && i < 3)
 	{
-		mode = flags_parser(argv[i++]);
+		mode = parse_flag(argv[i++]);
 		if (mode == 0)
 			return (write (2, "Error\n", 6), 0);
 	}
 	while (argv[i])
-		if (!is_valid_number(argv[i++]))
+	{
+		if (!is_valid_number(argv[i]) || !in_int_limits(argv[i]))
 			return (write (2, "Error\n", 6), 0);
+		i++;
+	}
 	return (mode);
 }
