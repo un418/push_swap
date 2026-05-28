@@ -1,7 +1,6 @@
 ############  PUSH SWAP  ############
 
 SHELL		= /bin/bash
-
 NAME		= push_swap
 
 ############  Compiler Config  ############
@@ -9,6 +8,14 @@ NAME		= push_swap
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 INCS		= -I$(INC_DIR)
+
+############  Valgrind Config  ############
+
+VALGRIND	= valgrind --leak-check=full \
+					  --show-leak-kinds=all \
+					  --track-origins=yes \
+					  --error-exitcode=42
+# Set exit code of valgring to 42, to be able to make difference between program and valgring error later.
 
 ############  Folders Config  ############
 
@@ -38,18 +45,23 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
+# unit test are use to debug via gdb
 build_unit_test: CFLAGS += -g3 -fsanitize=address
 build_unit_test: fclean $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) -o $(TEST_DIR)/unit_test
 
 UT_ARGS		?= --test-all
-
 unit_test: fclean build_unit_test
 	@echo "usage: make unit_test UT_ARGS=\"--ft_atol | --in_int_limits | --test-all\""
 	./$(TEST_DIR)/unit_test $(UT_ARGS)
 
 integration_test: fclean $(NAME)
 	bash $(TEST_DIR)/integration_test.sh
+
+leaks: fclean $(NAME)
+# all exit path of the program should have a line of test to validate leaks on error management
+	$(VALGRIND) ./push_swap 3 1 2      # nominal
+	$(VALGRIND) ./push_swap 3 1 ++2    # format error
 
 ############  Cleaning  ############
 
@@ -64,4 +76,4 @@ tclean:
 	rm -f $(TEST_DIR)/unit_test
 
 
-.PHONY: all clean fclean re tclean build_unit_test unit_test integration_test
+.PHONY: all clean fclean re tclean build_unit_test unit_test integration_test leaks
