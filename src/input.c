@@ -29,6 +29,7 @@ int	input_validate(const char **argv)
 {
 	int	i;
 	int	mode;
+	int* parsed;
 
 	i = 1;
 	mode = 1;
@@ -38,11 +39,9 @@ int	input_validate(const char **argv)
 		if (mode == 0)
 			return (write (2, "Error\n", 6), 0);
 	}
-	while (argv[i])
-	{
-		if (!is_valid_number(argv[i]) || !in_int_limits(argv[i]))
-			return (write (2, "Error\n", 6), 0);
-		i++;
-	}
+	parsed = parse_number(argv[i]);
+	if (!parsed)
+		return (write (2, "Error\n", 6), 0);
+
 	return (mode);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 00:47:30 by adaferna          #+#    #+#             */
-/*   Updated: 2026/05/26 18:45:04 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/05/28 11:22:10 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	is_digit(const char c)
 	return (0);
 }
 
-int	is_valid_number(const char *str)
+// valid:   "42", "-42", "+42"
+// invalid: "+", "-", "4a2", ""
+int	is_valid_num_fmt(const char *str)
 {
 	if (*str == '+' || *str == '-')
 		str++;
