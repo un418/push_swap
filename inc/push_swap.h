@@ -6,7 +6,7 @@
 /*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/05/28 14:28:47 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/06/01 12:25:51 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ long		ft_atol(const char *str);
 int			parse_flag(const char *arg);
 int			input_validate(const char **argv);
 int			in_int_limits(const char *str);
-int			*parse_number(const char **argv);
+int*		parse_number(const char **argv);
 
 // int_parse.c internals (static)
 // static size_t	tablen(char **tab);
-// static int		check_duplicate(const char *str, int *tab);
+// static int		check_duplicate(const char *str, int *tab, size_t tabsize);
 
 #endif

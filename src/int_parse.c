@@ -24,7 +24,7 @@ long	ft_atol(const char *str)
 
 // valid:   "42", "+42", "-42", "2147483647", "-2147483648"
 // invalid: "2147483648" (> INT_MAX), "-2147483649" (< INT_MIN), 10 digits (guards ft_atol from long overflow)
-int		in_int_limits(const char *str)
+int	in_int_limits(const char *str)
 {
 	const char	*digits;
 	int			len;
@@ -44,10 +44,11 @@ int		in_int_limits(const char *str)
 	return (1);
 }
 
-static size_t	tablen(char **tab)
+static size_t	tablen(const char **tab)
 {
 	size_t i;
 
+	i = 0;
 	while (tab[i])
 		i++;
 	return(i);
@@ -55,20 +56,24 @@ static size_t	tablen(char **tab)
 
 // error: return 0 if duplicate -> nedd to free
 // sucess: return 1 & add number in the tab of parsed number
-static int		check_duplicate (const char *str , int *tab)
+static int		check_duplicate (const char *str , int *tab, int i_max)
 {
 	int num;
+	int i;
 
+	i = 0;
 	num = ft_atol(str);
-	while (tab)
+	while (i < i_max)
 	{
-		if (num == tab)
+		if (num == tab[i])
 			return (0);
-		tab++;
+		i++;
 	}
-	return(*tab = num, 1);
+	return(tab[i] = num, 1);
 }
 
+// sucess: return a parsed int array ready for indexation
+// error: return NULL pointer
 int*	parse_number(const char **argv)
 {
 	int i;
@@ -76,18 +81,19 @@ int*	parse_number(const char **argv)
 	size_t tabsize;
 
 	i = 0;
-	tabsize = tabslen(argv);
+	tabsize = tablen(argv);
 	// todo protect malloc from heap buffer overflow
-	ret = malloc((tabsize * sizeof(int)) + 1);
+	ret = malloc((tabsize * sizeof(int)));
 	if (ret == NULL)
 		return(NULL);
 	while (argv[i])
 	{
-		if (!is_digit(argv[i]) 
-		|| !is_valid_num_fmt(argv[i])
+		// isdigit is inside isvalidnum to remove later
+		if (!is_valid_num_fmt(argv[i])
 		|| !in_int_limits(argv[i])
-		|| !check_duplicate(argv[i], ret))
+		|| !check_duplicate(argv[i], ret, i))
 			return (free(ret), NULL);
+		i++;
 	}
 	return (ret);
 }

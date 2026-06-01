@@ -23,7 +23,7 @@ static int	g_fails;
 typedef struct s_suite
 {
 	int test_all;
-	int ft_atol; int in_int_limits;
+	int ft_atol; int in_int_limits; int parse_number;
 }	t_suite;
 
 // long params cover int and the long returned by ft_atol without truncation
@@ -68,6 +68,8 @@ t_suite	parse_args(int argc, const char **argv)
 			s.ft_atol = 1;
 		else if (is_str_eq(argv[i], "--in_int_limits"))
 			s.in_int_limits = 1;
+		else if (is_str_eq(argv[i], "--parse_number"))
+			s.in_int_limits = 1;
 		else
 		{
 			fprintf(stderr, RED "unknown suite: %s\n" RESET, argv[i]);
@@ -106,6 +108,28 @@ int	main(int argc, const char **argv)
 		check("limits INT_MIN-1 reject", in_int_limits("-2147483649"), 0);
 		check("limits \"0\" ok", in_int_limits("0"), 1);
 	}
+
+	if (s.parse_number || s.test_all)
+	{
+		printf(YELLOW "\n--- parse_number ---\n" RESET);
+		{
+			const char *input[] = {"1", "-1", "42", NULL};
+			int *output = parse_number(input);
+			check("parse_number valid", output[0], 1);
+			check("parse_number valid", output[1], -1);
+			check("parse_number valid", output[2], 42);
+			// check("parse_number valid", output[3], 0);
+		}
+		{
+			printf("\n");
+			const char *input[] = {"1", "-1a", "42", NULL};
+			int *output = parse_number(input);
+			check("parse_number unvalid", (long)output, 0);
+			// check("parse_number valid", output[3], 0);
+		}
+	}
+
+
 	print_summary();
 	return (g_fails != 0);
 }
