@@ -72,28 +72,29 @@ static int		check_duplicate (const char *str , int *tab, int i_max)
 	return(tab[i] = num, 1);
 }
 
+// input: argv after flag parsing index position
 // sucess: return a parsed int array ready for indexation
 // error: return NULL pointer
 int*	parse_number(const char **argv)
 {
 	int i;
-	int* ret;
+	int* m_parsed;
 	size_t tabsize;
 
 	i = 0;
 	tabsize = tablen(argv);
 	// todo protect malloc from heap buffer overflow
-	ret = malloc((tabsize * sizeof(int)));
-	if (ret == NULL)
+	m_parsed = malloc((tabsize * sizeof(int)));
+	if (m_parsed == NULL)
 		return(NULL);
 	while (argv[i])
 	{
 		// isdigit is inside isvalidnum to remove later
 		if (!is_valid_num_fmt(argv[i])
 		|| !in_int_limits(argv[i])
-		|| !check_duplicate(argv[i], ret, i))
-			return (free(ret), NULL);
+		|| !check_duplicate(argv[i], m_parsed, i))
+			return (free(m_parsed), NULL);
 		i++;
 	}
-	return (ret);
+	return (m_parsed);
 }
