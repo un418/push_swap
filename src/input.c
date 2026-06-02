@@ -27,9 +27,9 @@ int	parse_flag(const char *flag)
 // return mode or 0 if input invalid
 int	input_validate(const char **argv)
 {
-	int	i;
-	int	mode;
-	int* parsed;
+	int		i;
+	int		mode;
+	int		*parsed;
 
 	i = 1;
 	mode = 1;
@@ -42,6 +42,5 @@ int	input_validate(const char **argv)
 	parsed = parse_number(&argv[i]);
 	if (!parsed)
 		return (write (2, "Error\n", 6), 0);
-
 	return (mode);
 }

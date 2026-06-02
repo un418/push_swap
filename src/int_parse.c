@@ -46,20 +46,20 @@ int	in_int_limits(const char *str)
 
 static size_t	tablen(const char **tab)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (tab[i])
 		i++;
-	return(i);
+	return (i);
 }
 
 // error: return 0 if duplicate -> nedd to free
 // sucess: return 1 & add number in the tab of parsed number
-static int		check_duplicate (const char *str , int *tab, int i_max)
+static int	check_duplicate(const char *str, int *tab, int i_max)
 {
-	int num;
-	int i;
+	int	num;
+	int	i;
 
 	i = 0;
 	num = ft_atol(str);
@@ -69,17 +69,17 @@ static int		check_duplicate (const char *str , int *tab, int i_max)
 			return (0);
 		i++;
 	}
-	return(tab[i] = num, 1);
+	return (tab[i] = num, 1);
 }
 
 // input: argv after flag parsing index position
 // sucess: return a parsed int array ready for indexation
 // error: return NULL pointer
-int*	parse_number(const char **argv)
+int	*parse_number(const char **argv)
 {
-	int i;
-	int* m_parsed;
-	size_t tabsize;
+	int		i;
+	int	*m_parsed;
+	size_t	tabsize;
 
 	i = 0;
 	tabsize = tablen(argv);
@@ -89,13 +89,12 @@ int*	parse_number(const char **argv)
 	// todo protect malloc from heap buffer overflow
 	m_parsed = malloc((tabsize * sizeof(int)));
 	if (m_parsed == NULL)
-		return(NULL);
+		return (NULL);
 	while (argv[i])
 	{
-		// isdigit is inside isvalidnum to remove later
 		if (!is_valid_num_fmt(argv[i])
-		|| !in_int_limits(argv[i])
-		|| !check_duplicate(argv[i], m_parsed, i))
+			|| !in_int_limits(argv[i])
+			|| !check_duplicate(argv[i], m_parsed, i))
 			return (free(m_parsed), NULL);
 		i++;
 	}
