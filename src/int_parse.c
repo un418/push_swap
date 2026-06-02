@@ -83,6 +83,9 @@ int*	parse_number(const char **argv)
 
 	i = 0;
 	tabsize = tablen(argv);
+	// No number in input return error
+	if (tabsize == 0)
+		return (NULL);
 	// todo protect malloc from heap buffer overflow
 	m_parsed = malloc((tabsize * sizeof(int)));
 	if (m_parsed == NULL)

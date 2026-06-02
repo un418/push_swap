@@ -69,7 +69,7 @@ t_suite	parse_args(int argc, const char **argv)
 		else if (is_str_eq(argv[i], "--in_int_limits"))
 			s.in_int_limits = 1;
 		else if (is_str_eq(argv[i], "--parse_number"))
-			s.in_int_limits = 1;
+			s.parse_number = 1;
 		else
 		{
 			fprintf(stderr, RED "unknown suite: %s\n" RESET, argv[i]);
@@ -115,17 +115,34 @@ int	main(int argc, const char **argv)
 		{
 			const char *input[] = {"1", "-1", "42", NULL};
 			int *output = parse_number(input);
-			check("parse_number valid", output[0], 1);
-			check("parse_number valid", output[1], -1);
-			check("parse_number valid", output[2], 42);
-			// check("parse_number valid", output[3], 0);
+			check("parse_number valid list size3", output[0], 1);
+			check("parse_number valid list size3", output[1], -1);
+			check("parse_number valid list size3", output[2], 42);
+			// check("parse_number valid list size3", output[3], 0); // should heap buffer overflow because out of range
 		}
 		{
-			printf("\n");
-			const char *input[] = {"1", "-1a", "42", NULL};
+			const char *input[] = {"1", NULL};
 			int *output = parse_number(input);
-			check("parse_number unvalid", (long)output, 0);
-			// check("parse_number valid", output[3], 0);
+			check("parse_number valid list size1", output[0], 1);
+			// check("parse_number valid list size1", output[1], 0); // should heap buffer overflow because out of range
+		}
+		{
+			const char *input[] = {NULL};
+			int *output = parse_number(input);
+			check("parse_number empty num list", (long)output, 0);
+			// check("parse_number size1", output[1], 0); // should heap buffer overflow because out of range
+		}
+		{
+			const char *input[] = {"a1", "-1", "42", NULL};
+			int *output = parse_number(input);
+			check("parse_number unvalid at start", (long)output, 0);
+			// cast pointer to long to use check()
+		}
+		{
+			const char *input[] = {"1", "-1", "4a2", NULL};
+			int *output = parse_number(input);
+			check("parse_number unvalid at end", (long)output, 0);
+			// cast pointer to long to use check()
 		}
 	}
 
