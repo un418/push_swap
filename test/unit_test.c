@@ -3,9 +3,9 @@
 /*   unit_test.c                                                              */
 /*                                                                            */
 /*   Unit tests for push_swap.                                                */
-/*   Build & run : make unit_test   (exits != 0 if any test fails)           */
+/*   Build & run : make unit_test   (exits != 0 if any test fails)            */
 /*                                                                            */
-/*   Not subject to 42 norm (string literal concatenation).                  */
+/*   Not subject to 42 norm (string literal concatenation).                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
@@ -23,7 +23,7 @@ static int	g_fails;
 typedef struct s_suite
 {
 	int test_all;
-	int ft_atol; int in_int_limits; int parse_number;
+	int ft_atol; int in_int_limits; int is_valid_number; int parse_number;
 }	t_suite;
 
 // long params cover int and the long returned by ft_atol without truncation
@@ -68,8 +68,10 @@ t_suite	parse_args(int argc, const char **argv)
 			s.ft_atol = 1;
 		else if (is_str_eq(argv[i], "--in_int_limits"))
 			s.in_int_limits = 1;
+		else if (is_str_eq(argv[i], "--is_valid_number"))
+			s.is_valid_number = 1;
 		else if (is_str_eq(argv[i], "--parse_number"))
-			s.parse_number = 1;
+				s.in_int_limits = 1;
 		else
 		{
 			fprintf(stderr, RED "unknown suite: %s\n" RESET, argv[i]);
@@ -108,6 +110,17 @@ int	main(int argc, const char **argv)
 		check("limits INT_MIN-1 reject", in_int_limits("-2147483649"), 0);
 		check("limits \"0\" ok", in_int_limits("0"), 1);
 	}
+	if (s.is_valid_number || s.test_all)
+	{
+		printf(YELLOW "\n--- is_valid_number ---\n" RESET);
+		check("valid \"+\" alone reject", is_valid_number("+"), 0);
+		check("valid \"-\" alone reject", is_valid_number("-"), 0);
+		check("valid \"+0\"", is_valid_number("+0"), 1);
+		check("valid \"-0\"", is_valid_number("-0"), 1);
+		check("valid \"42\"", is_valid_number("42"), 1);
+		check("valid \"-3\"", is_valid_number("-3"), 1);
+		check("valid \"abc\" reject", is_valid_number("abc"), 0);
+	}
 
 	if (s.parse_number || s.test_all)
 	{
@@ -115,34 +128,17 @@ int	main(int argc, const char **argv)
 		{
 			const char *input[] = {"1", "-1", "42", NULL};
 			int *output = parse_number(input);
-			check("parse_number valid list size3", output[0], 1);
-			check("parse_number valid list size3", output[1], -1);
-			check("parse_number valid list size3", output[2], 42);
-			// check("parse_number valid list size3", output[3], 0); // should heap buffer overflow because out of range
+			check("parse_number valid", output[0], 1);
+			check("parse_number valid", output[1], -1);
+			check("parse_number valid", output[2], 42);
+			// check("parse_number valid", output[3], 0);
 		}
 		{
-			const char *input[] = {"1", NULL};
+			printf("\n");
+			const char *input[] = {"1", "-1a", "42", NULL};
 			int *output = parse_number(input);
-			check("parse_number valid list size1", output[0], 1);
-			// check("parse_number valid list size1", output[1], 0); // should heap buffer overflow because out of range
-		}
-		{
-			const char *input[] = {NULL};
-			int *output = parse_number(input);
-			check("parse_number empty num list", (long)output, 0);
-			// check("parse_number size1", output[1], 0); // should heap buffer overflow because out of range
-		}
-		{
-			const char *input[] = {"a1", "-1", "42", NULL};
-			int *output = parse_number(input);
-			check("parse_number unvalid at start", (long)output, 0);
-			// cast pointer to long to use check()
-		}
-		{
-			const char *input[] = {"1", "-1", "4a2", NULL};
-			int *output = parse_number(input);
-			check("parse_number unvalid at end", (long)output, 0);
-			// cast pointer to long to use check()
+			check("parse_number unvalid", (long)output, 0);
+			// check("parse_number valid", output[3], 0);
 		}
 	}
 

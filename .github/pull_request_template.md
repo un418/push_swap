@@ -7,6 +7,7 @@
 ## Checklist
 - [ ] Compiles without warnings (`-Wall -Wextra -Werror`)
 - [ ] No memory leaks (`valgrind` / `AddressSanitizer`)
-- [ ] Unit tests added / updated (`make test`)
-- [ ] Integration tests added / updated (`make test_parser`)
+- [ ] Unit tests added / updated (`make unit_test`)
+- [ ] Integration tests added / updated (`make integration_test`)
+- [ ] No memory leaks (`make leaks`)
 - [ ] All tests pass

@@ -15,8 +15,9 @@ Implement `ft_strlen()`.
 - [ ] Compiles without warnings (`-Wall -Wextra -Werror`)
 - [ ] No memory leaks (`valgrind` / `AddressSanitizer`)
 - [ ] Edge cases handled: empty stack, single element
-- [ ] Unit test added / updated (`make test`)
-- [ ] Integration test added / updated (`make test_parser`)
+- [ ] Unit test added / updated (`make unit_test`)
+- [ ] Integration test added / updated (`make integration_test`)
+- [ ] No memory leaks (`make leaks`)
 
 ## Technical Notes
 <!-- Constraints, related issues, snippets. Delete if not needed. -->
