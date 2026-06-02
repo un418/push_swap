@@ -64,6 +64,7 @@ check_error "invalid number ++43" 1 2 ++43
 check_error "lone +"              +
 check_error "lone -"              -
 check_error "flag after numbers"  1 2 --simple
+check_error "flag only, no numbers"  --simple # /!\ Is it the behavior we want?
 
 echo -e "${YELLOW}\n--- parser : invalid flags ---${RESET}"
 check_error "unknown flag"             --unvalid 1 2 3
@@ -99,7 +100,6 @@ check_success "--adaptive --bench"     --adaptive --bench 1 2 3
 check_success "--simple --bench"       --simple --bench 1 2 3
 check_success "--medium --bench"       --medium --bench 1 2 3
 check_success "--complex --bench"      --complex --bench 1 2 3
-check_success "flag only, no numbers"  --simple
 
 
 # TODO: once ops are implemented, use check_stdout to pipe into checker_42
