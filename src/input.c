@@ -39,7 +39,7 @@ int	input_validate(const char **argv)
 		if (mode == 0)
 			return (write (2, "Error\n", 6), 0);
 	}
-	parsed = parse_number(argv + i + 1);
+	parsed = parse_number(&argv[i]);
 	if (!parsed)
 		return (write (2, "Error\n", 6), 0);
 
