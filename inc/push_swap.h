@@ -6,7 +6,7 @@
 /*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/03 00:21:44 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/06/03 00:33:21 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int*		parse_number(const char **argv);
 
 // int_parse.c internals (static)
 // static size_t	tablen(char **tab);
-// static int		check_duplicate(const char *str, int *tab, size_t tabsize);
+// static int	check_duplicate(const char *str, int *tab, int i_max)
 
 #endif
