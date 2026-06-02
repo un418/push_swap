@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   linked_list_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/02 17:59:39 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/02 17:59:40 by pficcare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 
 typedef struct s_node
@@ -89,8 +101,8 @@ t_node	*add_first(t_node **head, t_node *new)
 
 void	free_nodes(t_node **head)
 {
-	t_node *next_free;
-	t_node *last;
+	t_node	*next_free;
+	t_node	*last;
 
 	if (*head == NULL)
 		return ;
@@ -114,14 +126,14 @@ void	print_list(t_node *head)
 	{
 		printf("Value in node = %d\n", to_print->nb);
 		to_print = to_print->next;
-	//	if (to_print == head)
-	//		break;
+		//	if (to_print == head)
+		//		break ;
 	}
 }
 
 void	print_list_cir(t_node *head)
 {
-	t_node	*to_print;
+	t_node *to_print;
 
 	to_print = head;
 	while (1)
@@ -129,6 +141,6 @@ void	print_list_cir(t_node *head)
 		printf("Value in node = %d\n", to_print->nb);
 		to_print = to_print->next;
 		if (to_print == head)
-			break;
+			break ;
 	}
 }
