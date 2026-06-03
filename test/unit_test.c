@@ -71,7 +71,7 @@ t_suite	parse_args(int argc, const char **argv)
 		else if (is_str_eq(argv[i], "--is_valid_num_fmt"))
 			s.is_valid_num_fmt = 1;
 		else if (is_str_eq(argv[i], "--parse_number"))
-				s.in_int_limits = 1;
+				s.parse_number = 1;
 		else
 		{
 			fprintf(stderr, RED "unknown suite: %s\n" RESET, argv[i]);
