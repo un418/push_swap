@@ -157,6 +157,24 @@ int	main(int argc, const char **argv)
 			check("parse_number unvalid at end", (long)output, 0);
 			// cast pointer to long to use check()
 		}
+		{
+			const char *input[] = {"1", "1", "42", NULL};
+			int *output = parse_number(input);
+			check("parse_number positive duplicate", (long)output, 0);
+			// cast pointer to long to use check()
+		}
+		{
+			const char *input[] = {"-1", "-1", "42", NULL};
+			int *output = parse_number(input);
+			check("parse_number negative duplicate", (long)output, 0);
+			// cast pointer to long to use check()
+		}
+		{
+			const char *input[] = {"-1", "42", "-1", NULL};
+			int *output = parse_number(input);
+			check("parse_number negative duplicate start/end", (long)output, 0);
+			// cast pointer to long to use check()
+		}
 	}
 
 

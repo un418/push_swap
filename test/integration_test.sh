@@ -56,15 +56,19 @@ summary() {
 }
 
 echo -e "${YELLOW}--- parser : invalid numbers ---${RESET}"
-check_error "letter"              1 2 a
-check_error "int underflow"       1 2 -2147483649
-check_error "int overflow"        1 2 2147483648
-check_error "invalid number --43" 1 2 --43
-check_error "invalid number ++43" 1 2 ++43
-check_error "lone +"              +
-check_error "lone -"              -
-check_error "flag after numbers"  1 2 --simple
-check_error "flag only, no numbers"  --simple # /!\ Is it the behavior we want?
+check_error "letter"                 1 2 a
+check_error "int underflow"          1 2 -2147483649
+check_error "int overflow"           1 2 2147483648
+check_error "invalid number --43"    1 2 --43
+check_error "invalid number ++43"    1 2 ++43
+check_error "lone +"                 +
+check_error "lone -"                 -
+check_error "flag after numbers"     1 2 --simple
+check_error "flag only, no numbers " --simple # /!\ Is it the behavior we want?
+check_error "duplicate"              1 2 3 3
+check_error "negative duplicate"     -1 -1 2 3
+check_error "duplicate start/end"    1 2 3 1
+
 
 echo -e "${YELLOW}\n--- parser : invalid flags ---${RESET}"
 check_error "unknown flag"             --unvalid 1 2 3
@@ -100,6 +104,7 @@ check_success "--adaptive --bench"     --adaptive --bench 1 2 3
 check_success "--simple --bench"       --simple --bench 1 2 3
 check_success "--medium --bench"       --medium --bench 1 2 3
 check_success "--complex --bench"      --complex --bench 1 2 3
+
 
 
 # TODO: once ops are implemented, use check_stdout to pipe into checker_42
