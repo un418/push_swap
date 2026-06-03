@@ -78,7 +78,7 @@ static int	check_duplicate(const char *str, int *tab, int i_max)
 int	*parse_number(const char **argv)
 {
 	int		i;
-	int	*m_parsed;
+	int	*m_array;
 	size_t	tabsize;
 
 	i = 0;
@@ -87,16 +87,16 @@ int	*parse_number(const char **argv)
 	if (tabsize == 0)
 		return (NULL);
 	// todo protect malloc from heap buffer overflow
-	m_parsed = malloc((tabsize * sizeof(int)));
-	if (m_parsed == NULL)
+	m_array = malloc((tabsize * sizeof(int)));
+	if (m_array == NULL)
 		return (NULL);
 	while (argv[i])
 	{
 		if (!is_valid_num_fmt(argv[i])
 			|| !in_int_limits(argv[i])
-			|| !check_duplicate(argv[i], m_parsed, i))
-			return (free(m_parsed), NULL);
+			|| !check_duplicate(argv[i], m_array, i))
+			return (free(m_array), NULL);
 		i++;
 	}
-	return (m_parsed);
+	return (m_array);
 }
