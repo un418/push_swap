@@ -75,7 +75,7 @@ static int	check_duplicate(const char *str, int *tab, int i_max)
 // input: argv after flag parsing index position
 // sucess: return a parsed int array ready for indexation
 // error: return NULL pointer
-int	*parse_number(const char **argv)
+int	*parse_number(const char **argv, t_ctx *ctx)
 {
 	int		i;
 	int	*m_array;
@@ -96,5 +96,7 @@ int	*parse_number(const char **argv)
 			return (free(m_array), NULL);
 		i++;
 	}
+	ctx->parsed = m_array;
+	ctx->parsed_size = tabsize;
 	return (m_array);
 }

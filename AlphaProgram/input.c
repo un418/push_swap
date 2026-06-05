@@ -1,41 +1,52 @@
 #include "push_swap.h"
 
 // return mode or 0 for invalid flag
-int	parse_flag(const char *flag)
+int	parse_flag(const char *flag, t_ctx *ctx)
 {
-	static int	mode;
 
-	// this check is redudant with the caller function
-	// but it improve code readability
 	if (*flag == '-' && *(flag + 1) == '-')
 		flag += 2;
-	if (mode <= 0 && is_str_eq(flag, "adaptive"))
-		mode += 1;
-	else if (mode <= 0 && is_str_eq(flag, "simple"))
-		mode += 2;
-	else if (mode <= 0 && is_str_eq(flag, "medium"))
-		mode += 3;
-	else if (mode <= 0 && is_str_eq(flag, "complex"))
-		mode += 4;
-	else if (mode <= 4 && is_str_eq(flag, "bench"))
-		mode += 10;
+	if (!ctx->mode && is_str_eq(flag, "adaptive"))
+		ctx->mode = 1;
+	else if (!ctx->mode  && is_str_eq(flag, "simple"))
+		ctx->mode = 2;
+	else if (!ctx->mode  && is_str_eq(flag, "medium"))
+		ctx->mode = 3;
+	else if (!ctx->mode  && is_str_eq(flag, "complex"))
+		ctx->mode = 4;
+	else if (!ctx->bench  && is_str_eq(flag, "bench"))
+	{
+		ctx->bench = 1;
+		if (!ctx->mode )
+			ctx->mode = 1;
+	}
 	else
-		return (0);
-	return (mode);
+		return (ctx->mode = 0, 0);
+	return (1);
+}
+
+void init_ctx(t_ctx *ctx)
+{
+	ctx->mode = 0;
+	ctx->bench = 0;
+	ctx->parsed = NULL;
+	ctx->parsed_size = 0;
+	ctx->stats = (t_bench){0, 0, 0, 0, 0};
 }
 
 // return mode or 0 if input invalid
-int	input_validate(const char **argv)
+int	input_validate(const char **argv, t_ctx *ctx)
 {
-	int		i;
-	int		mode;
+	int	i;
+	int	ret;
 
 	i = 1;
-	mode = 1;
+	if (!is_flag_prefix(argv[i]))
+		ctx->mode = 1;
 	while (argv[i] && is_flag_prefix(argv[i]) && i < 3)
 	{
-		mode = parse_flag(argv[i++]);
-		if (mode == 0)
+		ret = parse_flag(argv[i++], ctx);
+		if (!ret)
 			return (write (2, "Error\n", 6), 0);
 	}
 	while (argv[i])
@@ -44,5 +55,5 @@ int	input_validate(const char **argv)
 			return (write(2, "Error\n", 6), 0);
 		i++;
 	}
-	return (mode);
+	return (1);
 }

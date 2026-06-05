@@ -2,6 +2,8 @@
 
 void	reverse_me(t_node **stack)
 {
+	if (!stack || !*stack)
+		return ;
 	(*stack) = (*stack)->prev;
 }
 

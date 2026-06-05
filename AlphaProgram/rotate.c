@@ -2,12 +2,13 @@
 
 void	rotate_me(t_node **stack)
 {
+	if (!stack || !*stack)
+		return ;
 	(*stack) = (*stack)->next;
 }
 
 void	rotate_a(t_node **stack)
 {
-	;
 	rotate_me(stack);
 }
 

@@ -7,18 +7,23 @@ int	main(int argc, char **argv)
 	int		*parsed;
 	int		i;
 	int		size;
-	int		mode;
+	//int		mode;
+	t_ctx	ctx;
+	int		ret;
 
 	if (argc < 2)
 		return (0);
-	mode = input_validate((const char **)argv);
-	if  (mode == 0)
-		return (1);
 	i = 1;
+	init_ctx(&ctx);
+	ret = input_validate((const char **)argv, &ctx);
+	if (!ret || !ctx.mode)
+		return (1);
+	printf("Mode = %d\n", ctx.mode); 
+
 	while (argv[i] && is_flag_prefix(argv[i]) && i < 3)
 		i++;
 	size = argc - i;
-	parsed = parse_number((const char **)&argv[i]);
+	parsed = parse_number((const char **)&argv[i], &ctx);
 	if (!parsed)
 		return (write(2, "Error\n", 6), 1);
 	stack_a = fill_stack(parsed, size);
@@ -27,7 +32,7 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6), 1);
 	stack_b = NULL;
 	ft_indexator(stack_a);
-	wich_one(&stack_a, &stack_b, size, mode);
+	wich_one(&stack_a, &stack_b, size, ctx.mode);
 	print_list_index(stack_a);
 	print_list(stack_a);
 	free_nodes(&stack_a);
