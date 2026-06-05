@@ -73,9 +73,9 @@ static int	check_duplicate(const char *str, int *tab, int i_max)
 }
 
 // input: argv after flag parsing index position
-// sucess: return a parsed int array ready for indexation
-// error: return NULL pointer
-int	*parse_number(const char **argv)
+// sucess: return 1 & put parsed int tab address in context
+// error: return 0 and free allocated memory
+int parse_number(const char **argv, t_ctx *ctx)
 {
 	int		i;
 	int	*m_array;
@@ -85,18 +85,20 @@ int	*parse_number(const char **argv)
 	tabsize = tablen(argv);
 	// No number in input return error
 	if (tabsize == 0)
-		return (NULL);
+		return (0);
 	// todo protect malloc from heap buffer overflow
 	m_array = malloc((tabsize * sizeof(int)));
-	if (m_array == NULL)
-		return (NULL);
+	if (!m_array)
+		return (0);
 	while (argv[i])
 	{
 		if (!is_valid_num_fmt(argv[i])
 			|| !in_int_limits(argv[i])
 			|| !check_duplicate(argv[i], m_array, i))
-			return (free(m_array), NULL);
+			return (free(m_array), 0);
 		i++;
 	}
-	return (m_array);
+	ctx->parsed = m_array;
+	ctx->parsed_size = tabsize;
+	return (1);
 }
