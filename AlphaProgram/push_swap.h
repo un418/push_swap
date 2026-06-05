@@ -14,14 +14,6 @@ typedef struct s_node
 	struct s_node	*prev;
 }	t_node;
 
-typedef struct s_ctx
-{
-	int		mode;
-	int		bench;
-	int 	*parsed;
-	size_t	parsed_size;
-	t_bench stats;
-}	t_ctx;
 
 typedef struct s_bench
 {
@@ -38,6 +30,15 @@ typedef struct s_bench
     int    pb;
     int    total;
 }    t_bench;
+
+typedef struct s_ctx
+{
+	int		mode;
+	int		bench;
+	int 	*parsed;
+	size_t	parsed_size;
+	t_bench stats;
+}	t_ctx;
 
 // Function linklist Prototypes (list_utils.c & list_creation.c)
 void	print_list(t_node *head);
@@ -90,6 +91,6 @@ void	push_b(t_node **stack_a, t_node **stack_b);
 // Algorithm Prototypes (sort_3.c & sort_5.c)
 void	sort_3(t_node **stack_a);
 void	sort_5(t_node **stack_a, t_node **stack_b);
-void 	wich_one(t_node **stack_a, t_node **stack_b, int size, int mode);
+void 	wich_one(t_node **stack_a, t_node **stack_b, int size, t_ctx *ctx);
 
 #endif

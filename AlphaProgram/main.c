@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6), 1);
 	stack_b = NULL;
 	ft_indexator(stack_a);
-	wich_one(&stack_a, &stack_b, size, ctx.mode);
+	wich_one(&stack_a, &stack_b, size, &ctx);
 	print_list_index(stack_a);
 	print_list(stack_a);
 	free_nodes(&stack_a);

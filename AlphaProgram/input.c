@@ -31,7 +31,7 @@ void init_ctx(t_ctx *ctx)
 	ctx->bench = 0;
 	ctx->parsed = NULL;
 	ctx->parsed_size = 0;
-	ctx->stats = (t_bench){0, 0, 0, 0, 0};
+	ctx->stats = (t_bench){0};
 }
 
 // return mode or 0 if input invalid

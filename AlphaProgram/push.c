@@ -33,14 +33,10 @@ void	push_me(t_node **stack_src, t_node **stack_dest)
 
 void	push_a(t_node **stack_a, t_node **stack_b)
 {
-	
 	push_me(stack_b, stack_a);
-
 }
 
 void	push_b(t_node **stack_a, t_node **stack_b)
 {
-	
 	push_me(stack_a, stack_b);
-
 }

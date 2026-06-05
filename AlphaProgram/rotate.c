@@ -14,13 +14,11 @@ void	rotate_a(t_node **stack)
 
 void	rotate_b(t_node **stack)
 {
-	
 	rotate_me(stack);
 }
 
 void	rotate_all(t_node **stack_a, t_node **stack_b)
 {
-	
 	rotate_me(stack_a);
 	rotate_me(stack_b);
 }
