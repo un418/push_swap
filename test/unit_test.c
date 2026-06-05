@@ -127,53 +127,65 @@ int	main(int argc, const char **argv)
 		printf(YELLOW "\n--- parse_number ---\n" RESET);
 		{
 			const char *input[] = {"1", "-1", "42", NULL};
-			int *output = parse_number(input);
-			check("parse_number valid list size3", output[0], 1);
-			check("parse_number valid list size3", output[1], -1);
-			check("parse_number valid list size3", output[2], 42);
-			// check("parse_number valid list size3", output[3], 0); // should heap buffer overflow because out of range
+			t_ctx ctx = {0};
+			int ret = parse_number(input, &ctx);
+			check("parse_number valid size3 ret", ret, 1);
+			check("parse_number valid size3 [0]", ctx.parsed[0], 1);
+			check("parse_number valid size3 [1]", ctx.parsed[1], -1);
+			check("parse_number valid size3 [2]", ctx.parsed[2], 42);
+			check("parse_number valid size3 size", (long)ctx.parsed_size, 3);
+			free(ctx.parsed);
 		}
 		{
 			const char *input[] = {"1", NULL};
-			int *output = parse_number(input);
-			check("parse_number valid list size1", output[0], 1);
-			// check("parse_number valid list size1", output[1], 0); // should heap buffer overflow because out of range
+			t_ctx ctx = {0};
+			int ret = parse_number(input, &ctx);
+			check("parse_number valid size1 ret", ret, 1);
+			check("parse_number valid size1 [0]", ctx.parsed[0], 1);
+			check("parse_number valid size1 size", (long)ctx.parsed_size, 1);
+			free(ctx.parsed);
 		}
 		{
 			const char *input[] = {NULL};
-			int *output = parse_number(input);
-			check("parse_number empty num list", (long)output, 0);
-			// check("parse_number size1", output[1], 0); // should heap buffer overflow because out of range
+			t_ctx ctx = {0};
+			int ret = parse_number(input, &ctx);
+			check("parse_number empty num list", ret, 0);
+			check("parse_number empty leaves parsed NULL", (long)ctx.parsed, 0);
 		}
 		{
 			const char *input[] = {"a1", "-1", "42", NULL};
-			int *output = parse_number(input);
-			check("parse_number unvalid at start", (long)output, 0);
-			// cast pointer to long to use check()
+			t_ctx ctx = {0};
+			int ret = parse_number(input, &ctx);
+			check("parse_number unvalid at start", ret, 0);
+			check("parse_number unvalid at start parsed NULL", (long)ctx.parsed, 0);
 		}
 		{
 			const char *input[] = {"1", "-1", "4a2", NULL};
-			int *output = parse_number(input);
-			check("parse_number unvalid at end", (long)output, 0);
-			// cast pointer to long to use check()
+			t_ctx ctx = {0};
+			int ret = parse_number(input, &ctx);
+			check("parse_number unvalid at end", ret, 0);
+			check("parse_number unvalid at end parsed NULL", (long)ctx.parsed, 0);
 		}
 		{
 			const char *input[] = {"1", "1", "42", NULL};
-			int *output = parse_number(input);
-			check("parse_number positive duplicate", (long)output, 0);
-			// cast pointer to long to use check()
+			t_ctx ctx = {0};
+			int ret = parse_number(input, &ctx);
+			check("parse_number positive duplicate", ret, 0);
+			check("parse_number positive duplicate parsed NULL", (long)ctx.parsed, 0);
 		}
 		{
 			const char *input[] = {"-1", "-1", "42", NULL};
-			int *output = parse_number(input);
-			check("parse_number negative duplicate", (long)output, 0);
-			// cast pointer to long to use check()
+			t_ctx ctx = {0};
+			int ret = parse_number(input, &ctx);
+			check("parse_number negative duplicate", ret, 0);
+			check("parse_number negative duplicate parsed NULL", (long)ctx.parsed, 0);
 		}
 		{
 			const char *input[] = {"-1", "42", "-1", NULL};
-			int *output = parse_number(input);
-			check("parse_number negative duplicate start/end", (long)output, 0);
-			// cast pointer to long to use check()
+			t_ctx ctx = {0};
+			int ret = parse_number(input, &ctx);
+			check("parse_number negative duplicate start/end", ret, 0);
+			check("parse_number negative duplicate start/end parsed NULL", (long)ctx.parsed, 0);
 		}
 	}
 
