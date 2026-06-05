@@ -92,9 +92,7 @@ int	*parse_number(const char **argv)
 		return (NULL);
 	while (argv[i])
 	{
-		if (!is_valid_num_fmt(argv[i])
-			|| !in_int_limits(argv[i])
-			|| !check_duplicate(argv[i], m_array, i))
+		if (!check_duplicate(argv[i], m_array, i))
 			return (free(m_array), NULL);
 		i++;
 	}

@@ -60,3 +60,19 @@ t_node *add_first(t_node **head, t_node *new)
 	first->next = new;		
 	return (*head = new);
 }
+
+t_node	*fill_stack(int *parsed, int size)
+{
+	t_node	*stack_a;
+	int		i;
+
+	stack_a = NULL;
+	i = 0;
+	while (i < size)
+	{
+		if (!add_last(&stack_a, new_node(parsed[i])))
+			return (free_nodes(&stack_a), NULL);
+		i++;
+	}
+	return (stack_a);
+}

@@ -17,7 +17,8 @@ SRCS		= main.c \
 			  sort_5.c \
 			  int_parse.c \
 			  str_utils.c \
-			  input.c \
+			  wich_one.c \
+			  input.c 
 			  
 
 OBJS		= $(SRCS:.c=.o)

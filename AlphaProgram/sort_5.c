@@ -24,6 +24,7 @@ void	sort_5(t_node **stack_a, t_node **stack_b)
 	{
 		swap_me(stack_b);
 	}
+	rotate_b(stack_b);
 	while (*stack_b)
 		push_a(stack_a, stack_b);
 

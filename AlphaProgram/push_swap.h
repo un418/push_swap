@@ -24,6 +24,7 @@ t_node	*last_node(t_node *head);
 t_node	*add_last(t_node **head, t_node *new);
 t_node	*add_first(t_node **head, t_node *new);
 void	free_nodes(t_node **head);
+t_node	*fill_stack(int *parsed, int size);
 
 // Function utils Prototypes (disorder.c, parser.c, parser_utils.c)
 long	ft_atol(const char *str);
@@ -63,5 +64,6 @@ void	push_b(t_node **stack_a, t_node **stack_b);
 // Algorithm Prototypes (sort_3.c & sort_5.c)
 void	sort_3(t_node **stack_a);
 void	sort_5(t_node **stack_a, t_node **stack_b);
+void 	wich_one(t_node **stack_a, t_node **stack_b, int size, int mode);
 
 #endif
