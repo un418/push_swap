@@ -11,10 +11,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	if (!input_validate((const char **)argv))
+	mode = input_validate((const char **)argv);
+	if  (mode == 0)
 		return (1);
-	else
-		mode = input_validate((const char **)argv);
 	i = 1;
 	while (argv[i] && is_flag_prefix(argv[i]) && i < 3)
 		i++;

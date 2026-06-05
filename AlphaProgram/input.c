@@ -44,6 +44,5 @@ int	input_validate(const char **argv)
 			return (write(2, "Error\n", 6), 0);
 		i++;
 	}
-	//need to free parsed later
 	return (mode);
 }
