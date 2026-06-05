@@ -4,6 +4,8 @@ void	print_list(t_node *head)
 {
 	t_node	*to_print;
 
+	if (!head)
+		return ;
 	to_print = head;
 	while (to_print)
 	{
@@ -18,6 +20,8 @@ void	print_list_cir(t_node *head)
 {
 	t_node	*to_print;
 
+	if (!head)
+		return ;
 	to_print = head;
 	while (1)
 	{
@@ -31,7 +35,9 @@ void	print_list_cir(t_node *head)
 void	print_list_index(t_node *head)
 {
 	t_node	*to_print;
-
+	
+	if (!head)
+		return ;
 	to_print = head;
 	while (1)
 	{
