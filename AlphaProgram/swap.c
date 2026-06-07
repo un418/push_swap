@@ -23,21 +23,27 @@ void	swap_me(t_node **stack)
 	
 }
 
-void	swap_a(t_node **stack)
+void	swap_a(t_node **stack, t_ctx *ctx)
 {
 	swap_me(stack);
+	ctx->stats.sa++;
+	ctx->stats.total++;
 	write(1, "sa\n", 3);
 }
 
-void	swap_b(t_node **stack)
+void	swap_b(t_node **stack, t_ctx *ctx)
 {
 	swap_me(stack);
+	ctx->stats.sb++;
+	ctx->stats.total++;
 	write(1, "sb\n", 3);
 }
 
-void	swap_all(t_node **stack_a, t_node **stack_b)
+void	swap_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 {
 	swap_me(stack_a);
 	swap_me(stack_b);
+	ctx->stats.ss++;
+	ctx->stats.total++;
 	write(1, "ss\n", 3);
 }

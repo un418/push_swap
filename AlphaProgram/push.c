@@ -30,14 +30,18 @@ void	push_me(t_node **stack_src, t_node **stack_dest)
 	(*stack_dest) = src;
 }
 
-void	push_a(t_node **stack_a, t_node **stack_b)
+void	push_a(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 {
 	push_me(stack_b, stack_a);
+	ctx->stats.pa++;
+	ctx->stats.total++;
 	write(1, "pa\n", 3);
 }
 
-void	push_b(t_node **stack_a, t_node **stack_b)
+void	push_b(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 {
 	push_me(stack_a, stack_b);
+	ctx->stats.pb++;
+	ctx->stats.total++;
 	write(1, "pb\n", 3);
 }

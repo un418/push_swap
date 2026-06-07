@@ -36,6 +36,7 @@ typedef struct s_ctx
 	int		mode;
 	int		bench;
 	int 	*parsed;
+    float   disorder;
 	size_t	parsed_size;
 	t_bench stats;
 }	t_ctx;
@@ -66,31 +67,31 @@ int		input_validate(const char **argv, t_ctx *ctx);
 int		is_digit(const char c);
 int		is_valid_num_fmt(const char *str);
 void	init_ctx(t_ctx *ctx);
-
+void    adaptive_mode(t_node **stack_a, t_node **stack_b, float dis);
 
 // Function operations Prototypes (swap.c, rotate.c, reverse.c, push.c)
 void	swap_me(t_node **stack);
-void	swap_a(t_node **stack);
-void	swap_b(t_node **stack);
-void	swap_all(t_node **stack_a, t_node **stack_b);
+void	swap_a(t_node **stack, t_ctx *ctx);
+void	swap_b(t_node **stack, t_ctx *ctx);
+void	swap_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
 void	rotate_me(t_node **stack);
-void	rotate_a(t_node **stack);
-void	rotate_b(t_node **stack);
-void	rotate_all(t_node **stack_a, t_node **stack_b);
+void	rotate_a(t_node **stack, t_ctx *ctx);
+void	rotate_b(t_node **stack, t_ctx *ctx);
+void	rotate_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
 void	reverse_me(t_node **stack);
-void	reverse_a(t_node **stack);
-void	reverse_b(t_node **stack);
-void	reverse_all(t_node **stack_a, t_node **stack_b);
+void	reverse_a(t_node **stack, t_ctx *ctx);
+void	reverse_b(t_node **stack, t_ctx *ctx);
+void	reverse_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
 void	push_me(t_node **stack_src, t_node **stack_dest);
-void	push_a(t_node **stack_a, t_node **stack_b);
-void	push_b(t_node **stack_a, t_node **stack_b);
+void	push_a(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void	push_b(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
 // Algorithm Prototypes (sort_3.c & sort_5.c)
-void	sort_3(t_node **stack_a);
-void	sort_5(t_node **stack_a, t_node **stack_b);
+void	sort_3(t_node **stack_a, t_ctx *ctx);
+void	sort_5(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 void 	wich_one(t_node **stack_a, t_node **stack_b, int size, t_ctx *ctx);
 
 #endif

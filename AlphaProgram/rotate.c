@@ -7,21 +7,27 @@ void	rotate_me(t_node **stack)
 	(*stack) = (*stack)->next;
 }
 
-void	rotate_a(t_node **stack)
+void	rotate_a(t_node **stack, t_ctx *ctx)
 {
 	rotate_me(stack);
+	ctx->stats.ra++;
+	ctx->stats.total++;
 	write(1, "ra\n", 3);
 }
 
-void	rotate_b(t_node **stack)
+void	rotate_b(t_node **stack, t_ctx *ctx)
 {
 	rotate_me(stack);
+	ctx->stats.rb++;
+	ctx->stats.total++;
 	write(1, "rb\n", 3);
 }
 
-void	rotate_all(t_node **stack_a, t_node **stack_b)
+void	rotate_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 {
 	rotate_me(stack_a);
 	rotate_me(stack_b);
+	ctx->stats.rr++;
+	ctx->stats.total++;
 	write(1, "rr\n", 3);
 }
