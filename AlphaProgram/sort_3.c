@@ -26,5 +26,4 @@ void	sort_3(t_node **stack_a, t_ctx *ctx)
     }
     else if (index_a < index_b && index_b > index_c && index_a > index_c)
         reverse_a(stack_a, ctx);
-
 }

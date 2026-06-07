@@ -20,7 +20,6 @@ void	swap_me(t_node **stack)
 	second->prev = last;
 
 	(*stack) = second;
-	
 }
 
 void	swap_a(t_node **stack, t_ctx *ctx)

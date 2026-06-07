@@ -10,7 +10,6 @@ void	sort_5(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 		limit = 1;
 	else
 		limit = 2;
-	
 	while (size > 3)
 	{
 		if ((*stack_a)->index < limit)
@@ -28,5 +27,4 @@ void	sort_5(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 		rotate_b(stack_b, ctx);
 	while (*stack_b)
 		push_a(stack_a, stack_b, ctx);
-
 }
