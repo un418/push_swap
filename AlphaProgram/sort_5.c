@@ -22,7 +22,7 @@ void	sort_5(t_node **stack_a, t_node **stack_b)
 	sort_3(stack_a);
 	if (*stack_b && (*stack_b)->next != *stack_b && (*stack_b)->index > (*stack_b)->next->index)
 	{
-		swap_me(stack_b);
+		swap_b(stack_b);
 	}
 	if (*stack_b)
 		rotate_b(stack_b);

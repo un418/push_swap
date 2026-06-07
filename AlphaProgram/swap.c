@@ -25,20 +25,19 @@ void	swap_me(t_node **stack)
 
 void	swap_a(t_node **stack)
 {
-	
 	swap_me(stack);
 	write(1, "sa\n", 3);
 }
 
 void	swap_b(t_node **stack)
 {
-	
 	swap_me(stack);
+	write(1, "sb\n", 3);
 }
 
 void	swap_all(t_node **stack_a, t_node **stack_b)
 {
-	
 	swap_me(stack_a);
 	swap_me(stack_b);
+	write(1, "ss\n", 3);
 }

@@ -5,7 +5,7 @@ void	wich_one(t_node **stack_a, t_node **stack_b, int size, t_ctx *ctx)
 
     if (size <= 1)
         return ;
-    if (size == 2)
+    if (size == 2 && (*stack_a)->index > (*stack_a)->next->index)
         return (swap_a(stack_a));
     if (size == 3)
         return (sort_3(stack_a));

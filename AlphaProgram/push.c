@@ -28,15 +28,16 @@ void	push_me(t_node **stack_src, t_node **stack_dest)
 		(*stack_dest)->prev = src;
 	}
 	(*stack_dest) = src;
-
 }
 
 void	push_a(t_node **stack_a, t_node **stack_b)
 {
 	push_me(stack_b, stack_a);
+	write(1, "pa\n", 3);
 }
 
 void	push_b(t_node **stack_a, t_node **stack_b)
 {
 	push_me(stack_a, stack_b);
+	write(1, "pb\n", 3);
 }

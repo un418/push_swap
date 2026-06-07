@@ -23,8 +23,11 @@ int	is_valid_num_fmt(const char *str)
 
 int	is_str_eq(const char *s1, const char *s2)
 {
-	while (*s1 && *s2 && *s1++ == *s2++)
-		;
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
 	if (*s1 == '\0' && *s2 == '\0')
 		return (1);
 	else
