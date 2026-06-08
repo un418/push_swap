@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:47:14 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/08 13:53:28 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/08 17:42:36 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,4 @@ void	print_list_index(t_node *head)
 		if (to_print == head)
 			break ;
 	}
-}
-
-int	stack_size(t_node *head)
-{
-	int		size;
-	t_node	*loop;
-
-	if (!head)
-		return (0);
-	loop = head;
-	size = 0;
-	while (1)
-	{
-		loop = loop->next;
-		size++;
-		if (loop == head)
-			break ;
-	}
-	return (size);
 }
