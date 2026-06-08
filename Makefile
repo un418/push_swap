@@ -36,7 +36,12 @@ SRC_FILES	=	input.c		\
 				indexator.c \
 				list_creation.c \
 				list_debug.c \
-				list_utils.c
+				list_utils.c \
+				swap.c \
+				push.c \
+				rotate.c \
+				reverse.c \
+				disorder.c
 			
 
 ############  Targets  ############
