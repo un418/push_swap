@@ -62,7 +62,7 @@ build_unit_test: fclean $(OBJS)
 
 UT_ARGS		?= --test-all
 unit_test: fclean build_unit_test
-	@echo "usage: make unit_test UT_ARGS=\"--ft_atol | --in_int_limits | --is_valid_num_fmt | --parse_number | --stack_size | --list_creation | --ft_indexator | --test-all\""
+	@echo "usage: make unit_test UT_ARGS=\"<suite>\"  (e.g. --swap | --disorder | --test-all)"
 	./$(TEST_DIR)/unit_test $(UT_ARGS)
 
 integration_test: fclean $(NAME)
