@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   int_parse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/08 13:46:42 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/08 13:52:55 by pficcare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 long	ft_atol(const char *str)
@@ -22,8 +34,6 @@ long	ft_atol(const char *str)
 	return (res);
 }
 
-// valid:   "42", "+42", "-42", "2147483647", "-2147483648"
-// invalid: "2147483648" (> INT_MAX), "-2147483649" (< INT_MIN), 10 digits (guards ft_atol from long overflow)
 int	in_int_limits(const char *str)
 {
 	const char	*digits;
@@ -54,8 +64,6 @@ static size_t	tablen(const char **tab)
 	return (i);
 }
 
-// error: return 0 if duplicate -> nedd to free
-// sucess: return 1 & add number in the tab of parsed number
 static int	check_duplicate(const char *str, int *tab, int i_max)
 {
 	int	num;
@@ -72,21 +80,16 @@ static int	check_duplicate(const char *str, int *tab, int i_max)
 	return (tab[i] = num, 1);
 }
 
-// input: argv after flag parsing index position
-// sucess: return a parsed int array ready for indexation
-// error: return NULL pointer
 int	*parse_number(const char **argv, t_ctx *ctx)
 {
 	int		i;
-	int	*m_array;
+	int		*m_array;
 	size_t	tabsize;
 
 	i = 0;
 	tabsize = tablen(argv);
-	// No number in input return error
 	if (tabsize <= 1)
 		return (NULL);
-	// todo protect malloc from heap buffer overflow
 	m_array = malloc((tabsize * sizeof(int)));
 	if (m_array == NULL)
 		return (NULL);

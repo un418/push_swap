@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/08 13:47:20 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/08 14:29:14 by pficcare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	main(int argc, char **argv)
@@ -7,10 +19,10 @@ int	main(int argc, char **argv)
 	int		*parsed;
 	int		i;
 	int		size;
-	//int		mode;
 	t_ctx	ctx;
 	int		ret;
 
+	// int		mode;
 	if (argc < 2)
 		return (0);
 	i = 1;
@@ -18,8 +30,7 @@ int	main(int argc, char **argv)
 	ret = input_validate((const char **)argv, &ctx);
 	if (!ret || !ctx.mode)
 		return (1);
-	printf("Mode = %d\n", ctx.mode); 
-
+	printf("Mode = %d\n", ctx.mode);
 	while (argv[i] && is_flag_prefix(argv[i]) && i < 3)
 		i++;
 	size = argc - i;

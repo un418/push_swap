@@ -1,23 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/08 13:46:38 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/08 13:52:34 by pficcare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-// return mode or 0 for invalid flag
 int	parse_flag(const char *flag, t_ctx *ctx)
 {
-
 	if (*flag == '-' && *(flag + 1) == '-')
 		flag += 2;
 	if (!ctx->mode && is_str_eq(flag, "adaptive"))
 		ctx->mode = 1;
-	else if (!ctx->mode  && is_str_eq(flag, "simple"))
+	else if (!ctx->mode && is_str_eq(flag, "simple"))
 		ctx->mode = 2;
-	else if (!ctx->mode  && is_str_eq(flag, "medium"))
+	else if (!ctx->mode && is_str_eq(flag, "medium"))
 		ctx->mode = 3;
-	else if (!ctx->mode  && is_str_eq(flag, "complex"))
+	else if (!ctx->mode && is_str_eq(flag, "complex"))
 		ctx->mode = 4;
-	else if (!ctx->bench  && is_str_eq(flag, "bench"))
+	else if (!ctx->bench && is_str_eq(flag, "bench"))
 	{
 		ctx->bench = 1;
-		if (!ctx->mode )
+		if (!ctx->mode)
 			ctx->mode = 1;
 	}
 	else
@@ -25,7 +35,7 @@ int	parse_flag(const char *flag, t_ctx *ctx)
 	return (1);
 }
 
-void init_ctx(t_ctx *ctx)
+void	init_ctx(t_ctx *ctx)
 {
 	ctx->mode = 0;
 	ctx->bench = 0;
@@ -34,7 +44,6 @@ void init_ctx(t_ctx *ctx)
 	ctx->stats = (t_bench){0};
 }
 
-// return mode or 0 if input invalid
 int	input_validate(const char **argv, t_ctx *ctx)
 {
 	int	i;
@@ -47,7 +56,7 @@ int	input_validate(const char **argv, t_ctx *ctx)
 	{
 		ret = parse_flag(argv[i++], ctx);
 		if (!ret)
-			return (write (2, "Error\n", 6), 0);
+			return (write(2, "Error\n", 6), 0);
 	}
 	while (argv[i])
 	{

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/08 13:48:07 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/08 13:48:08 by pficcare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	swap_me(t_node **stack)
@@ -11,14 +23,12 @@ void	swap_me(t_node **stack)
 	first = (*stack);
 	second = (*stack)->next;
 	last = (*stack)->prev;
-
 	second->next->prev = first;
 	last->next = second;
 	first->prev = second;
 	first->next = second->next;
 	second->next = first;
 	second->prev = last;
-
 	(*stack) = second;
 }
 

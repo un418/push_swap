@@ -18,6 +18,8 @@ SRCS		= main.c \
 			  int_parse.c \
 			  str_utils.c \
 			  wich_one.c \
+			  simple_algo.c \
+			  medium_algo.c	\
 			  input.c 
 			  
 

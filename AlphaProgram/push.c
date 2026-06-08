@@ -1,11 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/08 13:47:33 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/08 14:27:38 by pficcare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	push_me(t_node **stack_src, t_node **stack_dest)
 {
 	t_node	*src;
-
-	if (!stack_src || !*stack_src)
-		return ;
+// j ai du supprimer le check null
 	src = (*stack_src);
 	if (src->next == src)
 		(*stack_src) = NULL;

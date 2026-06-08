@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_creation.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/08 13:47:11 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/08 13:53:19 by pficcare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_node	*new_node(int nb)
@@ -16,8 +28,8 @@ t_node	*new_node(int nb)
 t_node	*last_node(t_node *head)
 {
 	t_node	*last;
-	
-	if(!head)
+
+	if (!head)
 		return (NULL);
 	last = head->prev;
 	return (last);
@@ -25,7 +37,7 @@ t_node	*last_node(t_node *head)
 
 t_node	*add_last(t_node **head, t_node *new)
 {
-	t_node *last;
+	t_node	*last;
 
 	if (!*head)
 	{
@@ -38,13 +50,13 @@ t_node	*add_last(t_node **head, t_node *new)
 	new->prev = last;
 	new->next = *head;
 	(*head)->prev = new;
-	last->next = new;	
+	last->next = new;
 	return (*head);
 }
 
-t_node *add_first(t_node **head, t_node *new)
+t_node	*add_first(t_node **head, t_node *new)
 {
-	t_node *first;
+	t_node	*first;
 
 	if (!*head)
 	{
@@ -57,7 +69,7 @@ t_node *add_first(t_node **head, t_node *new)
 	new->prev = first;
 	new->next = *head;
 	(*head)->prev = new;
-	first->next = new;		
+	first->next = new;
 	return (*head = new);
 }
 
