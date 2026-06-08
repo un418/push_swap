@@ -11,6 +11,7 @@
 #include "push_swap.h"
 #include <stdlib.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 
 // colors
 #define RED     "\033[0;31m"
@@ -29,6 +30,7 @@ typedef struct s_suite
 	int stack_size_suite; int list_creation; int ft_indexator_suite;
 	int init_ctx_suite; int swap_suite; int push_suite; int rotate_suite;
 	int reverse_suite; int disorder_suite; int counters_suite;
+	int known_bugs_suite;
 }	t_suite;
 
 // the ops write their name to stdout; mute it so test output stays clean
@@ -117,6 +119,8 @@ t_suite	parse_args(int argc, const char **argv)
 			s.disorder_suite = 1;
 		else if (is_str_eq(argv[i], "--counters"))
 			s.counters_suite = 1;
+		else if (is_str_eq(argv[i], "--known_bugs"))
+			s.known_bugs_suite = 1;
 		else
 		{
 			fprintf(stderr, RED "unknown suite: %s\n" RESET, argv[i]);
@@ -536,6 +540,54 @@ int	main(int argc, const char **argv)
 			check("counters total", ctx.stats.total, 11);
 			free_nodes(&a);
 			free_nodes(&b);
+		}
+	}
+	// xfail regression tests for known bugs (see #60), opt-in only:
+	// make unit_test UT_ARGS="--known_bugs". Excluded from --test-all
+	// until the bugs are fixed, then move them into the suites above.
+	if (s.known_bugs_suite)
+	{
+		printf(YELLOW "\n--- known_bugs (deferred, see #60) ---\n" RESET);
+		{
+			int		arr[] = {1, 2};
+			t_node	*list;
+			t_node	*other;
+			int		intact;
+
+			list = fill_stack(arr, 2);
+			swap_me(&list);
+			other = list->next;
+			intact = (list->nb == 2 && other->nb == 1
+					&& list->prev->nb == 1
+					&& list->next->prev == list && list->prev->next == list);
+			check("swap_me 2 elements keeps list intact", intact, 1);
+			free(other);
+			free(list);
+		}
+		{
+			int		arr[] = {9};
+			pid_t	pid;
+			int		status;
+			int		survived;
+
+			pid = fork();
+			if (pid == 0)
+			{
+				t_node	*src;
+				t_node	*dst;
+				int		devnull;
+
+				src = NULL;
+				dst = fill_stack(arr, 1);
+				devnull = open("/dev/null", O_WRONLY);
+				dup2(devnull, 1);
+				dup2(devnull, 2);
+				push_me(&src, &dst);
+				exit(0);
+			}
+			waitpid(pid, &status, 0);
+			survived = (WIFEXITED(status) && WEXITSTATUS(status) == 0);
+			check("push_me empty source does not crash", survived, 1);
 		}
 	}
 	print_summary();
