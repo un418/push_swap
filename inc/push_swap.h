@@ -84,8 +84,7 @@ t_node				*fill_stack(int *parsed, int size);
 void				indexator(t_node *head);
 
 // // debug
-void				print_list(t_node *head);
-void				print_list_cir(t_node *head);
+void				print_list_nb(t_node *head);
 void				print_list_index(t_node *head);
 
 
