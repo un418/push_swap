@@ -5,3 +5,4 @@ test_out.txt
 expected_out.txt
 unit_test
 *.dSYM
+.DS_Store
