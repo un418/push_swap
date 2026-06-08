@@ -4,7 +4,6 @@
 // error: return 0
 int	parse_flag(const char *flag, t_ctx *ctx)
 {
-
 	// this check is redudant with the caller function
 	// but it improve code readability
 	if (*flag == '-' && *(flag + 1) == '-')
@@ -28,12 +27,14 @@ int	parse_flag(const char *flag, t_ctx *ctx)
 	return (1);
 }
 
-void init_ctx(t_ctx *ctx)
+void	init_ctx(t_ctx *ctx)
 {
 	ctx->mode = 0;
 	ctx->bench = 0;
 	ctx->parsed = NULL;
 	ctx->parsed_size = 0;
+	ctx->disorder = 0;
+	ctx->stats = (t_stats){0};
 }
 
 // success: return 1
