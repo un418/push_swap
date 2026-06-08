@@ -1,6 +1,24 @@
 
 #include "push_swap.h"
 
+void	free_nodes(t_node **head)
+{
+	t_node	*next;
+	t_node	*last;
+
+	if (!*head)
+		return ;
+	last = (*head)->prev;
+	last->next = NULL;
+	while (*head != NULL)
+	{
+		next = (*head)->next;
+		free(*head);
+		*head = next;
+	}
+	*head = NULL;
+}
+
 int	stack_size(t_node *head)
 {
 	int		size;
