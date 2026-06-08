@@ -101,6 +101,23 @@ void				indexator(t_node *head);
 void				print_list_nb(t_node *head);
 void				print_list_index(t_node *head);
 
+// operations
 
+void				swap_me(t_node **stack);
+void				swap_a(t_node **stack, t_ctx *ctx);
+void				swap_b(t_node **stack, t_ctx *ctx);
+void				swap_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				push_me(t_node **stack_src, t_node **stack_dest);
+void				push_a(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				push_b(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				rotate_me(t_node **stack);
+void				rotate_a(t_node **stack, t_ctx *ctx);
+void				rotate_b(t_node **stack, t_ctx *ctx);
+void				rotate_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				reverse_me(t_node **stack);
+void				reverse_a(t_node **stack, t_ctx *ctx);
+void				reverse_b(t_node **stack, t_ctx *ctx);
+void				reverse_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+float				disorder(t_node *head);
 
 #endif
