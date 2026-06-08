@@ -58,7 +58,7 @@ build_unit_test: fclean $(OBJS)
 
 UT_ARGS		?= --test-all
 unit_test: fclean build_unit_test
-	@echo "usage: make unit_test UT_ARGS=\"--ft_atol | --in_int_limits | --is_valid_num_fmt | --test-all\""
+	@echo "usage: make unit_test UT_ARGS=\"--ft_atol | --in_int_limits | --is_valid_num_fmt | --parse_number | --stack_size | --list_creation | --ft_indexator | --test-all\""
 	./$(TEST_DIR)/unit_test $(UT_ARGS)
 
 integration_test: fclean $(NAME)
@@ -68,6 +68,7 @@ leaks: fclean $(NAME)
 # all exit path of the program should have a line of test to validate leaks on error management
 	$(VALGRIND) ./push_swap 3 1 2      # nominal
 	$(VALGRIND) ./push_swap 3 1 ++2    # format error
+	$(VALGRIND) ./push_swap 5 3 1 4 2  # fill_stack + indexator path
 
 ############  Cleaning  ############
 

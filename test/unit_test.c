@@ -24,6 +24,7 @@ typedef struct s_suite
 {
 	int test_all;
 	int ft_atol; int in_int_limits; int is_valid_num_fmt; int parse_number;
+	int stack_size_suite; int list_creation; int ft_indexator_suite;
 }	t_suite;
 
 // long params cover int and the long returned by ft_atol without truncation
@@ -72,6 +73,12 @@ t_suite	parse_args(int argc, const char **argv)
 			s.is_valid_num_fmt = 1;
 		else if (is_str_eq(argv[i], "--parse_number"))
 				s.parse_number = 1;
+		else if (is_str_eq(argv[i], "--stack_size"))
+			s.stack_size_suite = 1;
+		else if (is_str_eq(argv[i], "--list_creation"))
+			s.list_creation = 1;
+		else if (is_str_eq(argv[i], "--ft_indexator"))
+			s.ft_indexator_suite = 1;
 		else
 		{
 			fprintf(stderr, RED "unknown suite: %s\n" RESET, argv[i]);
@@ -190,6 +197,108 @@ int	main(int argc, const char **argv)
 	}
 
 
+	if (s.stack_size_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- stack_size ---\n" RESET);
+		check("stack_size NULL", stack_size(NULL), 0);
+		{
+			t_node	*list;
+
+			list = NULL;
+			add_last(&list, new_node(7));
+			check("stack_size 1 node", stack_size(list), 1);
+			free_nodes(&list);
+		}
+		{
+			int		arr[] = {3, 1, 2};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			check("stack_size 3 nodes", stack_size(list), 3);
+			free_nodes(&list);
+		}
+	}
+	if (s.list_creation || s.test_all)
+	{
+		printf(YELLOW "\n--- list_creation ---\n" RESET);
+		{
+			t_node	*n;
+
+			n = new_node(42);
+			check("new_node nb", n->nb, 42);
+			check("new_node index", n->index, 0);
+			free(n);
+		}
+		{
+			t_node	*list;
+
+			list = NULL;
+			add_last(&list, new_node(10));
+			check("add_last empty size", stack_size(list), 1);
+			check("add_last empty nb", list->nb, 10);
+			add_last(&list, new_node(20));
+			check("add_last 2nd size", stack_size(list), 2);
+			check("add_last 2nd order", list->next->nb, 20);
+			free_nodes(&list);
+		}
+		{
+			t_node	*list;
+
+			list = NULL;
+			add_last(&list, new_node(10));
+			add_first(&list, new_node(5));
+			check("add_first changes head", list->nb, 5);
+			check("add_first tail nb", list->prev->nb, 10);
+			free_nodes(&list);
+		}
+		{
+			int		arr[] = {3, 1, 2};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			check("fill_stack non-NULL", (long)list != 0, 1);
+			check("fill_stack size", stack_size(list), 3);
+			check("fill_stack head nb", list->nb, 3);
+			free_nodes(&list);
+		}
+	}
+	if (s.ft_indexator_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- ft_indexator ---\n" RESET);
+		{
+			int		arr[] = {1, 2, 3};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			ft_indexator(list);
+			check("indexator [1,2,3] head", list->index, 0);
+			check("indexator [1,2,3] mid", list->next->index, 1);
+			check("indexator [1,2,3] tail", list->next->next->index, 2);
+			free_nodes(&list);
+		}
+		{
+			int		arr[] = {3, 2, 1};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			ft_indexator(list);
+			check("indexator [3,2,1] head", list->index, 2);
+			check("indexator [3,2,1] mid", list->next->index, 1);
+			check("indexator [3,2,1] tail", list->next->next->index, 0);
+			free_nodes(&list);
+		}
+		{
+			int		arr[] = {2, 0, 1};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			ft_indexator(list);
+			check("indexator [2,0,1] head", list->index, 2);
+			check("indexator [2,0,1] mid", list->next->index, 0);
+			check("indexator [2,0,1] tail", list->next->next->index, 1);
+			free_nodes(&list);
+		}
+	}
 	print_summary();
 	return (g_fails != 0);
 }
