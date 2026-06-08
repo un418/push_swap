@@ -14,7 +14,7 @@
 
 void	free_nodes(t_node **head)
 {
-	t_node	*next_free;
+	t_node	*next;
 	t_node	*last;
 
 	if (!*head)
@@ -23,9 +23,9 @@ void	free_nodes(t_node **head)
 	last->next = NULL;
 	while (*head != NULL)
 	{
-		next_free = (*head)->next;
+		next = (*head)->next;
 		free(*head);
-		*head = next_free;
+		*head = next;
 	}
 	*head = NULL;
 }

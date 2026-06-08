@@ -20,12 +20,13 @@ t_node	*new_node(int nb)
 	if (!new)
 		return (NULL);
 	new->nb = nb;
+	new->index = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
 }
 
-t_node	*last_node(t_node *head)
+t_node	*get_last(t_node *head)
 {
 	t_node	*last;
 
@@ -56,7 +57,7 @@ t_node	*add_last(t_node **head, t_node *new)
 
 t_node	*add_first(t_node **head, t_node *new)
 {
-	t_node	*first;
+	t_node	*last;
 
 	if (!*head)
 	{
@@ -65,11 +66,11 @@ t_node	*add_first(t_node **head, t_node *new)
 		new->prev = new;
 		return (*head);
 	}
-	first = (*head)->prev;
-	new->prev = first;
+	last = (*head)->prev;
+	new->prev = last;
 	new->next = *head;
 	(*head)->prev = new;
-	first->next = new;
+	last->next = new;
 	return (*head = new);
 }
 

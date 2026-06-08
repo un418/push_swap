@@ -28,13 +28,16 @@
 /*----Structures Definition----*/
 
 // structure that hold the context
+typedef struct s_ctx
+{
+	int				mode;
+	int				bench;
+	int				*parsed;
+	size_t			parsed_size;
+	// float		disorder;
+	// t_stats *	stats;
+}					t_ctx;
 
-
-
-# include <limits.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
 
 typedef struct s_node
 {
@@ -45,22 +48,12 @@ typedef struct s_node
 }					t_node;
 
 
-typedef struct s_ctx
-{
-	int				mode;
-	int				bench;
-	int				*parsed;
-	float			disorder;
-	size_t			parsed_size;
-	//t_bench			stats;
-}					t_ctx;
-
-
-
 
 /*----Function Prototype----*/
 
-// utils
+//parser
+
+// // utils
 
 int			is_valid_num_fmt(const char *str);
 int			is_digit(const char c);
@@ -68,29 +61,33 @@ int			is_str_eq(const char *s1, const char *s2);
 int			is_flag_prefix(const char *str);
 long		ft_atol(const char *str);
 
-// input
+// // input
 
 int			parse_flag(const char *arg, t_ctx *ctx);
 int			input_validate(const char **argv, t_ctx *ctx);
 int			in_int_limits(const char *str);
 int			parse_number(const char **argv, t_ctx *ctx);
 
-// ctx
+// // ctx
 
 void		init_ctx(t_ctx *ctx);
 
-// Function linklist Prototypes (list_utils.c & list_creation.c)
-void				print_list(t_node *head);
-void				print_list_cir(t_node *head);
-void				print_list_index(t_node *head);
-int					stack_size(t_node *head);
+// linked list
+
 t_node				*new_node(int nb);
-t_node				*last_node(t_node *head);
-t_node				*add_last(t_node **head, t_node *new);
+t_node				*get_last(t_node *head);
+int					stack_size(t_node *head);
 t_node				*add_first(t_node **head, t_node *new);
+t_node				*add_last(t_node **head, t_node *new);
 void				free_nodes(t_node **head);
 t_node				*fill_stack(int *parsed, int size);
 void				ft_indexator(t_node *head);
+
+// // debug
+void				print_list(t_node *head);
+void				print_list_cir(t_node *head);
+void				print_list_index(t_node *head);
+
 
 
 #endif

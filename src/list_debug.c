@@ -1,49 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   indexator.c                                        :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/08 14:10:49 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/08 14:13:42 by pficcare         ###   ########.fr       */
+/*   Created: 2026/06/08 13:47:14 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/08 17:42:36 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	count_smaller(t_node *head, t_node *ref)
-{
-	t_node	*current;
-	int		count;
+/* 
+Function used to debug when develloping the program.
 
-	current = head;
-	count = 0;
-	while (1)
-	{
-		if (current != ref && current->nb < ref->nb)
-			count++;
-		current = current->next;
-		if (current == head)
-			break ;
-	}
-	return (count);
-}
+- To remove before sending the project for evaluation- 
+*/
 
-void	ft_indexator(t_node *head)
+void	print_list_nb(t_node *head)
 {
-	t_node	*current;
+	t_node	*to_print;
 
 	if (!head)
 		return ;
-	current = head;
+	to_print = head;
 	while (1)
 	{
-		current->index = count_smaller(head, current);
-		current = current->next;
-		if (current == head)
+		printf("Value in node = %d\n", to_print->nb);
+		to_print = to_print->next;
+		if (to_print == head)
 			break ;
 	}
 }
 
+void	print_list_index(t_node *head)
+{
+	t_node	*to_print;
 
+	if (!head)
+		return ;
+	to_print = head;
+	while (1)
+	{
+		printf("Value in index = %d\n", to_print->index);
+		to_print = to_print->next;
+		if (to_print == head)
+			break ;
+	}
+}

@@ -36,9 +36,8 @@ SRC_FILES	=	input.c		\
 				free_function.c \
 				indexator.c \
 				list_creation.c \
-				list_utils.c 
-				
-				
+				list_debug.c \
+				list_utils.c
 			
 
 ############  Targets  ############
