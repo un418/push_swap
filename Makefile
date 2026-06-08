@@ -33,6 +33,13 @@ OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 SRC_FILES	=	input.c		\
 				str_utils.c	\
 				int_parse.c \
+				free_function.c \
+				indexator.c \
+				list_creation.c \
+				list_utils.c 
+				
+				
+			
 
 ############  Targets  ############
 
