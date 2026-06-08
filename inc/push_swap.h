@@ -81,7 +81,7 @@ t_node				*add_first(t_node **head, t_node *new);
 t_node				*add_last(t_node **head, t_node *new);
 void				free_nodes(t_node **head);
 t_node				*fill_stack(int *parsed, int size);
-void				ft_indexator(t_node *head);
+void				indexator(t_node *head);
 
 // // debug
 void				print_list(t_node *head);

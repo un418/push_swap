@@ -270,7 +270,7 @@ int	main(int argc, const char **argv)
 			t_node	*list;
 
 			list = fill_stack(arr, 3);
-			ft_indexator(list);
+			indexator(list);
 			check("indexator [1,2,3] head", list->index, 0);
 			check("indexator [1,2,3] mid", list->next->index, 1);
 			check("indexator [1,2,3] tail", list->next->next->index, 2);
@@ -281,7 +281,7 @@ int	main(int argc, const char **argv)
 			t_node	*list;
 
 			list = fill_stack(arr, 3);
-			ft_indexator(list);
+			indexator(list);
 			check("indexator [3,2,1] head", list->index, 2);
 			check("indexator [3,2,1] mid", list->next->index, 1);
 			check("indexator [3,2,1] tail", list->next->next->index, 0);
@@ -292,7 +292,7 @@ int	main(int argc, const char **argv)
 			t_node	*list;
 
 			list = fill_stack(arr, 3);
-			ft_indexator(list);
+			indexator(list);
 			check("indexator [2,0,1] head", list->index, 2);
 			check("indexator [2,0,1] mid", list->next->index, 0);
 			check("indexator [2,0,1] tail", list->next->next->index, 1);

@@ -30,7 +30,7 @@ static int	count_smaller(t_node *head, t_node *ref)
 	return (count);
 }
 
-void	ft_indexator(t_node *head)
+void	indexator(t_node *head)
 {
 	t_node	*current;
 
