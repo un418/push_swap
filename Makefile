@@ -41,7 +41,13 @@ SRC_FILES	=	input.c		\
 				push.c \
 				rotate.c \
 				reverse.c \
-				disorder.c
+				disorder.c \
+				wich_one.c \
+				adaptive_mode.c \
+				simple_algo.c \
+				medium_algo.c \
+				sort_3.c \
+				sort_5.c
 			
 
 ############  Targets  ############

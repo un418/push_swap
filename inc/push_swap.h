@@ -120,4 +120,15 @@ void				reverse_b(t_node **stack, t_ctx *ctx);
 void				reverse_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 float				disorder(t_node *head);
 
+// sorting strategies
+
+void				wich_one(t_node **stack_a, t_node **stack_b, int size,
+						t_ctx *ctx);
+void				adaptive_mode(t_node **stack_a, t_node **stack_b, float dis,
+						t_ctx *ctx);
+void				sort_simple(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				sort_3(t_node **stack_a, t_ctx *ctx);
+void				sort_5(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+
 #endif
