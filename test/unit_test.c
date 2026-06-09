@@ -10,6 +10,8 @@
 
 #include "push_swap.h"
 #include <stdlib.h>
+#include <fcntl.h>
+#include <sys/wait.h>
 
 // colors
 #define RED     "\033[0;31m"
@@ -19,13 +21,37 @@
 
 static int	g_tests;
 static int	g_fails;
+static int	g_saved_fd = -1;
 
 typedef struct s_suite
 {
 	int test_all;
 	int ft_atol; int in_int_limits; int is_valid_num_fmt; int parse_number;
 	int stack_size_suite; int list_creation; int ft_indexator_suite;
+	int init_ctx_suite; int swap_suite; int push_suite; int rotate_suite;
+	int reverse_suite; int disorder_suite; int counters_suite;
+	int known_bugs_suite;
 }	t_suite;
+
+// the ops write their name to stdout; mute it so test output stays clean
+void	mute_stdout(void)
+{
+	int	devnull;
+
+	fflush(stdout);
+	g_saved_fd = dup(1);
+	devnull = open("/dev/null", O_WRONLY);
+	dup2(devnull, 1);
+	close(devnull);
+}
+
+void	restore_stdout(void)
+{
+	fflush(stdout);
+	dup2(g_saved_fd, 1);
+	close(g_saved_fd);
+	g_saved_fd = -1;
+}
 
 // long params cover int and the long returned by ft_atol without truncation
 int	check(const char *label, long got, long expected)
@@ -79,6 +105,22 @@ t_suite	parse_args(int argc, const char **argv)
 			s.list_creation = 1;
 		else if (is_str_eq(argv[i], "--ft_indexator"))
 			s.ft_indexator_suite = 1;
+		else if (is_str_eq(argv[i], "--init_ctx"))
+			s.init_ctx_suite = 1;
+		else if (is_str_eq(argv[i], "--swap"))
+			s.swap_suite = 1;
+		else if (is_str_eq(argv[i], "--push"))
+			s.push_suite = 1;
+		else if (is_str_eq(argv[i], "--rotate"))
+			s.rotate_suite = 1;
+		else if (is_str_eq(argv[i], "--reverse"))
+			s.reverse_suite = 1;
+		else if (is_str_eq(argv[i], "--disorder"))
+			s.disorder_suite = 1;
+		else if (is_str_eq(argv[i], "--counters"))
+			s.counters_suite = 1;
+		else if (is_str_eq(argv[i], "--known_bugs"))
+			s.known_bugs_suite = 1;
 		else
 		{
 			fprintf(stderr, RED "unknown suite: %s\n" RESET, argv[i]);
@@ -297,6 +339,255 @@ int	main(int argc, const char **argv)
 			check("indexator [2,0,1] mid", list->next->index, 0);
 			check("indexator [2,0,1] tail", list->next->next->index, 1);
 			free_nodes(&list);
+		}
+	}
+	if (s.init_ctx_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- init_ctx ---\n" RESET);
+		{
+			t_ctx	ctx;
+
+			init_ctx(&ctx);
+			check("init_ctx mode", ctx.mode, 0);
+			check("init_ctx bench", ctx.bench, 0);
+			check("init_ctx parsed NULL", (long)ctx.parsed, 0);
+			check("init_ctx parsed_size", (long)ctx.parsed_size, 0);
+			check("init_ctx disorder", (long)ctx.disorder, 0);
+			check("init_ctx stats.total", ctx.stats.total, 0);
+			check("init_ctx stats.sa", ctx.stats.sa, 0);
+			check("init_ctx stats.pb", ctx.stats.pb, 0);
+			check("init_ctx stats.rrr", ctx.stats.rrr, 0);
+		}
+	}
+	if (s.swap_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- swap ---\n" RESET);
+		{
+			int		arr[] = {1, 2, 3};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			swap_me(&list);
+			check("swap_me head", list->nb, 2);
+			check("swap_me 2nd", list->next->nb, 1);
+			check("swap_me 3rd", list->next->next->nb, 3);
+			check("swap_me tail (circular)", list->prev->nb, 3);
+			check("swap_me size", stack_size(list), 3);
+			free_nodes(&list);
+		}
+		{
+			t_node	*list;
+
+			list = NULL;
+			add_last(&list, new_node(7));
+			swap_me(&list);
+			check("swap_me single no-op nb", list->nb, 7);
+			check("swap_me single no-op size", stack_size(list), 1);
+			free_nodes(&list);
+		}
+	}
+	if (s.push_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- push ---\n" RESET);
+		{
+			int		src_arr[] = {1, 2, 3};
+			int		dst_arr[] = {10, 20};
+			t_node	*src;
+			t_node	*dst;
+
+			src = fill_stack(src_arr, 3);
+			dst = fill_stack(dst_arr, 2);
+			push_me(&src, &dst);
+			check("push_me src head", src->nb, 2);
+			check("push_me src size", stack_size(src), 2);
+			check("push_me dst head", dst->nb, 1);
+			check("push_me dst 2nd", dst->next->nb, 10);
+			check("push_me dst size", stack_size(dst), 3);
+			free_nodes(&src);
+			free_nodes(&dst);
+		}
+		{
+			int		src_arr[] = {5, 6};
+			t_node	*src;
+			t_node	*dst;
+
+			src = fill_stack(src_arr, 2);
+			dst = NULL;
+			push_me(&src, &dst);
+			check("push_me empty dst head", dst->nb, 5);
+			check("push_me empty dst size", stack_size(dst), 1);
+			check("push_me empty src size", stack_size(src), 1);
+			free_nodes(&src);
+			free_nodes(&dst);
+		}
+	}
+	if (s.rotate_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- rotate ---\n" RESET);
+		{
+			int		arr[] = {1, 2, 3};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			rotate_me(&list);
+			check("rotate_me head", list->nb, 2);
+			check("rotate_me 2nd", list->next->nb, 3);
+			check("rotate_me 3rd", list->next->next->nb, 1);
+			check("rotate_me size", stack_size(list), 3);
+			free_nodes(&list);
+		}
+		{
+			t_node	*list;
+
+			list = NULL;
+			rotate_me(&list);
+			check("rotate_me NULL no crash", (long)list, 0);
+		}
+	}
+	if (s.reverse_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- reverse ---\n" RESET);
+		{
+			int		arr[] = {1, 2, 3};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			reverse_me(&list);
+			check("reverse_me head", list->nb, 3);
+			check("reverse_me 2nd", list->next->nb, 1);
+			check("reverse_me 3rd", list->next->next->nb, 2);
+			check("reverse_me size", stack_size(list), 3);
+			free_nodes(&list);
+		}
+		{
+			int		arr[] = {1, 2, 3};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			rotate_me(&list);
+			reverse_me(&list);
+			check("reverse_me undoes rotate", list->nb, 1);
+			free_nodes(&list);
+		}
+	}
+	if (s.disorder_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- disorder ---\n" RESET);
+		{
+			int		arr[] = {1, 2, 3};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			check("disorder sorted = 0", (long)(disorder(list) * 1000), 0);
+			free_nodes(&list);
+		}
+		{
+			int		arr[] = {3, 2, 1};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			check("disorder reversed = 1", (long)(disorder(list) * 1000), 1000);
+			free_nodes(&list);
+		}
+		{
+			int		arr[] = {2, 1, 3};
+			t_node	*list;
+
+			list = fill_stack(arr, 3);
+			check("disorder 1 inversion = 1/3", (long)(disorder(list) * 1000), 333);
+			free_nodes(&list);
+		}
+	}
+	if (s.counters_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- counters ---\n" RESET);
+		{
+			int		a_arr[] = {1, 2, 3};
+			int		b_arr[] = {7, 8, 9};
+			t_node	*a;
+			t_node	*b;
+			t_node	*empty;
+			t_ctx	ctx;
+
+			a = fill_stack(a_arr, 3);
+			b = fill_stack(b_arr, 3);
+			empty = NULL;
+			init_ctx(&ctx);
+			mute_stdout();
+			swap_a(&a, &ctx);
+			swap_b(&a, &ctx);
+			swap_all(&a, &empty, &ctx);
+			rotate_a(&a, &ctx);
+			rotate_b(&a, &ctx);
+			rotate_all(&a, &empty, &ctx);
+			reverse_a(&a, &ctx);
+			reverse_b(&a, &ctx);
+			reverse_all(&a, &empty, &ctx);
+			push_b(&a, &b, &ctx);
+			push_a(&a, &b, &ctx);
+			restore_stdout();
+			check("counters sa", ctx.stats.sa, 1);
+			check("counters sb", ctx.stats.sb, 1);
+			check("counters ss", ctx.stats.ss, 1);
+			check("counters ra", ctx.stats.ra, 1);
+			check("counters rb", ctx.stats.rb, 1);
+			check("counters rr", ctx.stats.rr, 1);
+			check("counters rra", ctx.stats.rra, 1);
+			check("counters rrb", ctx.stats.rrb, 1);
+			check("counters rrr", ctx.stats.rrr, 1);
+			check("counters pa", ctx.stats.pa, 1);
+			check("counters pb", ctx.stats.pb, 1);
+			check("counters total", ctx.stats.total, 11);
+			free_nodes(&a);
+			free_nodes(&b);
+		}
+	}
+	// xfail regression tests for known bugs (see #60), opt-in only:
+	// make unit_test UT_ARGS="--known_bugs". Excluded from --test-all
+	// until the bugs are fixed, then move them into the suites above.
+	if (s.known_bugs_suite)
+	{
+		printf(YELLOW "\n--- known_bugs (deferred, see #60) ---\n" RESET);
+		{
+			int		arr[] = {1, 2};
+			t_node	*list;
+			t_node	*other;
+			int		intact;
+
+			list = fill_stack(arr, 2);
+			swap_me(&list);
+			other = list->next;
+			intact = (list->nb == 2 && other->nb == 1
+					&& list->prev->nb == 1
+					&& list->next->prev == list && list->prev->next == list);
+			check("swap_me 2 elements keeps list intact", intact, 1);
+			free(other);
+			free(list);
+		}
+		{
+			int		arr[] = {9};
+			pid_t	pid;
+			int		status;
+			int		survived;
+
+			pid = fork();
+			if (pid == 0)
+			{
+				t_node	*src;
+				t_node	*dst;
+				int		devnull;
+
+				src = NULL;
+				dst = fill_stack(arr, 1);
+				devnull = open("/dev/null", O_WRONLY);
+				dup2(devnull, 1);
+				dup2(devnull, 2);
+				push_me(&src, &dst);
+				exit(0);
+			}
+			waitpid(pid, &status, 0);
+			survived = (WIFEXITED(status) && WEXITSTATUS(status) == 0);
+			check("push_me empty source does not crash", survived, 1);
 		}
 	}
 	print_summary();
