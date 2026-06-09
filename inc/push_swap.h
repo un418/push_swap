@@ -128,6 +128,7 @@ void				adaptive_mode(t_node **stack_a, t_node **stack_b, float dis,
 						t_ctx *ctx);
 void				sort_simple(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 void				sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				sort_complex(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 void				sort_3(t_node **stack_a, t_ctx *ctx);
 void				sort_5(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 

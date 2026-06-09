@@ -46,6 +46,7 @@ SRC_FILES	=	input.c		\
 				adaptive_mode.c \
 				simple_algo.c \
 				medium_algo.c \
+				complex_algo.c \
 				sort_3.c \
 				sort_5.c
 			
