@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:49:38 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 17:34:46 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 18:07:38 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void	work_on_stack_b(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	pos;
 	int	size;
 
+	size = 0;
 	while (*stack_b)
 	{
 		pos = find_max_pos(*stack_b, 0, size - 1);

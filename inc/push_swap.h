@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/09 17:34:13 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 18:07:26 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ float				disorder(t_node *head);
 
 // sorting strategies
 
-void				wich_one(t_node **stack_a, t_node **stack_b, int size,
-						t_ctx *ctx);
+void				wich_one(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 void				sort_adaptive(t_node **stack_a, t_node **stack_b, float dis,
 						t_ctx *ctx);
 void				sort_simple(t_node **stack_a, t_node **stack_b, t_ctx *ctx);

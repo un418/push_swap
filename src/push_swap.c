@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 19:03:20 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/09 17:02:11 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 18:08:05 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, const char **argv)
 	print_list_nb(stack_a);
 	indexator(stack_a);
 	print_list_index(stack_a);
-	wich_one(&stack_a, &stack_b, ctx.parsed_size, &ctx);
+	wich_one(&stack_a, &stack_b, &ctx);
 	print_list_index(stack_a);
 	print_list_nb(stack_a);
 	if (ctx.bench)

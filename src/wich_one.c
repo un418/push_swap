@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:48:10 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 17:36:26 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 18:07:11 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static int	is_sorted(t_node *head)
 	return (1);
 }
 
-void	wich_one(t_node **stack_a, t_node **stack_b, int size, t_ctx *ctx)
+void	wich_one(t_node **stack_a, t_node **stack_b,t_ctx *ctx)
 {
 	float	dis;
 
-	if (ctx->parsed_size <= 1 || is_sorted(stack_a))
+	if (ctx->parsed_size <= 1 || is_sorted(*stack_a))
 	{
 		if (ctx->bench)
-			print_bench(&ctx);
+			print_bench(ctx);
 		return ;
 	}
 	dis = disorder(*stack_a);
