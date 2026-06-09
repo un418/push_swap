@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:48:10 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 15:56:22 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:36:26 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,22 @@ static int	is_sorted(t_node *head)
 void	wich_one(t_node **stack_a, t_node **stack_b, int size, t_ctx *ctx)
 {
 	float	dis;
-	
-	if (ctx->mode == 1)
+
+	if (ctx->parsed_size <= 1 || is_sorted(stack_a))
 	{
-		write (1, "A\n", 2);
-		if (size <= 1 || is_sorted(*stack_a))
-			return ;
-		if (size == 2 && (*stack_a)->index > (*stack_a)->next->index)
-			return (swap_a(stack_a, ctx));
-		if (size == 3)
-			return (sort_3(stack_a, ctx));
-		if (size <= 5)
-			return (sort_5(stack_a, stack_b, ctx));
+		if (ctx->bench)
+			print_bench(&ctx);
+		return ;
 	}
-	write (1, "B\n", 2);
 	dis = disorder(*stack_a);
 	if (ctx->bench)
 		ctx->disorder = dis;
 	if (ctx->mode == 1)
-	 	return (sort_adaptive(stack_a, stack_b, dis, ctx));
+		return (sort_adaptive(stack_a, stack_b, dis, ctx));
 	if (ctx->mode == 2)
 		return (sort_simple(stack_a, stack_b, ctx));
 	if (ctx->mode == 3)
 		return (sort_medium(stack_a, stack_b, ctx));
- 	if (ctx->mode == 4)
-	 	return (sort_complex(stack_a, stack_b, ctx));
+	if (ctx->mode == 4)
+		return (sort_complex(stack_a, stack_b, ctx));
 }

@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 00:00:00 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/09 15:54:11 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:25:53 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 // 	(void)ctx;
 // }
 
+static void	checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
+{
+	if (ctx->parsed_size == 2 && (*stack_a)->index > (*stack_a)->next->index)
+		return (swap_a(stack_a, ctx));
+	if (ctx->parsed_size == 3)
+		return (sort_3(stack_a, ctx));
+	if (ctx->parsed_size <= 5)
+		return (sort_5(stack_a, stack_b, ctx));
+}
 
 static int	get_max_bits(int size)
 {
@@ -41,10 +50,12 @@ void	sort_complex(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	bits;
 	int	max_bits;
 	int	i;
-    write (1,"COMP\n", 5);
+
 	size = stack_size(*stack_a);
 	max_bits = get_max_bits(size);
 	bits = 0;
+	if (size <= 5)
+		checker(stack_a, stack_b, ctx);
 	while (bits < max_bits)
 	{
 		i = size;
@@ -54,7 +65,7 @@ void	sort_complex(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 				rotate_a(stack_a, ctx);
 			else
 				push_b(stack_a, stack_b, ctx);
-                i--;
+			i--;
 		}
 		while (*stack_b)
 			push_a(stack_a, stack_b, ctx);

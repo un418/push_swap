@@ -6,11 +6,21 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:35:02 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 15:17:26 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:27:36 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
+{
+	if (ctx->parsed_size == 2 && (*stack_a)->index > (*stack_a)->next->index)
+		return (swap_a(stack_a, ctx));
+	if (ctx->parsed_size == 3)
+		return (sort_3(stack_a, ctx));
+	if (ctx->parsed_size <= 5)
+		return (sort_5(stack_a, stack_b, ctx));
+}
 
 static int	find_min_pos(t_node *head)
 {
@@ -39,11 +49,13 @@ static int	find_min_pos(t_node *head)
 static void	bring_to_top(t_node **stack_a, int pos, int size, t_ctx *ctx)
 {
 	if (pos <= size / 2)
+	{
 		while (pos > 0)
-		{	
+		{
 			rotate_a(stack_a, ctx);
 			pos--;
 		}
+	}
 	else
 	{
 		pos = size - pos;
@@ -61,6 +73,8 @@ void	sort_simple(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	pos;
 
 	size = stack_size(*stack_a);
+	if (size <= 5)
+		checker(stack_a, stack_b, ctx);
 	while (size > 3)
 	{
 		pos = find_min_pos(*stack_a);

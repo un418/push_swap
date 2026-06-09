@@ -6,21 +6,31 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:49:38 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 15:17:03 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:34:46 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	ft_sqrt(int n)
+static void	checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 {
-	int	i;
-
-	i = 1;
-	while (i * i <= n)
-		i++;
-	return (i - 1);
+	if (ctx->parsed_size == 2 && (*stack_a)->index > (*stack_a)->next->index)
+		return (swap_a(stack_a, ctx));
+	if (ctx->parsed_size == 3)
+		return (sort_3(stack_a, ctx));
+	if (ctx->parsed_size <= 5)
+		return (sort_5(stack_a, stack_b, ctx));
 }
+
+// static int	ft_sqrt(int n)
+// {
+// 	int	i;
+
+// 	i = 1;
+// 	while (i * i <= n)
+// 		i++;
+// 	return (i - 1);
+// }
 
 static int	find_max_pos(t_node *head, int min, int max)
 {
@@ -51,12 +61,13 @@ static int	find_max_pos(t_node *head, int min, int max)
 static void	bring_to_top(t_node **stack_a, int pos, int size, t_ctx *ctx)
 {
 	if (pos <= size / 2)
+	{
 		while (pos > 0)
 		{
 			rotate_a(stack_a, ctx);
 			pos--;
 		}
-			
+	}
 	else
 	{
 		pos = size - pos;
@@ -65,6 +76,19 @@ static void	bring_to_top(t_node **stack_a, int pos, int size, t_ctx *ctx)
 			reverse_a(stack_a, ctx);
 			pos--;
 		}
+	}
+}
+
+static void	work_on_stack_b(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
+{
+	int	pos;
+	int	size;
+
+	while (*stack_b)
+	{
+		pos = find_max_pos(*stack_b, 0, size - 1);
+		bring_to_top(stack_b, pos, stack_size(*stack_b), ctx);
+		push_a(stack_a, stack_b, ctx);
 	}
 }
 
@@ -77,6 +101,8 @@ void	sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	pos;
 
 	size = stack_size(*stack_a);
+	if (size <= 5)
+		checker(stack_a, stack_b, ctx);
 	chunks = (int)ft_sqrt(size);
 	chunk = 0;
 	while (chunk < size)
@@ -91,10 +117,5 @@ void	sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 			chunk++;
 		}
 	}
-	while (*stack_b)
-	{
-		pos = find_max_pos(*stack_b, 0, size - 1);
-		bring_to_top(stack_b, pos, stack_size(*stack_b), ctx);
-		push_a(stack_a, stack_b, ctx);
-	}
+	work_on_stack_b(stack_a, stack_b, ctx);
 }
