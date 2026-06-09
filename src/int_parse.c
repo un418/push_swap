@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   int_parse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/08 22:02:13 by adaferna          #+#    #+#             */
+/*   Updated: 2026/06/08 22:05:25 by adaferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 long	ft_atol(const char *str)
@@ -23,7 +35,8 @@ long	ft_atol(const char *str)
 }
 
 // valid:   "42", "+42", "-42", "2147483647", "-2147483648"
-// invalid: "2147483648" (> INT_MAX), "-2147483649" (< INT_MIN), 10 digits (guards ft_atol from long overflow)
+// invalid: "2147483648" (> INT_MAX), "-2147483649" (< INT_MIN),
+//			10 digits (guards ft_atol from long overflow)
 int	in_int_limits(const char *str)
 {
 	const char	*digits;
@@ -75,10 +88,10 @@ static int	check_duplicate(const char *str, int *tab, int i_max)
 // input: argv after flag parsing index position
 // sucess: return 1 & put parsed int tab address in context
 // error: return 0 and free allocated memory
-int parse_number(const char **argv, t_ctx *ctx)
+int	parse_number(const char **argv, t_ctx *ctx)
 {
 	int		i;
-	int	*m_array;
+	int		*m_array;
 	size_t	tabsize;
 
 	i = 0;

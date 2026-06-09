@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/08 17:17:33 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/08 21:46:14 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@
 
 /*----Structures Definition----*/
 
+typedef struct s_stats
+{
+	int				sa;
+	int				sb;
+	int				ss;
+	int				ra;
+	int				rb;
+	int				rr;
+	int				rra;
+	int				rrb;
+	int				rrr;
+	int				pa;
+	int				pb;
+	int				total;
+}					t_stats;
+
 // structure that hold the context
 typedef struct s_ctx
 {
@@ -34,8 +50,8 @@ typedef struct s_ctx
 	int				bench;
 	int				*parsed;
 	size_t			parsed_size;
-	// float		disorder;
-	// t_stats *	stats;
+	float			disorder;
+	t_stats			stats;
 }					t_ctx;
 
 
@@ -46,8 +62,6 @@ typedef struct s_node
 	struct s_node	*next;
 	struct s_node	*prev;
 }					t_node;
-
-
 
 /*----Function Prototype----*/
 
@@ -87,6 +101,23 @@ void				indexator(t_node *head);
 void				print_list_nb(t_node *head);
 void				print_list_index(t_node *head);
 
+// operations
 
+void				swap_me(t_node **stack);
+void				swap_a(t_node **stack, t_ctx *ctx);
+void				swap_b(t_node **stack, t_ctx *ctx);
+void				swap_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				push_me(t_node **stack_src, t_node **stack_dest);
+void				push_a(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				push_b(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				rotate_me(t_node **stack);
+void				rotate_a(t_node **stack, t_ctx *ctx);
+void				rotate_b(t_node **stack, t_ctx *ctx);
+void				rotate_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				reverse_me(t_node **stack);
+void				reverse_a(t_node **stack, t_ctx *ctx);
+void				reverse_b(t_node **stack, t_ctx *ctx);
+void				reverse_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+float				disorder(t_node *head);
 
 #endif

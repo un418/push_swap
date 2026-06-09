@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   indexator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:10:49 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/08 14:13:42 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/08 22:03:15 by adaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,3 @@ void	indexator(t_node *head)
 			break ;
 	}
 }
-
-
