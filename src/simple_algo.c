@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:35:02 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 17:27:36 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 19:07:52 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	sort_simple(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 
 	size = stack_size(*stack_a);
 	if (size <= 5)
-		checker(stack_a, stack_b, ctx);
+		return (checker(stack_a, stack_b, ctx));
 	while (size > 3)
 	{
 		pos = find_min_pos(*stack_a);

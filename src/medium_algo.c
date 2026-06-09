@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:49:38 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 18:07:38 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 19:07:22 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 
 	size = stack_size(*stack_a);
 	if (size <= 5)
-		checker(stack_a, stack_b, ctx);
+		return (checker(stack_a, stack_b, ctx));
 	chunks = (int)ft_sqrt(size);
 	chunk = 0;
 	while (chunk < size)

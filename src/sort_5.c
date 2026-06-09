@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:47:53 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/08 13:55:25 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 19:11:11 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	sort_5(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	sort_3(stack_a, ctx);
 	if (*stack_b && (*stack_b)->next != *stack_b
 		&& (*stack_b)->index > (*stack_b)->next->index)
-	{
 		swap_b(stack_b, ctx);
-	}
 	if (*stack_b)
 		rotate_b(stack_b, ctx);
 	while (*stack_b)
