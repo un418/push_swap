@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/08 21:46:14 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:46:51 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ float				disorder(t_node *head);
 
 void				wich_one(t_node **stack_a, t_node **stack_b, int size,
 						t_ctx *ctx);
-void				adaptive_mode(t_node **stack_a, t_node **stack_b, float dis,
+void				sort_adaptive(t_node **stack_a, t_node **stack_b, float dis,
 						t_ctx *ctx);
 void				sort_simple(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 void				sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
