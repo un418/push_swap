@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../inc/push_swap.h"
 
 void	sort_adaptive(t_node **stack_a, t_node **stack_b, float dis, t_ctx *ctx)
 {
@@ -27,3 +27,4 @@ void	sort_adaptive(t_node **stack_a, t_node **stack_b, float dis, t_ctx *ctx)
 	else
 		return (sort_complex(stack_a, stack_b, ctx));
 }
+

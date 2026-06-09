@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../inc/push_swap.h"
 
 // TODO (#67): implement the O(n log n) strategy.
 // Empty shell so the project builds and adaptive_mode links.
 // High-disorder inputs are NOT sorted yet.
 // void	sort_complex(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
-// {
+// { 
 // 	(void)stack_a;
 // 	(void)stack_b;
 // 	(void)ctx;
@@ -56,7 +56,7 @@ void	sort_complex(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 		return (checker(stack_a, stack_b, ctx));
 	while (bits < max_bits)
 	{
-		i = ctx->parsed_size;
+		i = stack_size(*stack_a);
 		while (i > 0)
 		{
 			if (((*stack_a)->index >> bits) & 1)
