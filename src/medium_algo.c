@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:49:38 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/08 14:49:41 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:17:03 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,20 @@ static int	find_max_pos(t_node *head, int min, int max)
 static void	bring_to_top(t_node **stack_a, int pos, int size, t_ctx *ctx)
 {
 	if (pos <= size / 2)
-		while (pos-- > 0)
+		while (pos > 0)
+		{
 			rotate_a(stack_a, ctx);
+			pos--;
+		}
+			
 	else
 	{
 		pos = size - pos;
-		while (pos-- > 0)
+		while (pos > 0)
+		{
 			reverse_a(stack_a, ctx);
+			pos--;
+		}
 	}
 }
 

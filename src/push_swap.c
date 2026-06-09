@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 19:03:20 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/05 01:53:40 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:39:27 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	main(int argc, const char **argv)
 {
 	t_ctx	ctx;
+	t_node	*stack_a;
+	t_node	*stack_b;
 	int		ret;
 
 	init_ctx(&ctx);
@@ -24,5 +26,16 @@ int	main(int argc, const char **argv)
 	if (!ret || !ctx.mode)
 		return (1);
 	printf("Mode = %d\n", ctx.mode); // Debug to remove later
+	stack_a = fill_stack(ctx.parsed, ctx.parsed_size);
+	free(ctx.parsed);
+	stack_b = NULL;
+	print_list_nb(stack_a);
+	indexator(stack_a);
+	print_list_index(stack_a);
+	wich_one(&stack_a, &stack_b, ctx.parsed_size, &ctx);
+	print_list_index(stack_a);
+	print_list_nb(stack_a);
+	
+	free_nodes(&stack_a);
 	return (0);
 }
