@@ -98,6 +98,7 @@ clean:
 	$(MAKE) -C $(FT_PRINTF_DIR) clean
 
 fclean: clean tclean
+	rm -f push_swap
 	$(MAKE) -C $(FT_PRINTF_DIR) fclean
 
 re: fclean all
