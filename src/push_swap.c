@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 19:03:20 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/10 17:19:10 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:00:51 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	main(int argc, const char **argv)
 	stack_b = NULL;
 	indexator(stack_a);
 	wich_one(&stack_a, &stack_b, &ctx);
-	if (ctx.bench)
-		print_bench(&ctx);
+	// if (ctx.bench)
+	// 	print_bench(&ctx);
 	print_list_index(stack_a);
 	print_list_nb(stack_a);
 	printf("Total amout of %d\n", ctx.stats.total);
