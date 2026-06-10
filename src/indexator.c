@@ -6,13 +6,13 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:10:49 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 15:45:00 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 11:32:58 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	checker(t_node *head, t_node *ref)
+static int	add_index(t_node *head, t_node *ref)
 {
 	t_node	*current;
 	int		count;
@@ -39,7 +39,7 @@ void	indexator(t_node *head)
 	current = head;
 	while (1)
 	{
-		current->index = checker(head, current);
+		current->index = add_index(head, current);
 		current = current->next;
 		if (current == head)
 			break ;

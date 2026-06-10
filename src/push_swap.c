@@ -6,11 +6,11 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 19:03:20 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/09 19:09:27 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 11:35:27 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "push_swap.h"
 
 int	main(int argc, const char **argv)
 {
@@ -35,6 +35,7 @@ int	main(int argc, const char **argv)
 	print_list_nb(stack_a);
 	// if (ctx.bench)
 	// 	print_bench(ctx);
+	printf("Total count is = %d\n", ctx.stats.total);
 	free_nodes(&stack_a);
 	return (0);
 }

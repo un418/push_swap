@@ -6,11 +6,11 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:47:47 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/08 13:55:10 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 11:23:29 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "push_swap.h"
 
 void	sort_3(t_node **stack_a, t_ctx *ctx)
 {

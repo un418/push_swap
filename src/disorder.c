@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:46:21 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/08 13:50:28 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 12:15:53 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 float	disorder(t_node *head)
 {
 	int		mistake;
-	int		total;
+	size_t	total;
 	t_node	*i;
 	t_node	*j;
 

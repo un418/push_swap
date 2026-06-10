@@ -6,21 +6,11 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 00:00:00 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/09 19:06:33 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 12:10:51 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
-
-// TODO (#67): implement the O(n log n) strategy.
-// Empty shell so the project builds and adaptive_mode links.
-// High-disorder inputs are NOT sorted yet.
-// void	sort_complex(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
-// { 
-// 	(void)stack_a;
-// 	(void)stack_b;
-// 	(void)ctx;
-// }
+#include "push_swap.h"
 
 static void	checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 {
@@ -32,7 +22,7 @@ static void	checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 		return (sort_5(stack_a, stack_b, ctx));
 }
 
-static int	get_max_bits(int size)
+static size_t	get_max_bits(size_t size)
 {
 	int	bits;
 	int	max;
