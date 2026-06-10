@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 00:47:30 by adaferna          #+#    #+#             */
-/*   Updated: 2026/05/28 11:22:10 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:15:21 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ int	is_valid_num_fmt(const char *str)
 
 int	is_str_eq(const char *s1, const char *s2)
 {
-	while (*s1 && *s2 && *s1++ == *s2++)
-		;
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
 	if (*s1 == '\0' && *s2 == '\0')
 		return (1);
 	else
@@ -49,4 +52,14 @@ int	is_flag_prefix(const char *str)
 		return (1);
 	else
 		return (0);
+}
+
+int	ft_sqrt(int n)
+{
+	int	i;
+
+	i = 1;
+	while (i * i <= n)
+		i++;
+	return (i - 1);
 }
