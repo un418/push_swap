@@ -43,6 +43,7 @@ SRC_FILES	=	input.c		\
 				list_debug.c \
 				list_utils.c \
 				check_size_input.c \
+				bench_mode.c \
 				swap.c \
 				push.c \
 				rotate.c \
