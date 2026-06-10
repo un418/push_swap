@@ -13,25 +13,30 @@
 #include "push_swap.h"
 
 // To do:
-// Implement Submode to print the adaptive selection.
 // Use ft_printf for stderr
+// Implement Submode to print the adaptive selection. can base on disorder
 // Manage float rounding and printing via int
 
-static char *strategy_name(int mode)
+static char *strategy_name(t_ctx *ctx)
 {
-	char *s1 = "Adaptive";
-	char *s2 = "Simple";
-	char *s3 = "Medium";
-	char *s4 = "Complex";
+	int mode;
+	float disorder;
 
-	if (mode == 1)
-		return (s1);
+	mode = ctx->mode;
+	disorder = ctx->disorder;
+
+	if (mode == 1 && disorder < 0.2)
+		return ("Adaptive / O(n²)");
+	else if (mode == 1 && disorder <= 0.5)
+		return ("Adaptive / O(n√n)");
+	else if (mode == 1 && disorder > 0.5)
+		return ("Adaptive / O(n log n)");
 	else if (mode == 2)
-		return (s2);
+		return ("Simple / O(n²)");
 	else if (mode == 3)
-		return (s3);
+		return ("Medium / O(n√n)");
 	else if (mode == 4)
-		return (s4);
+		return ("Complex / O(n log n)");
 	else
 		return (NULL);
 }
