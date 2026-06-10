@@ -7,7 +7,7 @@ NAME		= push_swap
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
-INCS		= -I$(INC_DIR)
+INCS		= -I$(INC_DIR) -I$(FT_PRINTF_DIR)/inc
 
 ############  Valgrind Config  ############
 
@@ -23,6 +23,11 @@ INC_DIR		= inc
 SRC_DIR		= src
 OBJ_DIR		= obj
 TEST_DIR	= test
+
+############  Library Config  ############
+
+FT_PRINTF_DIR	= lib/ft_printf
+FT_PRINTF		= $(FT_PRINTF_DIR)/libftprintf.a
 
 ############  Files Config  ############
 
@@ -56,8 +61,11 @@ SRC_FILES	=	input.c		\
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MAIN_FILE) $(INCS) -o $@
+$(NAME): $(OBJS) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(OBJS) $(MAIN_FILE) $(FT_PRINTF) $(INCS) -o $@
+
+$(FT_PRINTF):
+	$(MAKE) -C $(FT_PRINTF_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	@mkdir -p $(OBJ_DIR)
@@ -86,8 +94,10 @@ leaks: fclean $(NAME)
 
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C $(FT_PRINTF_DIR) clean
 
 fclean: clean tclean
+	$(MAKE) -C $(FT_PRINTF_DIR) fclean
 
 re: fclean all
 

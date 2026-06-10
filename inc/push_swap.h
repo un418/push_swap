@@ -25,6 +25,9 @@
 // printf()
 # include <stdio.h> // debug to remove later
 
+// ft_printf / ft_dprintf
+# include "ft_printf.h"
+
 /*----Structures Definition----*/
 
 typedef struct s_stats
