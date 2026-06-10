@@ -34,8 +34,8 @@ void	wich_one(t_node **stack_a, t_node **stack_b,t_ctx *ctx)
 	float	dis;
 	if (ctx->parsed_size <= 1 || is_sorted(*stack_a))
 	{
-		if (ctx->bench)
-			print_bench(ctx);
+		// if (ctx->bench)
+		// 	print_bench(ctx);
 		return ;
 	}
 	dis = disorder(*stack_a);

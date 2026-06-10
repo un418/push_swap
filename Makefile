@@ -37,7 +37,6 @@ SRC_FILES	=	input.c		\
 				list_creation.c \
 				list_debug.c \
 				list_utils.c \
-				print_bench.c \
 				swap.c \
 				push.c \
 				rotate.c \
