@@ -15,6 +15,10 @@ or simply ./push_swap 5 4 3 2 1
 
 wrong use example; ./push_swap ARG="5 4 3 2 1"  or ./push_swap "5 4 3 2 1".
 
+You can select 1 mode only, the only time you can add an extra flag is if you want to run the optional bench mode. 
+As it s an option, the flag --bench should always be insert after you choose a strategie aka --flag. 
+Bench mode can be call alone, that will make the program run on his adaptive mode.
+
 If those instruction are not respected, an ERROR will be print or expect Undifine Behavor.
 
 More details : https://42born2code.slack.com/archives/CMX2R5JSW/p1657522228588669?thread_ts=1657468649.909519&cid=CMX2R5JSW
