@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../inc/push_swap.h"
 
 static int	is_sorted(t_node *head)
 {
 	t_node	*check;
-
 	if (!head)
 		return (1);
 	check = head;
@@ -24,7 +23,7 @@ static int	is_sorted(t_node *head)
 		if (check->index > check->next->index)
 			return (0);
 		check = check->next;
-		if (check == head)
+		if (check->next == head)
 			break ;
 	}
 	return (1);
@@ -33,7 +32,6 @@ static int	is_sorted(t_node *head)
 void	wich_one(t_node **stack_a, t_node **stack_b,t_ctx *ctx)
 {
 	float	dis;
-
 	if (ctx->parsed_size <= 1 || is_sorted(*stack_a))
 	{
 		if (ctx->bench)

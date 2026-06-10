@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../inc/push_swap.h"
 
 static void	checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 {
