@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/10 14:27:11 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:51:57 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ int					is_flag_prefix(const char *str);
 long				ft_atol(const char *str);
 void				print_bench(t_ctx *ctx);
 int					ft_sqrt(int n);
+void				checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
-// // input
+// // input`
 
 int					parse_flag(const char *arg, t_ctx *ctx);
 int					input_validate(const char **argv, t_ctx *ctx);

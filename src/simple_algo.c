@@ -6,21 +6,21 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:35:02 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 19:07:52 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:18:00 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
-{
-	if (ctx->parsed_size == 2 && (*stack_a)->index > (*stack_a)->next->index)
-		return (swap_a(stack_a, ctx));
-	if (ctx->parsed_size == 3)
-		return (sort_3(stack_a, ctx));
-	if (ctx->parsed_size <= 5)
-		return (sort_5(stack_a, stack_b, ctx));
-}
+// static void	checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
+// {
+// 	if (ctx->parsed_size == 2 && (*stack_a)->index > (*stack_a)->next->index)
+// 		return (swap_a(stack_a, ctx));
+// 	if (ctx->parsed_size == 3)
+// 		return (sort_3(stack_a, ctx));
+// 	if (ctx->parsed_size <= 5)
+// 		return (sort_5(stack_a, stack_b, ctx));
+// }
 
 static int	find_min_pos(t_node *head)
 {
@@ -72,6 +72,7 @@ void	sort_simple(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	size;
 	int	pos;
 
+	ctx->str = "Simple";
 	size = stack_size(*stack_a);
 	if (size <= 5)
 		return (checker(stack_a, stack_b, ctx));
