@@ -14,12 +14,6 @@
 
 void	sort_adaptive(t_node **stack_a, t_node **stack_b, float dis, t_ctx *ctx)
 {
-	// if (ctx->parsed_size == 2 && (*stack_a)->index > (*stack_a)->next->index)
-	// 	return (swap_a(stack_a, ctx));
-	// if (ctx->parsed_size == 3)
-	// 	return (sort_3(stack_a, ctx));
-	// if (ctx->parsed_size <= 5)
-		// return (sort_5(stack_a, stack_b, ctx));
 	if (dis < 0.2)
 		return (sort_simple(stack_a, stack_b, ctx));
 	else if (dis <= 0.5)

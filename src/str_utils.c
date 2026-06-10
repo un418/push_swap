@@ -19,6 +19,8 @@ int	is_digit(const char c)
 	return (0);
 }
 
+// valid:   "42", "-42", "+42"
+// invalid: "+", "-", "4a2", ""
 int	is_valid_num_fmt(const char *str)
 {
 	if (*str == '+' || *str == '-')

@@ -12,6 +12,8 @@
 
 #include "push_swap.h"
 
+// success: return 1
+// error: return 0
 int	parse_flag(const char *flag, t_ctx *ctx)
 {
 	if (*flag == '-' && *(flag + 1) == '-')
@@ -45,6 +47,8 @@ void	init_ctx(t_ctx *ctx)
 	ctx->stats = (t_stats){0};
 }
 
+// success: return 1
+// error: return 0
 int	input_validate(const char **argv, t_ctx *ctx)
 {
 	int	i;
