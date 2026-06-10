@@ -6,11 +6,11 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:46:17 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/09 19:10:03 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 13:22:09 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "push_swap.h"
 
 void	sort_adaptive(t_node **stack_a, t_node **stack_b, float dis, t_ctx *ctx)
 {
@@ -27,4 +27,3 @@ void	sort_adaptive(t_node **stack_a, t_node **stack_b, float dis, t_ctx *ctx)
 	else
 		return (sort_complex(stack_a, stack_b, ctx));
 }
-
