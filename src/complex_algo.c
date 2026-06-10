@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 00:00:00 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/10 12:10:51 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 14:27:52 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	sort_complex(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	bits;
 	int	max_bits;
 	int	i;
-
+	ctx->str = "Complex";
 	max_bits = get_max_bits(ctx->parsed_size);
 	bits = 0;
 	if (ctx->parsed_size <= 5)

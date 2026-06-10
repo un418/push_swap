@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:49:38 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/10 12:21:01 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 14:27:38 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,20 @@ static void	bring_top_b(t_node **b, int pos, t_ctx *ctx)
 	size = stack_size(*b);
 	if (pos <= size / 2)
 	{
-		while (pos-- > 0)
+		while (pos > 0)
+		{
 			rotate_b(b, ctx);
+			pos--;
+		}
 	}
 	else
 	{
 		pos = size - pos;
-		while (pos-- > 0)
+		while (pos > 0)
+		{
 			reverse_b(b, ctx);
+			pos--;
+		}
 	}
 }
 
@@ -96,7 +102,7 @@ void	sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	chunks;
 	int	chunk;
 	int	bounds[2];
-
+	ctx->str = "Medium";
 	size = stack_size(*stack_a);
 	chunks = ft_sqrt(size);
 	chunk = 0;

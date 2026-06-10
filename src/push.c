@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:47:33 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/08 14:27:38 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 14:10:25 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	push_me(t_node **stack_src, t_node **stack_dest)
 {
 	t_node	*src;
-// j ai du supprimer le check null
+
 	src = (*stack_src);
 	if (src->next == src)
 		(*stack_src) = NULL;

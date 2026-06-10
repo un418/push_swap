@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/09 18:07:26 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 14:27:11 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_ctx
 	int				mode;
 	int				bench;
 	int				*parsed;
+	char			*str;
 	size_t			parsed_size;
 	float			disorder;
 	t_stats			stats;

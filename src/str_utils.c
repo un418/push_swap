@@ -6,7 +6,7 @@
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 00:47:30 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/09 17:33:57 by pficcare         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:15:21 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	is_digit(const char c)
 	return (0);
 }
 
-// valid:   "42", "-42", "+42"
-// invalid: "+", "-", "4a2", ""
 int	is_valid_num_fmt(const char *str)
 {
 	if (*str == '+' || *str == '-')
@@ -35,8 +33,11 @@ int	is_valid_num_fmt(const char *str)
 
 int	is_str_eq(const char *s1, const char *s2)
 {
-	while (*s1 && *s2 && *s1++ == *s2++)
-		;
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
 	if (*s1 == '\0' && *s2 == '\0')
 		return (1);
 	else
