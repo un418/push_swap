@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   disorder.c                                         :+:      :+:    :+:   */
+/*   adaptive_mode.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/08 13:46:21 by pficcare          #+#    #+#             */
-/*   Updated: 2026/06/10 12:15:53 by pficcare         ###   ########.fr       */
+/*   Created: 2026/06/08 13:46:17 by pficcare          #+#    #+#             */
+/*   Updated: 2026/06/10 16:55:03 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-float	disorder(t_node *head)
+void	sort_adaptive(t_node **stack_a, t_node **stack_b, float dis, t_ctx *ctx)
 {
-	int		mistake;
-	size_t	total;
-	t_node	*i;
-	t_node	*j;
-
-	if (!head)
-		return (0);
-	total = stack_size(head);
-	total = (total * (total - 1) / 2);
-	i = head;
-	j = head->next;
-	mistake = 0;
-	while (i->next != head)
-	{
-		while (j != head)
-		{
-			if (i->nb > j->nb)
-				mistake++;
-			j = j->next;
-		}
-		i = i->next;
-		j = i->next;
-	}
-	return ((float)mistake / total);
+	if (dis < 0.2)
+		return (sort_simple(stack_a, stack_b, ctx));
+	else if (dis <= 0.5)
+		return (sort_medium(stack_a, stack_b, ctx));
+	else
+		return (sort_complex(stack_a, stack_b, ctx));
 }

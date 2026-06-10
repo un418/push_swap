@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:59:57 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/08 21:46:14 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:00:28 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ typedef struct s_ctx
 	int				mode;
 	int				bench;
 	int				*parsed;
+	//debug to delete
+	char			*str;
 	size_t			parsed_size;
 	float			disorder;
 	t_stats			stats;
 }					t_ctx;
-
 
 typedef struct s_node
 {
@@ -65,26 +66,28 @@ typedef struct s_node
 
 /*----Function Prototype----*/
 
-//parser
+// parser
 
 // // utils
 
-int			is_valid_num_fmt(const char *str);
-int			is_digit(const char c);
-int			is_str_eq(const char *s1, const char *s2);
-int			is_flag_prefix(const char *str);
-long		ft_atol(const char *str);
+int					is_valid_num_fmt(const char *str);
+int					is_digit(const char c);
+int					is_str_eq(const char *s1, const char *s2);
+int					is_flag_prefix(const char *str);
+long				ft_atol(const char *str);
+int					ft_sqrt(int n);
+void				checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
-// // input
+// // input`
 
-int			parse_flag(const char *arg, t_ctx *ctx);
-int			input_validate(const char **argv, t_ctx *ctx);
-int			in_int_limits(const char *str);
-int			parse_number(const char **argv, t_ctx *ctx);
+int					parse_flag(const char *arg, t_ctx *ctx);
+int					input_validate(const char **argv, t_ctx *ctx);
+int					in_int_limits(const char *str);
+int					parse_number(const char **argv, t_ctx *ctx);
 
 // // ctx
 
-void		init_ctx(t_ctx *ctx);
+void				init_ctx(t_ctx *ctx);
 
 // linked list
 
@@ -119,5 +122,17 @@ void				reverse_a(t_node **stack, t_ctx *ctx);
 void				reverse_b(t_node **stack, t_ctx *ctx);
 void				reverse_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 float				disorder(t_node *head);
+
+// sorting strategies
+
+void				wich_one(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				sort_adaptive(t_node **stack_a, t_node **stack_b, float dis,
+						t_ctx *ctx);
+void				sort_simple(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
+void				sort_complex(t_node **stack_a, t_node **stack_b,
+						t_ctx *ctx);
+void				sort_3(t_node **stack_a, t_ctx *ctx);
+void				sort_5(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
 #endif

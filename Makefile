@@ -37,11 +37,19 @@ SRC_FILES	=	input.c		\
 				list_creation.c \
 				list_debug.c \
 				list_utils.c \
+				check_size_input.c \
 				swap.c \
 				push.c \
 				rotate.c \
 				reverse.c \
-				disorder.c
+				disorder.c \
+				wich_one.c \
+				adaptive_mode.c \
+				simple_algo.c \
+				medium_algo.c \
+				complex_algo.c \
+				sort_3.c \
+				sort_5.c
 			
 
 ############  Targets  ############

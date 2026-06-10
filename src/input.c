@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adaferna <adaferna@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pficcare <pficcare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 22:01:59 by adaferna          #+#    #+#             */
-/*   Updated: 2026/06/08 22:06:04 by adaferna         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:43:58 by pficcare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 // error: return 0
 int	parse_flag(const char *flag, t_ctx *ctx)
 {
-	// this check is redudant with the caller function
-	// but it improve code readability
 	if (*flag == '-' && *(flag + 1) == '-')
 		flag += 2;
 	if (!ctx->mode && is_str_eq(flag, "adaptive"))
@@ -63,11 +61,10 @@ int	input_validate(const char **argv, t_ctx *ctx)
 	{
 		ret = parse_flag(argv[i++], ctx);
 		if (!ret)
-			return (write (2, "Error\n", 6), 0);
+			return (write(2, "Error\n", 6), 0);
 	}
 	ret = parse_number(&argv[i], ctx);
 	if (!ret)
-		return (write (2, "Error\n", 6), 0);
-	//need to free ctx->parsed later
+		return (write(2, "Error\n", 6), 0);
 	return (1);
 }
