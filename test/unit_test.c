@@ -27,6 +27,7 @@ typedef struct s_suite
 {
 	int test_all;
 	int ft_atol; int in_int_limits; int is_valid_num_fmt; int parse_number;
+	int parse_flag_suite;
 	int stack_size_suite; int list_creation; int ft_indexator_suite;
 	int init_ctx_suite; int swap_suite; int push_suite; int rotate_suite;
 	int reverse_suite; int disorder_suite; int counters_suite;
@@ -119,6 +120,8 @@ t_suite	parse_args(int argc, const char **argv)
 			s.disorder_suite = 1;
 		else if (is_str_eq(argv[i], "--counters"))
 			s.counters_suite = 1;
+		else if (is_str_eq(argv[i], "--parse_flag"))
+			s.parse_flag_suite = 1;
 		else if (is_str_eq(argv[i], "--known_bugs"))
 			s.known_bugs_suite = 1;
 		else
@@ -540,6 +543,47 @@ int	main(int argc, const char **argv)
 			check("counters total", ctx.stats.total, 11);
 			free_nodes(&a);
 			free_nodes(&b);
+		}
+	}
+	if (s.parse_flag_suite || s.test_all)
+	{
+		printf(YELLOW "\n--- parse_flag ---\n" RESET);
+		{
+			t_ctx ctx = {0};
+			check("bench sets bench=1", parse_flag("--bench", &ctx), 1);
+		}
+		{
+			t_ctx ctx = {0};
+			parse_flag("--bench", &ctx);
+			check("bench leaves mode=0", ctx.mode, 0);
+		}
+		{
+			t_ctx ctx = {0};
+			parse_flag("--bench", &ctx);
+			parse_flag("--simple", &ctx);
+			check("bench+simple: bench=1", ctx.bench, 1);
+			check("bench+simple: mode=2", ctx.mode, 2);
+		}
+		{
+			t_ctx ctx = {0};
+			parse_flag("--simple", &ctx);
+			parse_flag("--bench", &ctx);
+			check("simple+bench: mode=2", ctx.mode, 2);
+			check("simple+bench: bench=1", ctx.bench, 1);
+		}
+		{
+			t_ctx ctx = {0};
+			check("unknown flag rejected", parse_flag("--unknown", &ctx), 0);
+		}
+		{
+			t_ctx ctx = {0};
+			parse_flag("--bench", &ctx);
+			check("bench repeated rejected", parse_flag("--bench", &ctx), 0);
+		}
+		{
+			t_ctx ctx = {0};
+			parse_flag("--simple", &ctx);
+			check("two modes rejected", parse_flag("--complex", &ctx), 0);
 		}
 	}
 	// xfail regression tests for known bugs (see #60), opt-in only:

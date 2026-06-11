@@ -30,8 +30,8 @@ int	main(int argc, const char **argv)
 	stack_b = NULL;
 	indexator(stack_a);
 	wich_one(&stack_a, &stack_b, &ctx);
-	// if (ctx.bench)
-	// 	print_bench(&ctx);
+	if (ctx.bench)
+		print_bench(&ctx);
 	print_list_index(stack_a);
 	print_list_nb(stack_a);
 	printf("Total amout of %d\n", ctx.stats.total);

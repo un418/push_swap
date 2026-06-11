@@ -78,9 +78,6 @@ check_error "--adaptive repeated"      --adaptive --adaptive 1 2 3
 check_error "--simple repeated"        --simple --simple 1 2 3
 check_error "--bench repeated"         --bench --bench 1 2 3
 check_error "--medium repeated"        --medium --medium 1 2 3
-check_error "--bench first (adaptive)" --bench --adaptive 1 2 3
-check_error "--bench first (simple)"   --bench --simple 1 2 3
-check_error "--bench first (complex)"  --bench --complex 1 2 3
 check_error "3 flags"                  --simple --bench --complex 1 2 3
 
 echo -e "${YELLOW}\n--- parser : valid numbers ---${RESET}"
@@ -104,6 +101,10 @@ check_success "--adaptive --bench"     --adaptive --bench 1 2 3
 check_success "--simple --bench"       --simple --bench 1 2 3
 check_success "--medium --bench"       --medium --bench 1 2 3
 check_success "--complex --bench"      --complex --bench 1 2 3
+check_success "--bench --adaptive"     --bench --adaptive 1 2 3
+check_success "--bench --simple"       --bench --simple 1 2 3
+check_success "--bench --medium"       --bench --medium 1 2 3
+check_success "--bench --complex"      --bench --complex 1 2 3
 
 
 

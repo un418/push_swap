@@ -44,7 +44,7 @@ static char *strategy_name(t_ctx *ctx)
 void	print_bench(t_ctx *ctx)
 {
 	dprintf(2, "[bench] disorder:   %f\n", ctx->disorder);
-	ft_dprintf(2, "[bench] strategy:   %s\n", strategy_name(ctx->mode));
+	ft_dprintf(2, "[bench] strategy:   %s\n", strategy_name(ctx));
 	ft_dprintf(2, "[bench] total_ops:   %d\n", ctx->stats.total);
 	ft_dprintf(2, "[bench] sa:   %d   ", ctx->stats.sa);
 	ft_dprintf(2, "sb:   %d   ss:   %d   ", ctx->stats.sb, ctx->stats.ss);

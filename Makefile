@@ -74,8 +74,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 
 # unit test are use to debug via gdb
 build_unit_test: CFLAGS += -g3 -fsanitize=address
-build_unit_test: fclean $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) -o $(TEST_DIR)/unit_test
+build_unit_test: fclean $(FT_PRINTF) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) $(FT_PRINTF) -o $(TEST_DIR)/unit_test
 
 UT_ARGS		?= --test-all
 unit_test: fclean build_unit_test

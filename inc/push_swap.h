@@ -81,6 +81,10 @@ long				ft_atol(const char *str);
 int					ft_sqrt(int n);
 void				checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
+// // bench
+
+void				print_bench(t_ctx *ctx);
+
 // // input`
 
 int					parse_flag(const char *arg, t_ctx *ctx);

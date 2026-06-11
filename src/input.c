@@ -27,11 +27,7 @@ int	parse_flag(const char *flag, t_ctx *ctx)
 	else if (!ctx->mode && is_str_eq(flag, "complex"))
 		ctx->mode = 4;
 	else if (!ctx->bench && is_str_eq(flag, "bench"))
-	{
 		ctx->bench = 1;
-		if (!ctx->mode)
-			ctx->mode = 1;
-	}
 	else
 		return (ctx->mode = 0, 0);
 	return (1);
@@ -57,12 +53,14 @@ int	input_validate(const char **argv, t_ctx *ctx)
 	i = 1;
 	if (!is_flag_prefix(argv[i]))
 		ctx->mode = 1;
-	while (argv[i] && is_flag_prefix(argv[i]) && i < 3)
+	while (argv[i] && is_flag_prefix(argv[i]))
 	{
 		ret = parse_flag(argv[i++], ctx);
 		if (!ret)
 			return (write(2, "Error\n", 6), 0);
 	}
+	if (!ctx->mode)
+		ctx->mode = 1;
 	ret = parse_number(&argv[i], ctx);
 	if (!ret)
 		return (write(2, "Error\n", 6), 0);
