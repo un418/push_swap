@@ -29,6 +29,7 @@ void	sort_complex(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	bits;
 	int	max_bits;
 	int	i;
+
 	max_bits = get_max_bits(ctx->parsed_size);
 	bits = 0;
 	if (ctx->parsed_size <= 5)
