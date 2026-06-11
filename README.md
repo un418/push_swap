@@ -66,8 +66,9 @@ ARG="5 4 3 2 1"
 ./push_swap 5 4 3 2 1                    # correct
 ARG="5 4 3 2 1" && ./push_swap $ARG      # correct
 ./push_swap --complex 3 1 4 1 5 9        # correct
-./push_swap --bench --adaptive 5 4 3 2 1 # WRONG — bench must come after strategy
+./push_swap --bench --adaptive 5 4 3 2 1 # correct
 ./push_swap --adaptive --bench 5 4 3 2 1 # correct
+./push_swap --adaptive --simple 5 4 3 2 1 # WRONG 
 ./push_swap ARG="5 4 3 2 1"              # WRONG — do not pass the variable assignment
 ./push_swap "5 4 3 2 1"                  # WRONG — do not quote the whole list
 ```
