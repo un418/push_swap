@@ -25,14 +25,13 @@ static void	split_pct(float disorder, int *whole, int *frac)
 	*frac = pct % 100;
 }
 
-static char *strategy_name(t_ctx *ctx)
+static char	*strategy_name(t_ctx *ctx)
 {
-	int mode;
-	float disorder;
+	int		mode;
+	float	disorder;
 
 	mode = ctx->mode;
 	disorder = ctx->disorder;
-
 	if (mode == 1 && disorder < 0.2)
 		return ("Adaptive / O(n²)");
 	else if (mode == 1 && disorder <= 0.5)
