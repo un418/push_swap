@@ -46,6 +46,13 @@ check_stdout() {
 	report "$label" "$got" "$expected"
 }
 
+# checks the [bench] disorder line printed on stderr ($2 = expected, e.g. "0.00%")
+check_disorder() {
+	label="$1"; expected="$2"; shift 2
+	got="$("$PROG" --bench "$@" 2>&1 >/dev/null | grep -o 'disorder: [0-9.]*%')"
+	report "$label" "$got" "disorder: $expected"
+}
+
 summary() {
 	echo
 	if [ "$failed" -eq 0 ]; then
@@ -78,9 +85,6 @@ check_error "--adaptive repeated"      --adaptive --adaptive 1 2 3
 check_error "--simple repeated"        --simple --simple 1 2 3
 check_error "--bench repeated"         --bench --bench 1 2 3
 check_error "--medium repeated"        --medium --medium 1 2 3
-check_error "--bench first (adaptive)" --bench --adaptive 1 2 3
-check_error "--bench first (simple)"   --bench --simple 1 2 3
-check_error "--bench first (complex)"  --bench --complex 1 2 3
 check_error "3 flags"                  --simple --bench --complex 1 2 3
 
 echo -e "${YELLOW}\n--- parser : valid numbers ---${RESET}"
@@ -104,6 +108,19 @@ check_success "--adaptive --bench"     --adaptive --bench 1 2 3
 check_success "--simple --bench"       --simple --bench 1 2 3
 check_success "--medium --bench"       --medium --bench 1 2 3
 check_success "--complex --bench"      --complex --bench 1 2 3
+check_success "--bench --adaptive"     --bench --adaptive 1 2 3
+check_success "--bench --simple"       --bench --simple 1 2 3
+check_success "--bench --medium"       --bench --medium 1 2 3
+check_success "--bench --complex"      --bench --complex 1 2 3
+
+echo -e "${YELLOW}\n--- bench : disorder formatting ---${RESET}"
+check_disorder "sorted -> 0.00%"       "0.00%"   1 2 3
+check_disorder "reversed -> 100.00%"   "100.00%" 5 4 3 2 1
+check_disorder "single pair reversed"  "100.00%" 2 1
+check_disorder "two thirds -> 66.66%"  "66.66%"  3 1 2
+check_disorder "one third -> 33.33%"   "33.33%"  1 3 2
+check_disorder "half -> 50.00% (pad)"  "50.00%"  1 4 3 2
+check_disorder "10% (pad frac=00)"     "10.00%"  1 2 3 5 4
 
 
 

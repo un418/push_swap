@@ -103,7 +103,6 @@ void	sort_medium(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	int	chunk;
 	int	bounds[2];
 
-	ctx->str = "Medium";
 	size = stack_size(*stack_a);
 	if (size <= 5)
 		return (checker(stack_a, stack_b, ctx));

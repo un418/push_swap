@@ -6,3 +6,4 @@ expected_out.txt
 unit_test
 *.dSYM
 .DS_Store
+lib/ft_printf/libftprintf.a

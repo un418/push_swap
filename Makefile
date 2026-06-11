@@ -7,7 +7,7 @@ NAME		= push_swap
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
-INCS		= -I$(INC_DIR)
+INCS		= -I$(INC_DIR) -I$(FT_PRINTF_DIR)/inc
 
 ############  Valgrind Config  ############
 
@@ -24,6 +24,11 @@ SRC_DIR		= src
 OBJ_DIR		= obj
 TEST_DIR	= test
 
+############  Library Config  ############
+
+FT_PRINTF_DIR	= lib/ft_printf
+FT_PRINTF		= $(FT_PRINTF_DIR)/libftprintf.a
+
 ############  Files Config  ############
 
 HEADER		= $(INC_DIR)/push_swap.h
@@ -35,9 +40,10 @@ SRC_FILES	=	input.c		\
 				int_parse.c \
 				indexator.c \
 				list_creation.c \
-				list_debug.c \
 				list_utils.c \
 				check_size_input.c \
+				bench_mode.c \
+				op_output.c \
 				swap.c \
 				push.c \
 				rotate.c \
@@ -56,8 +62,11 @@ SRC_FILES	=	input.c		\
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MAIN_FILE) $(INCS) -o $@
+$(NAME): $(OBJS) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(OBJS) $(MAIN_FILE) $(FT_PRINTF) $(INCS) -o $@
+
+$(FT_PRINTF):
+	$(MAKE) -C $(FT_PRINTF_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	@mkdir -p $(OBJ_DIR)
@@ -65,8 +74,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 
 # unit test are use to debug via gdb
 build_unit_test: CFLAGS += -g3 -fsanitize=address
-build_unit_test: fclean $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) -o $(TEST_DIR)/unit_test
+build_unit_test: fclean $(FT_PRINTF) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) $(FT_PRINTF) -o $(TEST_DIR)/unit_test
 
 UT_ARGS		?= --test-all
 unit_test: fclean build_unit_test
@@ -86,8 +95,11 @@ leaks: fclean $(NAME)
 
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C $(FT_PRINTF_DIR) clean
 
 fclean: clean tclean
+	rm -f push_swap
+	$(MAKE) -C $(FT_PRINTF_DIR) fclean
 
 re: fclean all
 

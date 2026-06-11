@@ -22,8 +22,8 @@
 // malloc/free
 # include <stdlib.h>
 
-// printf()
-# include <stdio.h> // debug to remove later
+// ft_printf / ft_dprintf
+# include "ft_printf.h"
 
 /*----Structures Definition----*/
 
@@ -49,8 +49,6 @@ typedef struct s_ctx
 	int				mode;
 	int				bench;
 	int				*parsed;
-	//debug to delete
-	char			*str;
 	size_t			parsed_size;
 	float			disorder;
 	t_stats			stats;
@@ -78,6 +76,11 @@ long				ft_atol(const char *str);
 int					ft_sqrt(int n);
 void				checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 
+// // bench
+
+void				print_bench(t_ctx *ctx);
+void				write_op(const char *op, t_ctx *ctx);
+
 // // input`
 
 int					parse_flag(const char *arg, t_ctx *ctx);
@@ -99,10 +102,6 @@ t_node				*add_last(t_node **head, t_node *new);
 void				free_nodes(t_node **head);
 t_node				*fill_stack(int *parsed, int size);
 void				indexator(t_node *head);
-
-// // debug
-void				print_list_nb(t_node *head);
-void				print_list_index(t_node *head);
 
 // operations
 
