@@ -32,10 +32,6 @@ int	main(int argc, const char **argv)
 	wich_one(&stack_a, &stack_b, &ctx);
 	if (ctx.bench)
 		print_bench(&ctx);
-	print_list_index(stack_a);
-	print_list_nb(stack_a);
-	ft_printf("Total amout of %d\n", ctx.stats.total);
-	ft_printf("Algo used is = %s\n", ctx.str);
 	free_nodes(&stack_a);
 	free_nodes(&stack_b);
 	return (0);

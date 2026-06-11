@@ -9,6 +9,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/wait.h>

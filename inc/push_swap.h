@@ -49,8 +49,6 @@ typedef struct s_ctx
 	int				mode;
 	int				bench;
 	int				*parsed;
-	//debug to delete
-	char			*str;
 	size_t			parsed_size;
 	float			disorder;
 	t_stats			stats;
@@ -103,10 +101,6 @@ t_node				*add_last(t_node **head, t_node *new);
 void				free_nodes(t_node **head);
 t_node				*fill_stack(int *parsed, int size);
 void				indexator(t_node *head);
-
-// // debug
-void				print_list_nb(t_node *head);
-void				print_list_index(t_node *head);
 
 // operations
 

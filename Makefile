@@ -40,7 +40,6 @@ SRC_FILES	=	input.c		\
 				int_parse.c \
 				indexator.c \
 				list_creation.c \
-				list_debug.c \
 				list_utils.c \
 				check_size_input.c \
 				bench_mode.c \
