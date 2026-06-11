@@ -46,6 +46,8 @@ int	in_int_limits(const char *str)
 	digits = str;
 	if (*digits == '-' || *digits == '+')
 		digits++;
+	while (*digits == '0')
+		digits++;
 	len = 0;
 	while (digits[len])
 		len++;
