@@ -76,7 +76,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 build_unit_test: CFLAGS += -g3 -fsanitize=address
 build_unit_test: fclean $(FT_PRINTF) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) $(FT_PRINTF) -o $(TEST_DIR)/unit_test
-	
+	rm -f $(OBJS)
+
 UT_ARGS		?= --test-all
 unit_test: fclean build_unit_test
 	@echo "usage: make unit_test UT_ARGS=\"<suite>\"  (e.g. --swap | --disorder | --test-all)"
