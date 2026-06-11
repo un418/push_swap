@@ -27,25 +27,17 @@ static void	split_pct(float disorder, int *whole, int *frac)
 
 static char	*strategy_name(t_ctx *ctx)
 {
-	int		mode;
-	float	disorder;
-
-	mode = ctx->mode;
-	disorder = ctx->disorder;
-	if (mode == 1 && disorder < 0.2)
-		return ("Adaptive / O(n²)");
-	else if (mode == 1 && disorder <= 0.5)
-		return ("Adaptive / O(n√n)");
-	else if (mode == 1 && disorder > 0.5)
-		return ("Adaptive / O(n log n)");
-	else if (mode == 2)
+	if (ctx->mode == 2)
 		return ("Simple / O(n²)");
-	else if (mode == 3)
+	if (ctx->mode == 3)
 		return ("Medium / O(n√n)");
-	else if (mode == 4)
+	if (ctx->mode == 4)
 		return ("Complex / O(n log n)");
-	else
-		return (NULL);
+	if (ctx->disorder < 0.2)
+		return ("Adaptive / O(n²)");
+	if (ctx->disorder <= 0.5)
+		return ("Adaptive / O(n√n)");
+	return ("Adaptive / O(n log n)");
 }
 
 void	print_bench(t_ctx *ctx)
