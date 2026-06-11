@@ -16,7 +16,7 @@ void	sort_adaptive(t_node **stack_a, t_node **stack_b, float dis, t_ctx *ctx)
 {
 	if (dis < 0.2)
 		return (sort_simple(stack_a, stack_b, ctx));
-	else if (dis <= 0.5)
+	else if (dis < 0.5)
 		return (sort_medium(stack_a, stack_b, ctx));
 	else
 		return (sort_complex(stack_a, stack_b, ctx));
