@@ -6,15 +6,14 @@
 
 > Sort data on a stack, with a limited set of instructions, using the lowest possible number of actions.
 
----
 
 ## Description
 
 `push_swap` is a sorting algorithm project from the 42 curriculum. The goal is to sort a stack of integers using two stacks (`a` and `b`) and a restricted set of operations, while minimizing the total number of moves.
 
-The project enforces a rigorous understanding of algorithmic complexity by requiring four distinct sorting strategies, each targeting a different complexity class. The program selects a strategy at runtime — either manually via a flag or automatically based on a **disorder metric** computed from the initial state of the stack.
+The project enforces a rigorous understanding of algorithmic complexity by requiring four distinct sorting strategies, each targeting a different complexity class.  
+The program selects a strategy at runtime, either manually via a flag or automatically based on a **disorder metric** computed from the initial state of the stack.
 
----
 
 ## Instructions
 
@@ -22,7 +21,7 @@ The project enforces a rigorous understanding of algorithmic complexity by requi
 
 - C compiler (`cc`) with flags `-Wall -Wextra -Werror`
 - GNU/Linux or macOS terminal
-- **Bash shell** (see note below)
+- **Bash** recommended (Zsh works with `setopt SH_WORD_SPLIT`, see note below)
 
 ### Compilation
 
@@ -45,44 +44,68 @@ make re     # full rebuild
 ./push_swap --adaptive --bench 5 4 3 2 1
 ```
 
-### Shell compatibility — important
+### Shell compatibility (important)
 
-**This program must be run in a Bash shell.** If you are using ZSH or another shell, switch to Bash first:
+When you pass the numbers directly, every shell behaves the same:
 
 ```bash
-bash
+./push_swap 5 4 3 2 1
 ```
 
-Then run the program normally:
+The difference shows up only when you store the list in a **variable** and rely on the shell to split it into separate arguments:
 
 ```bash
 ARG="5 4 3 2 1"
 ./push_swap $ARG
 ```
 
-### Correct usage examples
+- In **Bash**, `$ARG` is split on spaces into five arguments → works as expected.
+- In **Zsh** (the default on many machines), `$ARG` is **not** word-split: the whole string is passed as a single argument `"5 4 3 2 1"`, which is not a valid integer → the program prints `Error`.
+
+**Zsh users, two ways to get Bash-like behavior:**
+
+```zsh
+# Option 1: enable word splitting for the current shell, then run normally
+setopt SH_WORD_SPLIT
+./push_swap $ARG
+
+# Option 2: drop into a Bash shell first
+bash
+./push_swap $ARG
+```
+
+#### Why we don't handle this inside the program
+
+A single argument that contains spaces (`"5 4 3 2 1"`) is, by definition, not a valid integer, so rejecting it is the correct behavior.  
+The issue is never in `push_swap` itself, it comes purely from how Bash and Zsh expand variables differently.  
+Silently accepting and re-splitting such an argument would hide real input errors and diverge from the way the subject and the checker feed arguments, so we deliberately keep the parsing strict.
+
+For more details on argument passing and word splitting:
+- https://42born2code.slack.com/archives/CMX2R5JSW/p1657522228588669
+
+### Usage examples: valid and invalid
 
 ```bash
-./push_swap 5 4 3 2 1                    # correct
-ARG="5 4 3 2 1" && ./push_swap $ARG      # correct
-./push_swap --complex 3 1 4 1 5 9        # correct
-./push_swap --bench --adaptive 5 4 3 2 1 # correct
-./push_swap --adaptive --bench 5 4 3 2 1 # correct
-./push_swap --adaptive --simple 5 4 3 2 1 # WRONG 
-./push_swap ARG="5 4 3 2 1"              # WRONG — do not pass the variable assignment
-./push_swap "5 4 3 2 1"                  # WRONG — do not quote the whole list
+# Valid
+./push_swap 5 4 3 2 1                       # default (adaptive) strategy
+./push_swap --complex 3 1 4 5 9 2           # force a specific strategy
+./push_swap --bench --adaptive 5 4 3 2 1    # strategy flag + --bench
+./push_swap --adaptive --bench 5 4 3 2 1    # flag order does not matter
+ARG="5 4 3 2 1" && ./push_swap $ARG         # variable list (Bash, or Zsh + SH_WORD_SPLIT)
+
+# Invalid: every line below prints Error on stderr
+./push_swap --adaptive --simple 5 4 3 2 1   # two strategy flags
+./push_swap --complex 3 1 4 1 5 9           # duplicate value (1 appears twice)
+./push_swap ARG="5 4 3 2 1"                 # the assignment is passed as one argument
+./push_swap "5 4 3 2 1"                     # the whole list quoted as one argument
 ```
 
 ### Flag rules
 
 - You can select **one strategy flag only** per run.
-- The `--bench` flag as is an optional flag is the only one who can be use with an other flag.
-- `--bench` alone is valid — the program will run in adaptive mode by default.
+- `--bench` is the only optional flag that may be combined with a strategy flag.
+- `--bench` alone is valid, the program will run in adaptive mode by default.
 - Passing two strategy flags or an unknown flag will print `Error`.
-
-For more details on argument passing:
-- https://42born2code.slack.com/archives/CMX2R5JSW/p1657522228588669
-- https://app.slack.com/client/T039P7U66/CMX2R5JSW
 
 ### Error handling
 
@@ -92,7 +115,6 @@ The program prints `Error` on stderr and exits when:
 - Duplicate values are detected
 - An unknown or malformed flag is passed
 - Two strategy flags are provided
-- If you input an amout of integer above the MAX_INT_LIMIT, expect an undefined behavior.
 
 ---
 
@@ -112,6 +134,17 @@ The program prints `Error` on stderr and exits when:
 | `rrb` | Reverse rotate b (last becomes first) |
 | `rrr` | `rra` and `rrb` at the same time |
 
+## Data structure
+
+The stacks are implemented as **doubly circular linked lists**, with the head pointer always marking the top of the stack. Because the list is circular and doubly linked, `rotate` and `reverse_rotate` run in O(1): they only move the head pointer forward or backward, no node is touched.
+
+**Why this structure?**  
+Of the options available, the doubly circular linked list is the one that maps most naturally onto the *stack* concept the subject asks for: a clear top and bottom, cheap pushes and pops, and rotations that wrap around for free.  
+It was also a deliberate choice on our side: we wanted to practice this kind of structure to sharpen our handling of pointer manipulation on linked lists.
+
+Each node also carries a **normalized index** from `0` to `n-1`, assigned before sorting starts.  
+The algorithms then work on these indices rather than the raw values, which keeps comparisons and bit manipulation stable and bounded.
+
 ## Algorithms
 
 All four strategies are embedded in the binary and selectable at runtime.
@@ -128,7 +161,7 @@ An inversion is any pair `(i, j)` where `i` appears before `j` in the stack but 
 
 This metric is computed on the initial stack and drives the adaptive strategy.
 
-### Strategy 1 — Simple `O(n²)` — `--simple`
+### Strategy 1 - Simple `O(n²)` - `--simple`
 
 **Selection sort by minimum extraction.**
 
@@ -138,7 +171,7 @@ Complexity: each extraction costs at most `n/2` rotations, repeated `n` times �
 
 Best for: low-disorder inputs (few inversions).
 
-### Strategy 2 — Medium `O(n√n)` — `--medium`
+### Strategy 2 - Medium `O(n√n)` - `--medium`
 
 **Chunk sort with optimal rotation.**
 
@@ -148,7 +181,7 @@ Complexity: `√n` passes over n elements → `O(n√n)` operations.
 
 Best for: medium-disorder inputs.
 
-### Strategy 3 — Complex `O(n log n)` — `--complex`
+### Strategy 3 - Complex `O(n log n)` - `--complex`
 
 **Radix sort LSD (Least Significant Bit first) on indices.**
 
@@ -158,7 +191,7 @@ Complexity: `log₂(n)` passes × `n` operations per pass → `O(n log n)` opera
 
 Best for: high-disorder inputs and large datasets. Most consistent performance regardless of initial order.
 
-### Strategy 4 — Adaptive — `--adaptive` (default)
+### Strategy 4 - Adaptive - `--adaptive` (default)
 
 **Disorder-driven strategy selection.**
 
@@ -172,9 +205,12 @@ Computes the disorder metric before sorting and routes to the appropriate algori
 
 This is the default behavior when no strategy flag is provided.
 
-**Threshold rationale:** for low disorder, most elements are already near their correct position — a simple local-fix approach like selection sort is cheap. For medium disorder, chunk sort benefits from partial ordering. For high disorder, radix sort's consistent linear-pass structure outperforms comparison-based approaches.
+**Threshold rationale:**  
+- For low disorder, most elements are already near their correct position, so a simple local-fix approach like selection sort is cheap.  
+- For medium disorder, chunk sort benefits from partial ordering.  
+- For high disorder, radix sort's consistent linear-pass structure outperforms comparison-based approaches.
 
----
+
 
 ## Performance targets
 
@@ -195,37 +231,37 @@ cat bench.txt
 
 Output format:
 ```
-[bench] disorder: 40.00%
-[bench] strategy: Adaptive / O(n√n)
-[bench] total_ops: 13
-[bench] sa: 0  sb: 0  ss: 0  pa: 5  pb: 5
-[bench] ra: 2  rb: 1  rr: 0  rra: 0  rrb: 0  rrr: 0
+[bench] disorder: 100.00%
+[bench] strategy: Adaptive / O(n log n)
+[bench] total_ops: 10
+[bench] sa: 1 sb: 0 ss: 0  pa: 2  pb: 2
+[bench] ra: 3 rb: 1 rr: 0 rra: 1  rrb: 0 rrr: 0
 ```
 
 ### Verify with checker
 
+On larger, random inputs, generate the numbers with `shuf` and pipe the output straight into the checker:
+
 ```bash
-ARG="4 67 3 87 23"
-./push_swap --complex $ARG | ./checker $ARG   # should print OK
+# 50 random numbers between 1 and 1000
+# sort and verify in one go
+shuf -i 1-1000 -n 50 > nums.txt; ./push_swap $(cat nums.txt) | ./checker_linux $(cat nums.txt)   # should print OK
+
+# how many operations were used?
+./push_swap $(cat nums.txt) | wc -l
+
+# same input with --bench: checker reads stdout, metrics go to a file
+./push_swap --bench $(cat nums.txt) 2> bench.txt | ./checker_linux $(cat nums.txt)
+cat bench.txt
 ```
 
----
-
-## Implementation notes
-
-The stacks are implemented as **doubly circular linked lists**. The head pointer always points to the top of the stack. Operations like `rotate` and `reverse_rotate` are O(1) — they simply move the head pointer forward or backward without touching any node.
-
-Each integer receives a **normalized index** from `0` to `n-1` before sorting. Algorithms work on these indices rather than raw values, making comparison and bit manipulation stable and bounded.
-
----
 
 ## Resources
 
 - [42 push_swap subject](https://cdn.intra.42.fr/pdf/pdf/136659/en.push_swap.pdf)
-- [Radix sort — Wikipedia](https://en.wikipedia.org/wiki/Radix_sort)
-- [Big-O notation — Wikipedia](https://en.wikipedia.org/wiki/Big_O_notation)
+- [Radix sort - Wikipedia](https://en.wikipedia.org/wiki/Radix_sort)
+- [Big-O notation - Wikipedia](https://en.wikipedia.org/wiki/Big_O_notation)
 - [Sorting algorithm comparison](https://en.wikipedia.org/wiki/Sorting_algorithm)
-- [42 Slack — argument passing details](https://42born2code.slack.com/archives/CMX2R5JSW/p1657522228588669)
 
 ### AI usage
 
@@ -236,4 +272,18 @@ Claude (Anthropic) was used during this project for:
 
 All AI-generated content was reviewed, tested, and validated by both contributors before integration. No code was used without full understanding of its behavior.
 
-Project made in colaboration between Adaferna and Pficcare.
+
+## Collaboration
+
+This project was built by **adaferna** and **pficcare** working together. We chose a
+**feature-branch + pull-request** workflow: each feature lived on its own branch and was
+merged through a PR. Every PR was peer-reviewed by the other author, which let us share
+knowledge progressively and made sure both of us understand and can defend the whole
+codebase.
+
+You can follow our git project management here: <https://github.com/un418/push_swap>
+
+Claude (Anthropic) was also used as an **MCP experiment** to enrich the descriptions of our
+git issues and pull requests. The tasks themselves were always defined by us first, and
+Claude was explicitly instructed **not to provide any technical solution** while enriching
+the tickets.
