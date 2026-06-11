@@ -62,7 +62,7 @@ SRC_FILES	=	input.c		\
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(FT_PRINTF)
+$(NAME): $(OBJS) $(MAIN_FILE) $(FT_PRINTF)
 	$(CC) $(CFLAGS) $(OBJS) $(MAIN_FILE) $(FT_PRINTF) $(INCS) -o $@
 
 $(FT_PRINTF):
@@ -76,7 +76,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 build_unit_test: CFLAGS += -g3 -fsanitize=address
 build_unit_test: fclean $(FT_PRINTF) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(TEST_DIR)/unit_test.c $(INCS) $(FT_PRINTF) -o $(TEST_DIR)/unit_test
-
+	
 UT_ARGS		?= --test-all
 unit_test: fclean build_unit_test
 	@echo "usage: make unit_test UT_ARGS=\"<suite>\"  (e.g. --swap | --disorder | --test-all)"
