@@ -35,7 +35,7 @@ static char	*strategy_name(t_ctx *ctx)
 		return ("Complex / O(n log n)");
 	if (ctx->disorder < 0.2)
 		return ("Adaptive / O(n²)");
-	if (ctx->disorder <= 0.5)
+	if (ctx->disorder < 0.5)
 		return ("Adaptive / O(n√n)");
 	return ("Adaptive / O(n log n)");
 }

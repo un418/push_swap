@@ -12,6 +12,8 @@
 
 #include "push_swap.h"
 
+// with 2 nodes the circular links already form the swapped pair both ways:
+// moving the head IS the swap (general rewiring would hit last == second)
 void	swap_me(t_node **stack)
 {
 	t_node	*first;
@@ -20,6 +22,11 @@ void	swap_me(t_node **stack)
 
 	if ((!*stack) || (*stack == (*stack)->next))
 		return ;
+	if ((*stack)->next->next == *stack)
+	{
+		*stack = (*stack)->next;
+		return ;
+	}
 	first = (*stack);
 	second = (*stack)->next;
 	last = (*stack)->prev;
