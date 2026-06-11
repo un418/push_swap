@@ -40,7 +40,18 @@ void	init_ctx(t_ctx *ctx)
 	ctx->parsed = NULL;
 	ctx->parsed_size = 0;
 	ctx->disorder = 0;
-	ctx->stats = (t_stats){0};
+	ctx->stats.sa = 0;
+	ctx->stats.sb = 0;
+	ctx->stats.ss = 0;
+	ctx->stats.ra = 0;
+	ctx->stats.rb = 0;
+	ctx->stats.rr = 0;
+	ctx->stats.rra = 0;
+	ctx->stats.rrb = 0;
+	ctx->stats.rrr = 0;
+	ctx->stats.pa = 0;
+	ctx->stats.pb = 0;
+	ctx->stats.total = 0;
 }
 
 // success: return 1
