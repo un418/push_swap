@@ -75,7 +75,7 @@ ARG="5 4 3 2 1" && ./push_swap $ARG      # correct
 ### Flag rules
 
 - You can select **one strategy flag only** per run.
-- The `--bench` flag is optional and must always come **after** the strategy flag.
+- The `--bench` flag as is an optional flag is the only one who can be use with an other flag.
 - `--bench` alone is valid — the program will run in adaptive mode by default.
 - Passing two strategy flags or an unknown flag will print `Error`.
 
