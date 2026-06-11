@@ -37,7 +37,7 @@ void	swap_a(t_node **stack, t_ctx *ctx)
 	swap_me(stack);
 	ctx->stats.sa++;
 	ctx->stats.total++;
-	write(1, "sa\n", 3);
+	write_op("sa\n", ctx);
 }
 
 void	swap_b(t_node **stack, t_ctx *ctx)
@@ -45,7 +45,7 @@ void	swap_b(t_node **stack, t_ctx *ctx)
 	swap_me(stack);
 	ctx->stats.sb++;
 	ctx->stats.total++;
-	write(1, "sb\n", 3);
+	write_op("sb\n", ctx);
 }
 
 void	swap_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
@@ -54,5 +54,5 @@ void	swap_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	swap_me(stack_b);
 	ctx->stats.ss++;
 	ctx->stats.total++;
-	write(1, "ss\n", 3);
+	write_op("ss\n", ctx);
 }

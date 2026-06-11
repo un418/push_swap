@@ -45,7 +45,7 @@ void	push_a(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	push_me(stack_b, stack_a);
 	ctx->stats.pa++;
 	ctx->stats.total++;
-	write(1, "pa\n", 3);
+	write_op("pa\n", ctx);
 }
 
 void	push_b(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
@@ -53,5 +53,5 @@ void	push_b(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	push_me(stack_a, stack_b);
 	ctx->stats.pb++;
 	ctx->stats.total++;
-	write(1, "pb\n", 3);
+	write_op("pb\n", ctx);
 }

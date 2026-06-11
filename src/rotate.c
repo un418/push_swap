@@ -24,7 +24,7 @@ void	rotate_a(t_node **stack, t_ctx *ctx)
 	rotate_me(stack);
 	ctx->stats.ra++;
 	ctx->stats.total++;
-	write(1, "ra\n", 3);
+	write_op("ra\n", ctx);
 }
 
 void	rotate_b(t_node **stack, t_ctx *ctx)
@@ -32,7 +32,7 @@ void	rotate_b(t_node **stack, t_ctx *ctx)
 	rotate_me(stack);
 	ctx->stats.rb++;
 	ctx->stats.total++;
-	write(1, "rb\n", 3);
+	write_op("rb\n", ctx);
 }
 
 void	rotate_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
@@ -41,5 +41,5 @@ void	rotate_all(t_node **stack_a, t_node **stack_b, t_ctx *ctx)
 	rotate_me(stack_b);
 	ctx->stats.rr++;
 	ctx->stats.total++;
-	write(1, "rr\n", 3);
+	write_op("rr\n", ctx);
 }

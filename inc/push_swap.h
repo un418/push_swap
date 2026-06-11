@@ -79,6 +79,7 @@ void				checker(t_node **stack_a, t_node **stack_b, t_ctx *ctx);
 // // bench
 
 void				print_bench(t_ctx *ctx);
+void				write_op(const char *op, t_ctx *ctx);
 
 // // input`
 
